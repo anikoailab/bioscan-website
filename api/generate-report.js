@@ -216,15 +216,15 @@ ${isWellnessReport ? `FUNCTIONAL STRESS & MICROBIAL PATTERNS (NEW - no percentag
   <div class="parasite-item"><span class="prob-badge moderate">75%</span><div class="parasite-info"><strong>Organism name (Type)</strong><p>Area: [body location]</p></div></div>
 </div>`}
 
-GUT HEALTH:
+GUT HEALTH (detailed explanation of WHY these patterns matter and what they might explain):
 <div class="section">
-  <div class="sec-title"><span class="sec-icon">◈</span> Gut Health Indicators</div>
+  <div class="sec-title"><span class="sec-icon">◈</span> Gut Health Assessment</div>
   <div class="gut-grid">
-    <div class="gut-item"><div class="gut-label">SIBO</div><span class="gut-badge high">High</span><div class="gut-connect">Connected to: [organs affected]</div></div>
-    <div class="gut-item"><div class="gut-label">Leaky Gut</div><span class="gut-badge moderate">Moderate</span><div class="gut-connect">Connected to: [organs affected]</div></div>
-    <div class="gut-item"><div class="gut-label">Candida</div><span class="gut-badge high">High</span><div class="gut-connect">Connected to: [organs affected]</div></div>
+    <div class="gut-item"><div class="gut-label">[Condition name - e.g., Candida]</div><span class="gut-badge high">High</span><p class="gut-connect">[Brief description of what this is and how it connects to client's symptoms]</p></div>
+    <div class="gut-item"><div class="gut-label">[Condition name - e.g., Leaky Gut]</div><span class="gut-badge moderate">Moderate</span><p class="gut-connect">[What this means and which organs/systems are affected]</p></div>
+    <div class="gut-item"><div class="gut-label">[Condition name - e.g., SIBO]</div><span class="gut-badge high">High</span><p class="gut-connect">[Explanation of how this manifests and connects to fatigue/bloating/brain fog]</p></div>
   </div>
-  <div class="alert-card"><p>[Summary of gut findings in plain language]</p></div>
+  <div class="alert-card"><p><strong>What this means for you:</strong> [2-3 sentences explaining the chain reaction: how gut issues cause the symptoms they're experiencing. Example: "Your gut dysbiosis and candida overgrowth are likely the root cause of your fatigue, brain fog, hormonal imbalance, and skin issues. This is common — many people have IBS, bloating, or chronic digestive issues without realizing the root is gut dysbiosis. Healing your gut is your fastest path to feeling better."]</p></div>
 </div>
 
 FOOD SENSITIVITIES:
