@@ -4,16 +4,260 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BioScan Wellness Report</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --teal-dark:#1B4D5C;--teal-mid:#2A6A7D;--teal-light:#3D8FA6;
+  --cream:#F5F0E8;--cream-dark:#EDE7D9;--gold:#C4977A;--gold-light:#D4AF95;
+  --white:#FAFAF8;--text-dark:#1A1A1A;--text-mid:#4A4A4A;--text-light:#7A7A7A;
+  --green:#3D8A5C;--green-bg:#E8F5EE;--green-border:#C4E4D0;
+  --amber:#B87A10;--amber-bg:#FEF3E2;--amber-border:#F0D89A;
+  --red:#A83030;--red-bg:#FDEAEA;--red-border:#F0C0C0;
+  --lavender:#EEE8F8;--plum:#3D2B56;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#DDD9D0;color:var(--text-dark);font-size:14px;line-height:1.6;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+.wrap{max-width:800px;margin:0 auto;background:var(--white);box-shadow:0 8px 60px rgba(0,0,0,0.15);}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(140deg,var(--teal-dark) 0%,var(--teal-mid) 100%);padding:52px 56px 44px;color:#fff;position:relative;overflow:hidden;}
+.hdr-circle1{position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(196,151,122,0.10);pointer-events:none;}
+.hdr-circle2{position:absolute;right:90px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(196,151,122,0.06);pointer-events:none;}
+.hdr-badge{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+.hdr h1{font-size:36px;font-weight:700;line-height:1.15;margin-bottom:6px;position:relative;z-index:1;}
+.hdr-sub{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:36px;position:relative;z-index:1;}
+.hdr-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12);position:relative;z-index:1;}
+.stat{background:rgba(255,255,255,0.07);border-radius:12px;padding:16px 20px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold-light);line-height:1.2;margin-bottom:4px;}
+.stat-val.alert{color:#F4A58A;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;}
+.hdr-summary{font-size:13px;color:rgba(255,255,255,0.72);line-height:1.8;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);font-style:italic;max-width:600px;}
+
+/* ── BODY ── */
+.body{padding:52px 56px;}
+.section{margin-bottom:44px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--teal-dark);padding-bottom:12px;border-bottom:1.5px solid var(--cream-dark);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.sec-icon{font-size:15px;opacity:0.7;}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:16px;margin-bottom:16px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+/* ── BIO AGE ── */
+.bio-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:28px;color:#fff;}
+.age-nums{display:flex;gap:20px;align-items:center;flex-shrink:0;}
+.age-blk{text-align:center;}
+.age-num{font-family:'Playfair Display',serif;font-size:48px;line-height:1;color:var(--gold-light);}
+.age-num.alert{color:#F4A58A;}
+.age-sep{color:rgba(255,255,255,0.25);font-size:22px;align-self:center;margin-top:-4px;}
+.age-lbl{font-size:9px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.age-note{flex:1;border-left:1px solid rgba(255,255,255,0.12);padding-left:24px;}
+.age-note strong{font-family:'Playfair Display',serif;font-size:16px;color:#fff;display:block;margin-bottom:6px;font-weight:600;}
+.age-note p{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;}
+
+/* ── ORGAN GRID ── */
+.organ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.org-item{padding:11px 14px;border-radius:10px;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border:1px solid transparent;}
+.org-item.good{background:var(--green-bg);color:var(--green);border-color:var(--green-border);}
+.org-item.warn{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);}
+.org-item.flag{background:var(--red-bg);color:var(--red);border-color:var(--red-border);}
+.org-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.good .org-dot{background:var(--green);}
+.warn .org-dot{background:var(--amber);}
+.flag .org-dot{background:var(--red);}
+
+/* ── ALERT CARDS ── */
+.alert-card{border-left:3px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.alert-card.urgent{border-left-color:var(--red);}
+.alert-card strong{font-size:14px;color:var(--teal-dark);display:block;margin-bottom:5px;font-weight:600;}
+.alert-card p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── VIT BARS ── */
+.vit-row{margin-bottom:13px;}
+.vit-lbl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.vit-lbl span:first-child{font-weight:500;}
+.vit-lbl span:last-child{color:var(--text-light);font-size:11px;}
+.vit-bg{height:5px;background:var(--cream-dark);border-radius:3px;}
+.vit-fill{height:5px;border-radius:3px;transition:width .3s;}
+
+/* ── GUT ── */
+.gut-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.gut-item{padding:14px 16px;border-radius:10px;background:var(--cream);}
+.gut-label{font-size:12px;font-weight:600;color:var(--teal-dark);margin-bottom:5px;}
+.gut-badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.gut-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.gut-badge.high{background:var(--red-bg);color:var(--red);}
+.gut-connect{font-size:11px;color:var(--text-mid);margin-top:5px;line-height:1.5;}
+
+/* ── FOOD SENSITIVITIES ── */
+.food-disclaimer{background:var(--cream);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:var(--text-mid);line-height:1.6;border-left:3px solid var(--gold);}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.food-item{background:var(--cream);padding:10px 12px;border-radius:8px;font-size:12px;}
+.food-item strong{color:var(--teal-dark);display:block;margin-bottom:2px;font-weight:600;font-size:12px;}
+.food-item p{color:var(--text-mid);font-size:11px;line-height:1.4;}
+
+/* ── METALS ── */
+.metal-item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.metal-item:last-child{border-bottom:none;}
+.metal-badge{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
+.metal-badge.high{background:var(--red-bg);color:var(--red);}
+.metal-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.metal-badge.low{background:var(--green-bg);color:var(--green);}
+.metal-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.metal-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.metal-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── WATER ── */
+.water-box{background:linear-gradient(135deg,#1B4D5C,#2A6A7D);border-radius:14px;padding:22px 28px;display:flex;align-items:center;gap:24px;color:#fff;}
+.water-amount{font-family:'Playfair Display',serif;font-size:44px;color:var(--gold-light);flex-shrink:0;line-height:1;}
+.water-unit{font-size:14px;color:rgba(255,255,255,0.55);margin-top:2px;text-transform:uppercase;letter-spacing:1px;}
+.water-sep{width:1px;background:rgba(255,255,255,0.15);align-self:stretch;}
+.water-note{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;padding-left:4px;}
+.water-note strong{color:#fff;display:block;margin-bottom:4px;font-size:14px;}
+
+/* ── CHAKRAS ── */
+.chakra-row{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;text-align:center;margin-bottom:20px;}
+.ck-orb{width:42px;height:42px;border-radius:50%;margin:0 auto 7px;border:3px solid transparent;}
+.ck-orb.open{opacity:1;}
+.ck-orb.opening{opacity:0.55;}
+.ck-orb.closed{opacity:0.25;filter:grayscale(60%);}
+.ck-name{font-size:9px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;}
+.ck-status{font-size:9px;color:var(--text-mid);margin-top:2px;}
+.chakra-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ck-detail-item{background:var(--lavender);padding:12px 16px;border-radius:10px;}
+.ck-detail-item strong{font-size:12px;color:var(--plum);display:block;margin-bottom:3px;font-weight:600;}
+.ck-detail-item p{font-size:12px;color:var(--text-mid);line-height:1.55;}
+
+/* ── AMINO ACIDS ── */
+.amino-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.amino-item:last-child{border-bottom:none;}
+.amino-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.amino-badge.deficient{background:var(--red-bg);color:var(--red);}
+.amino-badge.adequate{background:var(--green-bg);color:var(--green);}
+.amino-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.amino-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── PARASITES ── */
+.parasite-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.parasite-item:last-child{border-bottom:none;}
+.prob-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;flex-shrink:0;margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.prob-badge.high{background:var(--red-bg);color:var(--red);}
+.prob-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.parasite-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.parasite-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── SPINE ── */
+.spine-box{background:var(--cream);border-radius:12px;padding:18px 22px;}
+.spine-segments{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.spine-seg{background:#fff;border:1px solid var(--amber-border);color:var(--amber);padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;}
+
+/* ── ZODIACAL DIET ── */
+.zodiac-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.zodiac-eat{background:var(--green-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-avoid{background:var(--red-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.zodiac-eat .zodiac-title{color:var(--green);}
+.zodiac-avoid .zodiac-title{color:var(--red);}
+.zodiac-list{list-style:none;padding:0;margin:0;}
+.zodiac-list li{font-size:12px;color:var(--text-mid);padding:3px 0;line-height:1.4;}
+
+/* ── PSYCHO ── */
+.psycho-item{background:var(--lavender);border-left:3px solid var(--plum);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.psycho-item strong{font-size:13px;color:var(--plum);display:block;margin-bottom:5px;font-weight:600;}
+.psycho-item p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── HOME TIPS ── */
+.tips-category{margin-bottom:18px;}
+.tips-cat-title{font-size:13px;font-weight:600;color:var(--teal-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.tips-list{display:flex;flex-direction:column;gap:6px;}
+.tip-item{display:flex;gap:10px;align-items:flex-start;}
+.tip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;}
+.tip-text{font-size:13px;color:var(--text-mid);line-height:1.6;}
+
+/* ── PROGRAMS ── */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prog-item{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));padding:16px 18px;border-radius:10px;}
+.prog-item strong{font-size:12px;color:var(--gold-light);display:block;margin-bottom:4px;}
+.prog-item p{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
+
+/* ── SUPPLEMENTS ── */
+.supp-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.supp-item:last-child{border-bottom:none;}
+.supp-src{padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.supp-src.iHerb{background:var(--green-bg);color:var(--green);}
+.supp-src.doTERRA{background:var(--amber-bg);color:var(--amber);}
+.supp-src.general{background:var(--cream-dark);color:var(--text-light);}
+.supp-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.supp-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.supp-dose{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── DOCTORS ── */
+.doc-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon{width:36px;height:36px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.doc-info strong{font-size:13px;color:var(--teal-dark);display:block;margin-bottom:3px;font-weight:600;}
+.doc-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.doc-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── ACTION PLAN ── */
+.action-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--cream-dark);}
+.action-item:last-child{border-bottom:none;}
+.action-num{width:30px;height:30px;background:var(--teal-dark);color:#fff;border-radius:50%;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.action-text strong{font-size:14px;display:block;margin-bottom:4px;font-weight:600;}
+.action-text p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── CLOSING ── */
+.closing-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:36px 40px;text-align:center;}
+.closing-box h3{font-size:22px;color:var(--gold-light);margin-bottom:14px;font-weight:600;}
+.closing-box p{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.8;max-width:540px;margin:0 auto;}
+
+/* ── FOOTER ── */
+.footer{background:var(--cream);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--cream-dark);}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--teal-dark);font-weight:600;}
+.footer-sub{font-size:10px;color:var(--text-light);margin-top:2px;}
+.footer-disc{font-size:9px;color:var(--text-light);max-width:280px;text-align:right;line-height:1.6;}
+.pdf-btn{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.3px;}
+
+/* ── TOOLBAR (screen only) ── */
+.report-toolbar{background:white;border-bottom:1px solid #eee;padding:6px 24px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.toolbar-content{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+.toolbar-left h2{font-size:20px;color:#1B4D5C;margin-bottom:0;}
+.toolbar-meta{font-size:12px;color:#999;}
+.toolbar-language{font-size:12px;color:#666;background:#f5f5f5;padding:6px 12px;border-radius:6px;}
+.report-footer-ui{background:white;border-top:1px solid #eee;padding:24px;text-align:center;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:900px;margin:40px auto 0;border-radius:0 0 12px 12px;}
+.btn-secondary{padding:12px 28px;background:#1B4D5C;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
+.btn-tertiary{padding:12px 28px;background:transparent;color:#1B4D5C;border:1px solid #1B4D5C;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
+.spinner{width:40px;height:40px;border:3px solid #eee;border-top:3px solid #1B4D5C;border-radius:50%;margin:20px auto;animation:spin .8s linear infinite;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+@media print{
+  body{background:#fff;}
+  .report-toolbar,.report-footer-ui{display:none!important;}
+  .wrap{box-shadow:none;max-width:100%;}
+  .section,.alert-card,.bio-box,.water-box,.prog-item,.psycho-item,.organ-grid,.food-grid,.gut-grid,.chakra-row,.chakra-detail,.ck-detail-item{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;}
+  .hdr{page-break-after:always;}
+}
+@media(max-width:768px){
+  .hdr,.body{padding:32px 24px;}
+  .footer{flex-direction:column;gap:12px;text-align:center;}
+  .footer-disc{text-align:center;max-width:100%;}
+  .organ-grid{grid-template-columns:1fr 1fr;}
+  .chakra-row{grid-template-columns:repeat(4,1fr);}
+  .chakra-detail{grid-template-columns:1fr;}
+}
+  </style>
 </head>
 <body>
+
   <div class="report-toolbar no-print">
     <div class="toolbar-content">
       <div class="toolbar-left">
         <h2 id="toolbarClientName">Report</h2>
         <p id="toolbarDate" class="toolbar-meta"></p>
       </div>
-      <div class="toolbar-right">
+      <div>
         <span id="toolbarLanguage" class="toolbar-language"></span>
       </div>
     </div>
@@ -21,7 +265,7 @@
 
   <div id="reportContainer"></div>
 
-  <div class="report-footer no-print">
+  <div class="report-footer-ui no-print">
     <button class="btn-secondary" onclick="window.print()">Download PDF</button>
     <button class="btn-tertiary" onclick="clearAndReturnHome()">Create Another Report</button>
   </div>
@@ -33,349 +277,51 @@
 
     function generateReport() {
       const clientName = sessionStorage.getItem('clientName') || 'Client';
-      const language = sessionStorage.getItem('language') || 'en';
+      const language   = sessionStorage.getItem('language') || 'en';
       const reportLink = sessionStorage.getItem('reportLink');
       const rawReportText = sessionStorage.getItem('rawReportText');
-      const reportDate = new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
 
+      const reportDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById('toolbarClientName').textContent = clientName;
       document.getElementById('toolbarDate').textContent = reportDate;
-
-      const langNames = {
-        en: 'English',
-        es: 'Spanish',
-        hu: 'Hungarian',
-        ru: 'Russian'
-      };
-      document.getElementById('toolbarLanguage').textContent = langNames[language] || 'English';
+      document.getElementById('toolbarLanguage').textContent = ({ en: 'English', es: 'Spanish', hu: 'Hungarian', ru: 'Russian' })[language] || 'English';
 
       if (!reportLink && !rawReportText) {
-        document.getElementById('reportContainer').innerHTML = '<p>Error: No report data provided. Please go back and submit the form.</p>';
+        document.getElementById('reportContainer').innerHTML = '<div style="padding:60px;text-align:center;"><p style="color:#d32f2f;font-size:16px;">No report data found. Please go back and submit the form.</p><br><button onclick="clearAndReturnHome()" style="padding:12px 24px;background:#1B4D5C;color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer;">Go Back</button></div>';
         return;
       }
 
-      document.getElementById('reportContainer').innerHTML = '<div style="padding: 40px; text-align: center;"><p>Processing your bioresonance scan results...</p><div class="spinner" style="margin-top: 20px;"></div></div>';
+      document.getElementById('reportContainer').innerHTML = '<div style="padding:60px;text-align:center;"><p style="font-size:16px;color:#1B4D5C;font-family:Playfair Display,serif;">Generating your wellness report&hellip;</p><p style="font-size:13px;color:#999;margin-top:8px;">This may take 20&ndash;30 seconds</p><div class="spinner"></div></div>';
 
-      // Send to API for data extraction
-      fetch('/api/extract-report-data', {
+      fetch('/api/generate-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           reportLink: reportLink || null,
           rawReportText: rawReportText || null,
-          clientName: clientName
+          clientName: clientName,
+          language: language
         })
       })
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
         if (data.error) {
           document.getElementById('reportContainer').innerHTML = `
-            <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 20px; margin: 20px;">
-              <p style="color: #d32f2f; font-weight: 600;">${data.error}</p>
-              <p style="color: #666; margin-top: 10px; font-size: 14px;">${data.message}</p>
-            </div>
-          `;
+            <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:28px;margin:32px;max-width:600px;margin:32px auto;">
+              <p style="color:#d32f2f;font-weight:600;font-size:15px;">${data.error}</p>
+              <p style="color:#666;margin-top:10px;font-size:13px;">${data.message || ''}</p>
+            </div>`;
           return;
         }
-
-        // Generate the report HTML from extracted data
-        const reportHTML = generateReportHTML(data, language);
-        document.getElementById('reportContainer').innerHTML = reportHTML;
-
-        console.log('Generated report with data:', data);
+        document.getElementById('reportContainer').innerHTML = data.html;
       })
       .catch(error => {
-        console.error('Error:', error);
         document.getElementById('reportContainer').innerHTML = `
-          <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 20px; margin: 20px;">
-            <p style="color: #d32f2f; font-weight: 600;">Error processing report</p>
-            <p style="color: #666; margin-top: 10px; font-size: 14px;">${error.message}</p>
-          </div>
-        `;
+          <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:28px;margin:32px auto;max-width:600px;">
+            <p style="color:#d32f2f;font-weight:600;font-size:15px;">Connection error</p>
+            <p style="color:#666;margin-top:10px;font-size:13px;">${error.message}</p>
+          </div>`;
       });
-    }
-
-    function generateReportHTML(data, language) {
-      const t = getTranslations(language);
-
-      let html = `<div class="wrap" style="max-width: 900px; margin: 0 auto; padding: 40px; background: white;">`;
-
-      // Header
-      html += `
-        <div class="hdr" style="text-align: center; padding-bottom: 30px; border-bottom: 2px solid #1B4D5C; margin-bottom: 30px;">
-          <h1 style="font-size: 32px; color: #1B4D5C; margin-bottom: 12px;">BioScan Wellness Report</h1>
-          <h2 style="font-size: 24px; color: #333; margin-bottom: 8px;">${data.clientName}</h2>
-          <p style="color: #999; font-size: 14px;">${t.reportDate}: ${data.testDate}</p>
-        </div>
-      `;
-
-      // Summary Section
-      html += `<div class="section" style="margin-bottom: 30px;">`;
-      html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.overallStatus}</h3>`;
-
-      if (data.generalCondition) {
-        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.generalCondition}:</strong> ${data.generalCondition}</p>`;
-      }
-
-      if (data.biologicalAge) {
-        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.biologicalAge}:</strong> ${data.biologicalAge} ${t.yearsOld}</p>`;
-      }
-
-      if (data.age) {
-        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.chronologicalAge}:</strong> ${data.age} ${t.yearsOld}</p>`;
-      }
-
-      if (data.sex) {
-        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.sex}:</strong> ${data.sex}</p>`;
-      }
-
-      html += `</div>`;
-
-      // Organs Section
-      if (Object.keys(data.organs).length > 0) {
-        html += `<div class="section" style="margin-bottom: 30px;">`;
-        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.organDashboard}</h3>`;
-        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.organExplanation}</p>`;
-        html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">`;
-
-        Object.entries(data.organs).forEach(([organ, value]) => {
-          if (value === null || value === undefined) return;
-          const organName = capitalizeWord(organ);
-          const status = getHealthStatus(value, language);
-          html += `
-            <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; border-left: 4px solid #1B4D5C;">
-              <p style="color: #333; font-weight: 600; margin-bottom: 4px;">${organName}</p>
-              <p style="color: #666; font-size: 14px;">Score: ${value.toFixed(1)}</p>
-              <p style="color: #999; font-size: 12px; margin-top: 6px;">${status}</p>
-            </div>
-          `;
-        });
-
-        html += `</div></div>`;
-      }
-
-      // Vitamins & Minerals Section
-      if (Object.keys(data.vitamins).length > 0 || Object.keys(data.minerals).length > 0) {
-        html += `<div class="section" style="margin-bottom: 30px;">`;
-        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.vitaminsAndMinerals}</h3>`;
-        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.vitaminExplanation}</p>`;
-
-        if (Object.keys(data.vitamins).length > 0) {
-          html += `<p style="color: #333; font-weight: 600; margin-bottom: 8px;">${t.vitamins}:</p>`;
-          html += `<ul style="margin-left: 20px; color: #666; margin-bottom: 16px;">`;
-          Object.entries(data.vitamins).forEach(([vitamin, value]) => {
-            if (value !== null && value !== undefined) {
-              html += `<li style="margin-bottom: 4px;">${capitalizeWord(vitamin)}: ${value.toFixed(1)}</li>`;
-            }
-          });
-          html += `</ul>`;
-        }
-
-        if (Object.keys(data.minerals).length > 0) {
-          html += `<p style="color: #333; font-weight: 600; margin-bottom: 8px;">${t.minerals}:</p>`;
-          html += `<ul style="margin-left: 20px; color: #666;">`;
-          Object.entries(data.minerals).forEach(([mineral, value]) => {
-            if (value !== null && value !== undefined) {
-              html += `<li style="margin-bottom: 4px;">${capitalizeWord(mineral)}: ${value.toFixed(1)}</li>`;
-            }
-          });
-          html += `</ul>`;
-        }
-
-        html += `</div>`;
-      }
-
-      // Amino Acids Section
-      if (Object.keys(data.aminoAcids).length > 0) {
-        html += `<div class="section" style="margin-bottom: 30px;">`;
-        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.aminoAcids}</h3>`;
-        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.aminoAcidExplanation}</p>`;
-        html += `<ul style="margin-left: 20px; color: #666;">`;
-        Object.entries(data.aminoAcids).forEach(([acid, value]) => {
-          if (value !== null && value !== undefined) {
-            html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(acid)}:</strong> ${value.toFixed(1)}</li>`;
-          }
-        });
-        html += `</ul>`;
-        html += `</div>`;
-      }
-
-      // Heavy Metals Section
-      if (Object.keys(data.heavyMetals).length > 0) {
-        html += `<div class="section" style="margin-bottom: 30px; background: #fff5f5; padding: 20px; border-radius: 8px;">`;
-        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.heavyMetals}</h3>`;
-        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.heavyMetalExplanation}</p>`;
-        html += `<ul style="margin-left: 20px; color: #666;">`;
-        Object.entries(data.heavyMetals).forEach(([metal, value]) => {
-          if (value !== null && value !== undefined) {
-            html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(metal)}:</strong> ${value.toFixed(1)}</li>`;
-          }
-        });
-        html += `</ul>`;
-        html += `</div>`;
-      }
-
-      // Food Sensitivities Section
-      if (data.foodSensitivities && data.foodSensitivities.length > 0) {
-        html += `<div class="section" style="margin-bottom: 30px;">`;
-        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.foodSensitivities}</h3>`;
-        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.foodSensitivityExplanation}</p>`;
-        html += `<div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
-        data.foodSensitivities.forEach(food => {
-          html += `<span style="background: #ffd4d4; color: #d32f2f; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500;">${food}</span>`;
-        });
-        html += `</div></div>`;
-      }
-
-      // Recommendations Section
-      if (data.recommendations && data.recommendations.length > 0) {
-        html += `<div class="section" style="margin-bottom: 30px; background: #f0f5f7; padding: 20px; border-radius: 8px;">`;
-        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.recommendations}</h3>`;
-        html += `<ul style="margin-left: 20px; color: #666;">`;
-        data.recommendations.forEach(rec => {
-          html += `<li style="margin-bottom: 10px; line-height: 1.6;">${rec}</li>`;
-        });
-        html += `</ul></div>`;
-      }
-
-      // Disclaimer
-      html += `
-        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-top: 40px; border-top: 2px solid #ddd; padding-top: 20px;">
-          <p style="font-size: 12px; color: #999; line-height: 1.8;">
-            <strong>${t.disclaimer}</strong> ${t.disclaimerText}
-          </p>
-        </div>
-      `;
-
-      html += `</div>`;
-
-      return html;
-    }
-
-    function getTranslations(language) {
-      const translations = {
-        en: {
-          reportDate: 'Report Date',
-          overallStatus: 'Overall Status',
-          generalCondition: 'General Condition',
-          biologicalAge: 'Biological Age',
-          chronologicalAge: 'Age',
-          yearsOld: 'years old',
-          sex: 'Sex',
-          organDashboard: 'Organ System Analysis',
-          organExplanation: 'The scan suggests resonance patterns in the following organs. These findings may indicate areas for further health support.',
-          vitaminsAndMinerals: 'Vitamins & Minerals Analysis',
-          vitaminExplanation: 'The scan suggests potential patterns in vitamin and mineral levels. These findings may indicate nutritional support opportunities.',
-          vitamins: 'Vitamins',
-          minerals: 'Minerals',
-          aminoAcids: 'Amino Acids',
-          aminoAcidExplanation: 'Amino acid levels as suggested by the scan. Consider discussing any deficiencies with a qualified health practitioner.',
-          heavyMetals: 'Heavy Metal Indicators',
-          heavyMetalExplanation: 'The scan detected resonance patterns that may suggest exposure to certain elements. Please discuss these findings with a qualified doctor for appropriate testing and guidance.',
-          foodSensitivities: 'Food Sensitivity Patterns',
-          foodSensitivityExplanation: 'The scan suggests potential sensitivity patterns to the following foods. You may consider an elimination diet or discuss with a nutritionist.',
-          recommendations: 'Wellness Recommendations',
-          disclaimer: 'Important Disclaimer:',
-          disclaimerText: 'This report reflects patterns detected by bioresonance scanning. These findings are NOT medical diagnoses. Bioresonance technology is complementary to conventional medicine. Please consult with a qualified medical doctor for any health concerns. The scan suggests potential patterns that may warrant further investigation by health professionals.'
-        },
-        es: {
-          reportDate: 'Fecha del Informe',
-          overallStatus: 'Estado General',
-          generalCondition: 'Condición General',
-          biologicalAge: 'Edad Biológica',
-          chronologicalAge: 'Edad',
-          yearsOld: 'años',
-          sex: 'Sexo',
-          organDashboard: 'Análisis de Sistemas de Órganos',
-          organExplanation: 'El escaneo sugiere patrones de resonancia en los siguientes órganos. Estos hallazgos pueden indicar áreas para apoyo adicional de salud.',
-          vitaminsAndMinerals: 'Análisis de Vitaminas y Minerales',
-          vitaminExplanation: 'El escaneo sugiere patrones potenciales en los niveles de vitaminas y minerales. Estos hallazgos pueden indicar oportunidades de apoyo nutricional.',
-          vitamins: 'Vitaminas',
-          minerals: 'Minerales',
-          aminoAcids: 'Aminoácidos',
-          aminoAcidExplanation: 'Niveles de aminoácidos sugeridos por el escaneo. Considere discutir cualquier deficiencia con un profesional de la salud calificado.',
-          heavyMetals: 'Indicadores de Metales Pesados',
-          heavyMetalExplanation: 'El escaneo detectó patrones de resonancia que pueden sugerir exposición a ciertos elementos. Por favor, discuta estos hallazgos con un doctor calificado para pruebas y orientación apropiadas.',
-          foodSensitivities: 'Patrones de Sensibilidad Alimentaria',
-          foodSensitivityExplanation: 'El escaneo sugiere patrones de sensibilidad potencial a los siguientes alimentos. Puede considerar una dieta de eliminación o discutir con un nutricionista.',
-          recommendations: 'Recomendaciones de Bienestar',
-          disclaimer: 'Descargo de Responsabilidad Importante:',
-          disclaimerText: 'Este informe refleja patrones detectados por escaneo de biorresonancia. Estos hallazgos NO son diagnósticos médicos. La tecnología de biorresonancia es complementaria a la medicina convencional. Por favor, consulte con un médico calificado para cualquier inquietud de salud. El escaneo sugiere patrones potenciales que pueden justificar una investigación posterior por profesionales de la salud.'
-        },
-        hu: {
-          reportDate: 'Jelentés Dátuma',
-          overallStatus: 'Általános Állapot',
-          generalCondition: 'Általános Állapot',
-          biologicalAge: 'Biológiai Kor',
-          chronologicalAge: 'Kor',
-          yearsOld: 'éves',
-          sex: 'Nem',
-          organDashboard: 'Szervrendszeri Elemzés',
-          organExplanation: 'Az idegemel rezonanciamintákat javasol a következő szervekben. Ezek az eredmények további egészségügyi támogatás terülteit jelezhetik.',
-          vitaminsAndMinerals: 'Vitaminok és Ásványok Elemzése',
-          vitaminExplanation: 'Az idegemel potenciális mintákat javasol a vitamin- és ásványszintekben. Ezek az eredmények táplálékkiegészítési lehetőségeket jelezhetik.',
-          vitamins: 'Vitaminok',
-          minerals: 'Ásványok',
-          aminoAcids: 'Aminosavak',
-          aminoAcidExplanation: 'Az idegemel által javasolt aminosav szintek. Fontoljon meg egy mindenféle hiány megvitatást egy képzett egészségügyi szakemberrel.',
-          heavyMetals: 'Nehézfém Jelzők',
-          heavyMetalExplanation: 'Az idegemel rezonancia mintákat detektált, amelyek bizonyos elemeknek való kitettséget sugallhatnak. Kérjük, beszélje meg ezeket az eredményeket egy képzett orvossal a megfelelő teszteléshez és útmutatáshoz.',
-          foodSensitivities: 'Élelmiszer-érzékenységi Minták',
-          foodSensitivityExplanation: 'Az idegemel potenciális érzékenységi mintákat javasol a következő élelmiszerekre. Fontoljon meg egy eliminációs diétát vagy beszéljen egy tápanyagtanácsadóval.',
-          recommendations: 'Wellness Ajánlások',
-          disclaimer: 'Fontos Felelősségkizárás:',
-          disclaimerText: 'Ez a jelentés a biorrezonancia-szkenneléssel felismert mintákat tükrözi. Ezek az eredmények NEM orvosi diagnózisok. A biorrezonancia-technológia a hagyományos orvoslás kiegészítése. Kérjük, konzultáljon egy képzett orvossal az egészségügyi aggályokkal kapcsolatban. Az idegemel potenciális mintákat javasol, amelyek további kutatást igényelhetnek az egészségügyi szakemberek által.'
-        },
-        ru: {
-          reportDate: 'Дата Отчета',
-          overallStatus: 'Общее Состояние',
-          generalCondition: 'Общее Состояние',
-          biologicalAge: 'Биологический Возраст',
-          chronologicalAge: 'Возраст',
-          yearsOld: 'лет',
-          sex: 'Пол',
-          organDashboard: 'Анализ Системы Органов',
-          organExplanation: 'Сканирование предполагает паттерны резонанса в следующих органах. Эти результаты могут указывать на области, нуждающиеся в дополнительной поддержке здоровья.',
-          vitaminsAndMinerals: 'Анализ Витаминов и Минералов',
-          vitaminExplanation: 'Сканирование предполагает потенциальные паттерны в уровнях витаминов и минералов. Эти результаты могут указывать на возможности пищевой поддержки.',
-          vitamins: 'Витамины',
-          minerals: 'Минералы',
-          aminoAcids: 'Аминокислоты',
-          aminoAcidExplanation: 'Уровни аминокислот, предполагаемые сканированием. Рассмотрите возможность обсуждения любых дефицитов с квалифицированным медицинским работником.',
-          heavyMetals: 'Показатели Тяжелых Металлов',
-          heavyMetalExplanation: 'Сканирование обнаружило паттерны резонанса, которые могут указывать на воздействие определенных элементов. Пожалуйста, обсудите эти результаты с квалифицированным врачом для надлежащего тестирования и рекомендаций.',
-          foodSensitivities: 'Паттерны Пищевой Чувствительности',
-          foodSensitivityExplanation: 'Сканирование предполагает потенциальные паттерны чувствительности к следующим продуктам. Вы можете рассмотреть элиминационную диету или проконсультироваться с диетологом.',
-          recommendations: 'Рекомендации по Благополучию',
-          disclaimer: 'Важное Предупреждение:',
-          disclaimerText: 'Этот отчет отражает паттерны, обнаруженные при биорезонансном сканировании. Эти результаты НЕ являются медицинскими диагнозами. Технология биорезонанса дополняет традиционную медицину. Пожалуйста, проконсультируйтесь с квалифицированным врачом по поводу любых проблем со здоровьем. Сканирование предполагает потенциальные паттерны, которые могут потребовать дальнейшего исследования медицинскими специалистами.'
-        }
-      };
-
-      return translations[language] || translations['en'];
-    }
-
-    function capitalizeWord(word) {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }
-
-    function getHealthStatus(value, language) {
-      const statuses = {
-        en: { excellent: 'Excellent', good: 'Good', fair: 'Fair', poor: 'Poor' },
-        es: { excellent: 'Excelente', good: 'Bueno', fair: 'Aceptable', poor: 'Deficiente' },
-        hu: { excellent: 'Kiváló', good: 'Jó', fair: 'Elfogadható', poor: 'Gyenge' },
-        ru: { excellent: 'Отличное', good: 'Хорошее', fair: 'Справедливое', poor: 'Плохое' }
-      };
-
-      const s = statuses[language] || statuses['en'];
-      if (value > 80) return s.excellent;
-      if (value > 60) return s.good;
-      if (value > 40) return s.fair;
-      return s.poor;
     }
 
     function clearAndReturnHome() {
