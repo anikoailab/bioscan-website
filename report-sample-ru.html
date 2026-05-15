@@ -1,0 +1,368 @@
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-dark:#1B4D5C;--teal-mid:#2A6A7D;--teal-light:#3D8FA6;
+  --cream:#F5F0E8;--cream-dark:#EDE7D9;--gold:#C4977A;--gold-light:#D4AF95;
+  --white:#FAFAF8;--text-dark:#1A1A1A;--text-mid:#4A4A4A;--text-light:#7A7A7A;
+  --green:#3D8A5C;--green-bg:#E8F5EE;--green-border:#C4E4D0;
+  --amber:#B87A10;--amber-bg:#FEF3E2;--amber-border:#F0D89A;
+  --red:#A83030;--red-bg:#FDEAEA;--red-border:#F0C0C0;
+  --lavender:#EEE8F8;--plum:#3D2B56;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#DDD9D0;color:var(--text-dark);font-size:14px;line-height:1.6;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+.wrap{max-width:800px;margin:0 auto;background:var(--white);box-shadow:0 8px 60px rgba(0,0,0,0.15);}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(140deg,var(--teal-dark) 0%,var(--teal-mid) 100%);padding:52px 56px 44px;color:#fff;position:relative;overflow:hidden;}
+.hdr-circle1{position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(196,151,122,0.10);pointer-events:none;}
+.hdr-circle2{position:absolute;right:90px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(196,151,122,0.06);pointer-events:none;}
+.hdr-badge{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+.hdr h1{font-size:36px;font-weight:700;line-height:1.15;margin-bottom:6px;position:relative;z-index:1;}
+.hdr-sub{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:36px;position:relative;z-index:1;}
+.hdr-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12);position:relative;z-index:1;}
+.stat{background:rgba(255,255,255,0.07);border-radius:12px;padding:16px 20px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold-light);line-height:1.2;margin-bottom:4px;}
+.stat-val.alert{color:#F4A58A;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;}
+.hdr-summary{font-size:13px;color:rgba(255,255,255,0.72);line-height:1.8;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);font-style:italic;max-width:600px;}
+
+/* ── BODY ── */
+.body{padding:52px 56px;}
+.section{margin-bottom:44px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--teal-dark);padding-bottom:12px;border-bottom:1.5px solid var(--cream-dark);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.sec-icon{font-size:15px;opacity:0.7;}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:16px;margin-bottom:16px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+/* ── BIO AGE ── */
+.bio-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:28px;color:#fff;}
+.age-nums{display:flex;gap:20px;align-items:center;flex-shrink:0;}
+.age-blk{text-align:center;}
+.age-num{font-family:'Playfair Display',serif;font-size:48px;line-height:1;color:var(--gold-light);}
+.age-num.alert{color:#F4A58A;}
+.age-sep{color:rgba(255,255,255,0.25);font-size:22px;align-self:center;margin-top:-4px;}
+.age-lbl{font-size:9px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.age-note{flex:1;border-left:1px solid rgba(255,255,255,0.12);padding-left:24px;}
+.age-note strong{font-family:'Playfair Display',serif;font-size:16px;color:#fff;display:block;margin-bottom:6px;font-weight:600;}
+.age-note p{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;}
+
+/* ── ORGAN GRID ── */
+.organ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.org-item{padding:11px 14px;border-radius:10px;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border:1px solid transparent;}
+.org-item.good{background:var(--green-bg);color:var(--green);border-color:var(--green-border);}
+.org-item.warn{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);}
+.org-item.flag{background:var(--red-bg);color:var(--red);border-color:var(--red-border);}
+.org-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.good .org-dot{background:var(--green);}
+.warn .org-dot{background:var(--amber);}
+.flag .org-dot{background:var(--red);}
+
+/* ── ALERT CARDS ── */
+.alert-card{border-left:3px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.alert-card.urgent{border-left-color:var(--red);}
+.alert-card strong{font-size:14px;color:var(--teal-dark);display:block;margin-bottom:5px;font-weight:600;}
+.alert-card p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── VIT BARS ── */
+.vit-row{margin-bottom:13px;}
+.vit-lbl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.vit-lbl span:first-child{font-weight:500;}
+.vit-lbl span:last-child{color:var(--text-light);font-size:11px;}
+.vit-bg{height:5px;background:var(--cream-dark);border-radius:3px;}
+.vit-fill{height:5px;border-radius:3px;transition:width .3s;}
+
+/* ── GUT ── */
+.gut-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.gut-item{padding:14px 16px;border-radius:10px;background:var(--cream);}
+.gut-label{font-size:12px;font-weight:600;color:var(--teal-dark);margin-bottom:5px;}
+.gut-badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.gut-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.gut-badge.high{background:var(--red-bg);color:var(--red);}
+.gut-connect{font-size:11px;color:var(--text-mid);margin-top:5px;line-height:1.5;}
+
+/* ── FOOD SENSITIVITIES ── */
+.food-disclaimer{background:var(--cream);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:var(--text-mid);line-height:1.6;border-left:3px solid var(--gold);}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.food-item{background:var(--cream);padding:10px 12px;border-radius:8px;font-size:12px;}
+.food-item strong{color:var(--teal-dark);display:block;margin-bottom:2px;font-weight:600;font-size:12px;}
+.food-item p{color:var(--text-mid);font-size:11px;line-height:1.4;}
+
+/* ── METALS ── */
+.metal-item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.metal-item:last-child{border-bottom:none;}
+.metal-badge{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
+.metal-badge.high{background:var(--red-bg);color:var(--red);}
+.metal-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.metal-badge.low{background:var(--green-bg);color:var(--green);}
+.metal-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.metal-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.metal-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── WATER ── */
+.water-box{background:linear-gradient(135deg,#1B4D5C,#2A6A7D);border-radius:14px;padding:22px 28px;display:flex;align-items:center;gap:24px;color:#fff;}
+.water-amount{font-family:'Playfair Display',serif;font-size:44px;color:var(--gold-light);flex-shrink:0;line-height:1;}
+.water-unit{font-size:14px;color:rgba(255,255,255,0.55);margin-top:2px;text-transform:uppercase;letter-spacing:1px;}
+.water-sep{width:1px;background:rgba(255,255,255,0.15);align-self:stretch;}
+.water-note{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;padding-left:4px;}
+.water-note strong{color:#fff;display:block;margin-bottom:4px;font-size:14px;}
+
+/* ── CHAKRAS ── */
+.chakra-row{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;text-align:center;margin-bottom:20px;}
+.ck-orb{width:42px;height:42px;border-radius:50%;margin:0 auto 7px;border:3px solid transparent;}
+.ck-orb.open{opacity:1;}
+.ck-orb.opening{opacity:0.55;}
+.ck-orb.closed{opacity:0.25;filter:grayscale(60%);}
+.ck-name{font-size:9px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;}
+.ck-status{font-size:9px;color:var(--text-mid);margin-top:2px;}
+.chakra-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ck-detail-item{background:var(--lavender);padding:12px 16px;border-radius:10px;}
+.ck-detail-item strong{font-size:12px;color:var(--plum);display:block;margin-bottom:3px;font-weight:600;}
+.ck-detail-item p{font-size:12px;color:var(--text-mid);line-height:1.55;}
+
+/* ── AMINO ACIDS ── */
+.amino-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.amino-item:last-child{border-bottom:none;}
+.amino-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.amino-badge.deficient{background:var(--red-bg);color:var(--red);}
+.amino-badge.adequate{background:var(--green-bg);color:var(--green);}
+.amino-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.amino-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── PARASITES ── */
+.parasite-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.parasite-item:last-child{border-bottom:none;}
+.prob-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;flex-shrink:0;margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.prob-badge.high{background:var(--red-bg);color:var(--red);}
+.prob-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.parasite-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.parasite-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── SPINE ── */
+.spine-box{background:var(--cream);border-radius:12px;padding:18px 22px;}
+.spine-segments{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.spine-seg{background:#fff;border:1px solid var(--amber-border);color:var(--amber);padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;}
+
+/* ── ZODIACAL DIET ── */
+.zodiac-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.zodiac-eat{background:var(--green-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-avoid{background:var(--red-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.zodiac-eat .zodiac-title{color:var(--green);}
+.zodiac-avoid .zodiac-title{color:var(--red);}
+.zodiac-list{list-style:none;padding:0;margin:0;}
+.zodiac-list li{font-size:12px;color:var(--text-mid);padding:3px 0;line-height:1.4;}
+
+/* ── PSYCHO ── */
+.psycho-item{background:var(--lavender);border-left:3px solid var(--plum);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.psycho-item strong{font-size:13px;color:var(--plum);display:block;margin-bottom:5px;font-weight:600;}
+.psycho-item p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── HOME TIPS ── */
+.tips-category{margin-bottom:18px;}
+.tips-cat-title{font-size:13px;font-weight:600;color:var(--teal-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.tips-list{display:flex;flex-direction:column;gap:6px;}
+.tip-item{display:flex;gap:10px;align-items:flex-start;}
+.tip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;}
+.tip-text{font-size:13px;color:var(--text-mid);line-height:1.6;}
+
+/* ── PROGRAMS ── */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prog-item{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));padding:16px 18px;border-radius:10px;}
+.prog-item strong{font-size:12px;color:var(--gold-light);display:block;margin-bottom:4px;}
+.prog-item p{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
+
+/* ── SUPPLEMENTS ── */
+.supp-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.supp-item:last-child{border-bottom:none;}
+.supp-src{padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.supp-src.iHerb{background:var(--green-bg);color:var(--green);}
+.supp-src.doTERRA{background:var(--amber-bg);color:var(--amber);}
+.supp-src.general{background:var(--cream-dark);color:var(--text-light);}
+.supp-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.supp-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.supp-dose{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── DOCTORS ── */
+.doc-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon{width:36px;height:36px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.doc-info strong{font-size:13px;color:var(--teal-dark);display:block;margin-bottom:3px;font-weight:600;}
+.doc-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.doc-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── ACTION PLAN ── */
+.action-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--cream-dark);}
+.action-item:last-child{border-bottom:none;}
+.action-num{width:30px;height:30px;background:var(--teal-dark);color:#fff;border-radius:50%;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.action-text strong{font-size:14px;display:block;margin-bottom:4px;font-weight:600;}
+.action-text p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── CLOSING ── */
+.closing-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:36px 40px;text-align:center;}
+.closing-box h3{font-size:22px;color:var(--gold-light);margin-bottom:14px;font-weight:600;}
+.closing-box p{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.8;max-width:540px;margin:0 auto;}
+
+/* ── FOOTER ── */
+.footer{background:var(--cream);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--cream-dark);}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--teal-dark);font-weight:600;}
+.footer-sub{font-size:10px;color:var(--text-light);margin-top:2px;}
+.footer-disc{font-size:9px;color:var(--text-light);max-width:280px;text-align:right;line-height:1.6;}
+.pdf-btn{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.3px;}
+
+@media print{
+  body{background:#fff;}
+  .wrap{box-shadow:none;max-width:100%;}
+  .pdf-btn{display:none;}
+}
+</style>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-circle1"></div>
+  <div class="hdr-circle2"></div>
+  <div class="hdr-badge">Отчет о Благополучии BioScan</div>
+  <h1>Отчет о Благополучии Анны Чугаевой</h1>
+  <p class="hdr-sub">Life Expert Profi Scan · 2026-04-16 · Женщина, 36 лет</p>
+  <div class="hdr-stats">
+    <div class="stat"><div class="stat-lbl">Общее Состояние</div><div class="stat-val">Удовлетворительно</div></div>
+    <div class="stat"><div class="stat-lbl">Биологический Возраст</div><div class="stat-val alert">39</div></div>
+    <div class="stat"><div class="stat-lbl">Уровень Энергии</div><div class="stat-val">24.5 / Средний</div></div>
+    <div class="stat"><div class="stat-lbl">Баланс pH</div><div class="stat-val">Слегка Щелочной</div></div>
+  </div>
+  <div class="hdr-summary">Анна, ваше сканирование показывает, что ваше тело в целом держится хорошо, но в настоящий момент несколько систем требуют внимания. Ваша дыхательная система, суставы, вилочковая железа и сердечно-сосудистое кровообращение показывают признаки стресса, и есть сильные сигналы в отношении здоровья кишечника, гормонального баланса и токсической нагрузки. Хорошая новость в том, что ваш пищеварительный центр в основном сохранен, и у вашего тела есть реальная способность восстановиться при надлежащей поддержке.</div>
+</div>
+
+<div class="body">
+
+<!-- BIOLOGICAL AGE -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Биологический Возраст</div>
+  <div class="bio-box">
+    <div class="age-nums">
+      <div class="age-blk"><div class="age-num">36</div><div class="age-lbl">Реальный Возраст</div></div>
+      <div class="age-sep">→</div>
+      <div class="age-blk"><div class="age-num alert">39</div><div class="age-lbl">Биологический Возраст</div></div>
+    </div>
+    <div class="age-note"><strong>Ваше тело стареет на 3 года быстрее, чем ожидалось</strong><p>Ваш биологический возраст на 3 года старше вашего реального возраста, вероятно, вызванный гормональным дисбалансом, накоплением токсинов и недостаточной физической активностью. Сокращение обработанных пищевых продуктов, поддержка путей детоксикации и добавление ежедневного движения на свежем воздухе могут быстро начать переворачивать это.</p></div>
+  </div>
+</div>
+
+<!-- ORGAN DASHBOARD -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Панель Управления Органами</div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div> Сбалансировано</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div> Требует Внимания</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div> Приоритет</div>
+  </div>
+  <div class="organ-grid"><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Сбалансировано</div><div class="org-item good"><span>Желудок</span><span class="org-dot"></span></div><div class="org-item good"><span>Тонкий Кишечник</span><span class="org-dot"></span></div><div class="org-item good"><span>Надпочечники (Оба)</span><span class="org-dot"></span></div><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Требует Внимания</div><div class="org-item warn"><span>Суставы Рук (Оба)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Суставы Ног (Оба)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Артериальная Система (Левое Сердце)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Бронхи (Оба)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Легкие (Оба)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Селезенка</span><span class="org-dot"></span></div><div class="org-item warn"><span>Молочные Железы (Оба)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Щитовидная Железа (Левая Доля)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Печень</span><span class="org-dot"></span></div><div class="org-item warn"><span>Желчный Пузырь</span><span class="org-dot"></span></div><div class="org-item warn"><span>Почки (Обе)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Яичники (Оба)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Поджелудочная Железа</span><span class="org-dot"></span></div><div class="org-item warn"><span>Гипоталамус</span><span class="org-dot"></span></div><div class="org-item warn"><span>Гипофиз (Гипофиз)</span><span class="org-dot"></span></div><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Приоритет</div><div class="org-item flag"><span>Гортань и Трахея</span><span class="org-dot"></span></div><div class="org-item flag"><span>Восходящая Толстая Кишка и Аппендикс</span><span class="org-dot"></span></div><div class="org-item flag"><span>Венозная Система (Правое Сердце)</span><span class="org-dot"></span></div><div class="org-item flag"><span>Вилочковая Железа</span><span class="org-dot"></span></div><div class="org-item flag"><span>Матка</span><span class="org-dot"></span></div></div>
+</div>
+
+<!-- KEY FINDINGS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Ключевые Находки</div>
+  <div class="alert-card "><strong>Дыхательный Стресс и Легочные Патогены</strong><p>Ваше сканирование помечает гортань, бронхи и легкие как стрессированные, и несколько высоковероятных легочных патогенов были обнаружены, включая грибковые и паразитические организмы. Это одна из самых важных областей, на которую нужно обратить внимание у врача в этом месяце.</p></div><div class="alert-card "><strong>Дисбаланс Матки и Гормонов</strong><p>Сканирование предполагает возможное распространение маточной ткани за пределы нормального местоположения (состояние, иногда называемое эндометриозом), плюс сигналы ВПЧ и микоплазмы в репродуктивной области. Пожалуйста, скоро обратитесь к гинекологу для надлежащего обследования.</p></div><div class="alert-card "><strong>Переизбыток Кишечных Патогенов и Нарушение Пищеварения</strong><p>Несколько кишечных патогенов, включая кандиду, черви и бактерии, помечены с высокой вероятностью, и ваши кишечники показывают признаки раздражения и недостатка ферментов. Поддержка вашего кишечника сейчас будет иметь положительный волновой эффект на вашу энергию, иммунитет и гормоны.</p></div><div class="alert-card urgent"><strong>Накопление Тяжелых Металлов и Токсинов</strong><p>Ваше сканирование показывает повышенные уровни ртути, алюминия, кадмия и нескольких других металлов, наряду с нагрузкой токсинов пестицидов и пищевых добавок. Они могут молча влиять на ваш мозг, печень, щитовидную железу и иммунную систему с течением времени.</p></div><div class="alert-card "><strong>Сжатие Позвоночника и Стресс Суставов</strong><p>Несколько позвоночных сегментов помечены, включая грудные и поясничные позвонки, с признаками обезвоживания диска, нагрузки неправильной осанки и защемления нервов, влияющего на ваше сердце, легкие, почки и репродуктивные органы. Посещение хиропрактика или остеопата в ближайшее время настоятельно рекомендуется.</p></div><div class="alert-card "><strong>Подавление Щитовидной Железы и Иммунитета</strong><p>Ваша вилочковая железа и левая доля щитовидной железы оба читаются неактивными, и сканирование помечает аутоиммунный тиреоидит как вероятный паттерн. Ваш центр иммунной подготовки нуждается в поддержке наряду с мониторингом гормонов щитовидной железы.</p></div>
+</div>
+
+<!-- WATER INTAKE -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Целевой Дневной Расход Воды</div>
+  <div class="water-box">
+    <div><div class="water-amount">1.8L</div><div class="water-unit">в день</div></div>
+    <div class="water-sep"></div>
+    <div class="water-note"><strong>Гидратация является вашим первым лекарством</strong>Оставаясь хорошо увлажненной каждый день, помогает вымывать токсины, которые помечены вашим сканированием, и сохраняет ваши дисфункции позвоночника, суставы и почки работают правильно.</div>
+  </div>
+</div>
+
+<!-- VITAMINS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Статус Витаминов и Минералов</div>
+  <div class="vit-row"><div class="vit-lbl"><span>Витамин A</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B1 (Тиамин)</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин C</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин E</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин K1</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин F (Незаменимые Жирные Кислоты)</span><span>Низкий</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин D</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:9%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B9 (Фолат)</span><span>Дефицит</span></div><div class="vit-bg"><div class="vit-fill" style="width:11%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин H (Биотин)</span><span>Низкий</span></div><div class="vit-bg"><div class="vit-fill" style="width:16%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B5 (Пантотеновая Кислота)</span><span>Низкий</span></div><div class="vit-bg"><div class="vit-fill" style="width:17%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B2 (Рибофлавин)</span><span>Хорошо</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B3 (Ниацин)</span><span>Хорошо</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B6</span><span>Хорошо</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин B12</span><span>Хорошо</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Витамин P (Биофлавоноиды)</span><span>Хорошо</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div>
+</div>
+
+<!-- AMINO ACIDS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Дефициты Аминокислот</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Аминокислоты - это строительные блоки, которые ваше тело использует для создания белков, гормонов и нейротрансмиттеров. Это те, которые ваше сканирование предполагает нуждаются в поддержке.</p><div class="amino-item"><span class="amino-badge deficient">Дефицит</span><div class="amino-info"><strong>Таурин</strong><p>Таурин защищает ваше сердце и нервную систему, и ваши уровни низкие. Ешьте больше рыбы, мяса и молочных продуктов, и попросите своего врача об добавке.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Дефицит</span><div class="amino-info"><strong>Цитруллин</strong><p>Цитруллин помогает снизить кровяное давление, очистить токсины из печени и улучшить кровообращение. Ешьте арбуз, рыбу и бобовые чаще.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Дефицит</span><div class="amino-info"><strong>GABA (Гамма Аминомасляная Кислота)</strong><p>GABA - это успокаивающее химическое вещество вашего мозга, и низкие уровни могут вызвать беспокойство, плохой сон и боль. Ферментированные пищевые продукты, помидоры и чай ГАБА могут помочь естественно повысить уровень.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Дефицит</span><div class="amino-info"><strong>Гистидин</strong><p>Гистидин поддерживает защиту нервов, производство красных и белых кровяных клеток и восстановление тканей. Добавьте бананы, рыбу, говядину и ржаной хлеб в свои еженедельные блюда.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Дефицит</span><div class="amino-info"><strong>Валин</strong><p>Валин помечен как дефицитный в предполагаемом отчете об изменениях. Он поддерживает восстановление мышц и энергетический баланс. Найден в молочных продуктах, зернах и бобовых.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Дефицит</span><div class="amino-info"><strong>Аспарагиновая Кислота</strong><p>Помечена как дефицитная в вашем сканировании. Он поддерживает производство энергии и функцию нервной системы. Найден в спарже, авокадо и проросших семенах.</p></div></div></div>
+
+<!-- HEAVY METALS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Индикаторы Тяжелых Металлов</div><div class="metal-item"><span class="metal-badge high">высокий</span><div class="metal-info"><strong>Ртуть</strong><p>Влияет: Мозг, почки, печень, щитовидная железа</p><div class="metal-test">Подтвердить: Попросите врача сделать тест мочи на тяжелые металлы или анализ минералов волос в клинике функциональной медицины.</div></div></div><div class="metal-item"><span class="metal-badge high">высокий</span><div class="metal-info"><strong>Алюминий</strong><p>Влияет: Мозг, кости, почки</p><div class="metal-test">Подтвердить: Попросите анализ минералов волос или тест сыворотки алюминия в крови у вашего ГП или врача функциональной медицины.</div></div></div><div class="metal-item"><span class="metal-badge moderate">средний</span><div class="metal-info"><strong>Кадмий</strong><p>Влияет: Почки, печень, легкие, кости</p><div class="metal-test">Подтвердить: Тест мочи на кадмий или анализ минералов волос может это подтвердить. Попросите своего врача или специалиста по функциональной медицине.</div></div></div><div class="metal-item"><span class="metal-badge moderate">средний</span><div class="metal-info"><strong>Медь</strong><p>Влияет: Печень, мозг, суставы</p><div class="metal-test">Подтвердить: Простой анализ крови, проверяющий уровни меди в сыворотке и цинка, даст вам четкую картину.</div></div></div><div class="metal-item"><span class="metal-badge moderate">средний</span><div class="metal-info"><strong>Марганец</strong><p>Влияет: Мозг, нервная система, печень</p><div class="metal-test">Подтвердить: Анализ крови или минеральный анализ волос может подтвердить уровни марганца. Попросите в клинике функциональной или интегративной медицины.</div></div></div><div class="metal-item"><span class="metal-badge low">низкий</span><div class="metal-info"><strong>Серебро</strong><p>Влияет: Кожа, почки</p><div class="metal-test">Подтвердить: Анализ минералов волос покажет накопление серебра наряду с вашими другими металлами.</div></div></div><div class="metal-item"><span class="metal-badge low">низкий</span><div class="metal-info"><strong>Молибден</strong><p>Влияет: Печень, кишечник</p><div class="metal-test">Подтвердить: Анализ минералов волос или функциональная панель крови может проверить это наряду с вашими другими уровнями металлов.</div></div></div></div>
+
+<!-- PARASITES -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Индикаторы Активности Патогенов</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Сканирование обнаружило паттерны резонанса, которые могут указывать на активность патогенов. Это не диагноз. Анализ стула, анализ крови или врач функциональной медицины может подтвердить.</p><div class="parasite-item"><span class="prob-badge moderate">96%</span><div class="parasite-info"><strong>Mucor mucedo (Грибок)</strong><p>Область: Тонкий кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Nocardia asteroides (Бактерия)</strong><p>Область: Легочная ткань</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Toxocara canis (Гельминты)</strong><p>Область: Сердечная мышца и камеры сердца</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Mycoplasma genitalium (Бактерия)</strong><p>Область: Влагалище и репродуктивная область</p></div></div><div class="parasite-item"><span class="prob-badge moderate">96%</span><div class="parasite-info"><strong>Paragonimus westermani (Гельминты)</strong><p>Область: Легочная ткань</p></div></div><div class="parasite-item"><span class="prob-badge moderate">88%</span><div class="parasite-info"><strong>Candida robista (Грибок)</strong><p>Область: Рот, миндалины, тонкий кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">83%</span><div class="parasite-info"><strong>Necator americanus (Гельминты)</strong><p>Область: Тонкий кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">80%</span><div class="parasite-info"><strong>Human Orthopneumovirus (Вирус)</strong><p>Область: Носовые проходы</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Human Papillomavirus HPV (Вирус)</strong><p>Область: Влагалище и матка</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Borrelia burgdorferi (Бактерия)</strong><p>Область: Структуры мозга</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Ascaris lumbricoides (Гельминты)</strong><p>Область: Тонкий и толстый кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Candida glabrata (Грибок)</strong><p>Область: Влагалище</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Stenotrophomonas maltophilia (Бактерия)</strong><p>Область: Желчные протоки</p></div></div><div class="parasite-item"><span class="prob-badge moderate">78%</span><div class="parasite-info"><strong>Flavimonas oryzihabitans (Бактерия)</strong><p>Область: Тонкий кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">75%</span><div class="parasite-info"><strong>Histoplasma capsulatum (Грибок)</strong><p>Область: Легочная ткань</p></div></div><div class="parasite-item"><span class="prob-badge moderate">73%</span><div class="parasite-info"><strong>Trichuris trichiura (Гельминты)</strong><p>Область: Толстый кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">72%</span><div class="parasite-info"><strong>Agrobacterium radiobacter (Бактерия)</strong><p>Область: Тонкий кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">59%</span><div class="parasite-info"><strong>Eimeria (Простейшие)</strong><p>Область: Толстый кишечник</p></div></div><div class="parasite-item"><span class="prob-badge moderate">84%</span><div class="parasite-info"><strong>Clonorchis sinensis (Гельминты)</strong><p>Область: Желчные протоки и желчный пузырь</p></div></div></div>
+
+<!-- GUT HEALTH -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Индикаторы Здоровья Кишечника</div><div class="gut-grid"><div class="gut-item"><div class="gut-label">SIBO</div><span class="gut-badge high">Высокий</span><div class=gut-connect>Связано: Печень, щитовидная железа, вилочковая железа, селезенка, легкие, матка, почки и кожа все связаны с нагрузкой кишечных патогенов и кандидой, помеченной в этом сканировании.</div></div><div class="gut-item"><div class="gut-label">Дырявый Кишечник</div><span class="gut-badge high">Высокий</span><div class=gut-connect>Связано: Печень, щитовидная железа, вилочковая железа, селезенка, легкие, матка, почки и кожа все связаны с нагрузкой кишечных патогенов и кандидой, помеченной в этом сканировании.</div></div><div class="gut-item"><div class="gut-label">Кандида</div><span class="gut-badge high">Высокий</span><div class=gut-connect>Связано: Печень, щитовидная железа, вилочковая железа, селезенка, легкие, матка, почки и кожа все связаны с нагрузкой кишечных патогенов и кандидой, помеченной в этом сканировании.</div></div></div><div class="alert-card"><p>Ваше сканирование показывает высокую вероятность чрезмерного роста кандиды (слишком много дрожжей в вашем теле), бактериального дисбаланса в тонком кишечнике и слизистой оболочки кишечника, которая может быть повреждена и позволять токсинам проходить. Этот стресс кишечника очень вероятно способствует вашему гормональному дисбалансу, усталости, проблемам с кожей и пониженному иммунитету.</p></div></div>
+
+<!-- FOOD SENSITIVITIES -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Паттерны Чувствительности к Пище</div><div class="food-disclaimer">Это паттерны биорезонанса, а не подтвержденные аллергии. Подумайте о сокращении этих продуктов на 2-4 недели и наблюдайте, как ваше тело реагирует.</div><div class="food-grid"><div class="food-item"><strong>Рафинированный сахар и сладости</strong><p>Ваше сканирование и выводы о кандиде сильно предполагают, что сахар питает нежелательные организмы в вашем кишечнике прямо сейчас.</p></div><div class="food-item"><strong>Хлеб и продукты на основе дрожжей</strong><p>Продукты на основе дрожжей могут усугубить дисбаланс кандиды и бактерий кишечника, помеченный в этом сканировании.</p></div><div class="food-item"><strong>Алкоголь</strong><p>Алкоголь создает дополнительное давление на вашу уже напряженную печень и питает чрезмерный рост кандиды.</p></div><div class="food-item"><strong>Крупная рыба (тунец, рыба-меч, макрель)</strong><p>Эта рыба имеет высокое содержание ртути, которую ваше сканирование уже помечает как повышенную в вашем теле.</p></div><div class="food-item"><strong>Высоко переработанные и рафинированные продукты</strong><p>Сканирование специально помечает частое потребление рафинированных продуктов как драйвер вашего нынешнего пищеварительного и метаболического стресса.</p></div><div class="food-item"><strong>Высоко минерализованная вода</strong><p>Ваше сканирование помечает, что вы можете пить избыточно минерализованную воду, которая может повлиять на баланс почек и электролитов.</p></div><div class="food-item"><strong>Молочные продукты (рассмотрите ротацию)</strong><p>С нагрузкой кишечных патогенов, помеченной, рассмотрите короткий перерыв от молочных продуктов, чтобы уменьшить слизь и брожение в кишечнике.</p></div></div></div>
+
+<!-- SPINE -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Оценка Позвоночника</div><div class="spine-box"><p style="font-size:13px;color:var(--text-mid);line-height:1.65;">Ваше сканирование позвоночника показывает значительный стресс в нескольких регионах, особенно в грудном (середина спины) и поясничном (нижняя спина) областях, с обезвоживанием диска, потерей высоты и признаками защемления нерва, влияющего на ваше сердце, легкие, почки и репродуктивные органы.</p><div class=spine-segments><span class="spine-seg">C2 (глаза, слуховой нерв, височные кости)</span><span class="spine-seg">C3 (щеки, лицевой нерв, зубы)</span><span class="spine-seg">Th1 (пищевод, бронхи, руки и запястья)</span><span class="spine-seg">Th2 (сердце и коронарные артерии)</span><span class="spine-seg">Th3 (бронхи, легкие, грудь)</span><span class="spine-seg">Th4 (желчный пузырь и желчный проток)</span><span class="spine-seg">Th7 (поджелудочная железа и двенадцатиперстная кишка)</span><span class="spine-seg">Th8 (селезенка и диафрагма)</span><span class="spine-seg">Th10 (почки)</span><span class="spine-seg">L2 (нижний живот и бедра)</span><span class="spine-seg">L3 (репродуктивные органы, мочевой пузырь, колени)</span><span class="spine-seg">L4 (седалищный нерв)</span><span class="spine-seg">L5 (голени, ступни, пальцы ног)</span><span class="spine-seg">Крестец (прямая кишка, бедренные кости, ягодицы)</span></div><p style="font-size:12px;color:var(--gold);margin-top:10px;font-style:italic;">Рекомендуемый специалист: Хиропрактик, остеопат или спинальный физиотерапевт</p></div></div>
+
+<!-- CHAKRAS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Поток Энергии Чакр</div>
+  <p style="font-size:13px;color:#7A7A7A;margin-bottom:20px;line-height:1.6;">Каждая чакра - это энергетический центр в вашем теле. Яркий круг означает, что энергия течет свободно. Выцветший круг означает, что энергия низкая или заблокирована. Это влияет на то, как вы чувствуете себя физически и эмоционально.</p>
+  <div class="chakra-row"><div><div class="ck-orb open" style="background:#EE8888;border-color:#C84040;"></div><div class="ck-name">Муладхара (Корень)</div><div class="ck-status" style="color:#2A7A4A;">Открыто</div></div><div><div class="ck-orb opening" style="background:#F4A860;border-color:#B86820;"></div><div class="ck-name">Свадхиштхана (Крестцовый)</div><div class="ck-status" style="color:#B87A10;">Открывается</div></div><div><div class="ck-orb opening" style="background:#E8D040;border-color:#9A8800;"></div><div class="ck-name">Манипура (Солнечное Сплетение)</div><div class="ck-status" style="color:#B87A10;">Открывается</div></div><div><div class="ck-orb opening" style="background:#60C880;border-color:#2A7A4A;"></div><div class="ck-name">Анахата (Сердце)</div><div class="ck-status" style="color:#B87A10;">Открывается</div></div><div><div class="ck-orb opening" style="background:#60A0E0;border-color:#2060A8;"></div><div class="ck-name">Вишудха (Горло)</div><div class="ck-status" style="color:#B87A10;">Открывается</div></div><div><div class="ck-orb opening" style="background:#9880D8;border-color:#5040A0;"></div><div class="ck-name">Аджна (Третий Глаз)</div><div class="ck-status" style="color:#B87A10;">Открывается</div></div><div><div class="ck-orb opening" style="background:#C890E8;border-color:#7840A0;"></div><div class="ck-name">Сахасрара (Корона)</div><div class="ck-status" style="color:#B87A10;">Открывается</div></div></div>
+  <div class="chakra-detail" style="margin-top:16px;"><div class="ck-detail-item" style="border-top:2.5px solid #EE8888;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#EE8888;flex-shrink:0;display:inline-block;"></span>Муладхара (Корень)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#2A7A4A;text-transform:uppercase;letter-spacing:0.5px;">Открыто</span></strong><p>Ваша корневая чакра - это ваш самый сильный энергетический центр прямо сейчас, поддерживающий вашу базовую энергию выживания и заземления.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #F4A860;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#F4A860;flex-shrink:0;display:inline-block;"></span>Свадхиштхана (Крестцовый)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Открывается</span></strong><p>Ваша творческая и эмоциональная энергия активна, но все еще развивается. Питание ваших отношений и творческих проектов укрепит этот центр.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #E8D040;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#E8D040;flex-shrink:0;display:inline-block;"></span>Манипура (Солнечное Сплетение)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Открывается</span></strong><p>Ваш центр воли и уверенности открывается. Полнее доверять своим собственным решениям поможет сохранить эту энергию текущей.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #60C880;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#60C880;flex-shrink:0;display:inline-block;"></span>Анахата (Сердце)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Открывается</span></strong><p>Ваш центр сердца процесс раскрытия. Практика сострадания к себе и установление здоровых эмоциональных границ помогут этой чакре полностью расшириться.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #60A0E0;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#60A0E0;flex-shrink:0;display:inline-block;"></span>Вишудха (Горло)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Открывается</span></strong><p>Ваша горловая чакра напрямую связана со здоровьем щитовидной железы и вашей способностью говорить свою правду. Открытое и честное самовыражение поддерживает исцеление здесь.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #9880D8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#9880D8;flex-shrink:0;display:inline-block;"></span>Аджна (Третий Глаз)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Открывается</span></strong><p>Ваша интуиция и ясность развиваются. Проведение спокойного времени ежедневно в размышлении или медитации углубит вашу внутреннюю мудрость.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #C890E8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#C890E8;flex-shrink:0;display:inline-block;"></span>Сахасрара (Корона)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Открывается</span></strong><p>Ваша связь с высшим осознанием мягко открывается. Проведение времени на природе и предоставление себе неподвижности поддержит это расширение.</p></div></div>
+</div>
+
+<!-- MIND BODY -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Паттерны Тело-Разум</div>
+  <div class="psycho-item"><strong>Подавленное самовыражение, связанное со стрессом горла и щитовидной железы</strong><p>Ваше сканирование и профиль чакры оба указывают на паттерн, когда подержание вашего истинного голоса или мнений может проявляться физически в вашей горле и щитовидной железе. На этой неделе попробуйте писать свободно в журнал без фильтра и обратите внимание, сколько вы сдерживаете в ежедневных разговорах.</p></div><div class="psycho-item"><strong>Необработанное эмоциональное напряжение, хранящееся в кишечнике и репродуктивной системе</strong><p>Ваш анализ чакры предполагает мощную творческую и эмоциональную энергию, которая может быть не полностью выражена, и это может осесть в области живота и матки как физическое напряжение. Ежедневное мягкое движение, такое как йога, танец или даже короткая прогулка, обращая внимание на то, как вы чувствуете эмоционально, может помочь высвободить это хранящееся напряжение.</p></div><div class="psycho-item"><strong>Низкая энергия корня и хронический стресс выживания, влияющий на иммунитет и суставы</strong><p>Ваша емкость Муладхара (корневая чакра) 30% предполагает, что ваше тело может работать на взятой энергии, делая суставы и иммунитет первыми, чтобы страдать. Построение небольших ежедневных ритуалов безопасности и стабильности, таких как утреннее солнце, теплый завтрак и 10 минут снаружи с босыми ногами на траве, может действительно помочь перезарядить этот энергетический центр.</p></div><div class="psycho-item"><strong>Хронический стресс и гормональная волатильность, проявляющаяся в сердце и системе кровообращения</strong><p>Сканирование помечает симпатоадреналовые кризисы (внезапные скачки гормонов стресса, подобные адреналину) и паттерны нерегулярного сердцебиения. Ежедневная дыхательная работа, даже только 5 минут медленного глубокого дыхания по утрам, может успокоить вашу нервную систему и снизить нагрузку на ваше сердце и надпочечники.</p></div>
+</div>
+
+<!-- HOME TIPS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Что Вы Можете Сделать Дома</div>
+  <div class="tips-category"><div class="tips-cat-title">Утренний Распорядок</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Начинайте каждое утро с большого стакана теплой воды со свежевыжатым лимонным соком. Это мягко щелочит ваше тело и пробуждает вашу печень.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Сделайте утренний тест слюны на кандиду перед едой или чисткой зубов. Плевки в стакан чистой воды. Если образуются нити и опускаются в течение 30 минут, кандида, вероятно, активна.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Возьмите порошок L глутамина в воде и ваши пробиотики натощак перед завтраком для максимального восстановления слизистой оболочки кишечника.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Исцеление Кишечника и Кандиды</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Исключите весь сахар, белый хлеб, алкоголь и продукты из дрожжей на наименьшие 4 недели. Это единственное самое мощное дело, которое вы можете сделать для кандиды и бактерий кишечника прямо сейчас.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Ешьте один зубок сырого чеснока ежедневно (измельчите и проглотите с водой или смешайте в дресс). Сырой чеснок является естественным противогрибковым и антибактериальным.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Готовьте с кокосовым маслом ежедневно. Он содержит естественное соединение, называемое каприловой кислотой, которая убивает кандиду.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Пейте костный бульон (домашний или высокого качества покупаемый) один раз в день для исцеления и герметизации слизистой оболочки кишечника.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Добавьте ферментированные продукты, такие как простой кефир, квашенная капуста или кимчи к одному блюду ежедневно для восстановления вашей хорошей бактерии кишечника.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Детоксикация Тяжелых Металлов</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Ешьте небольшой пучок свежей кинзы (кориандра) каждый день. Она мягко вытягивает ртуть и алюминий из мозговой ткани с течением времени.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Потейте наименьшие 20-30 минут ежедневно через упражнение, сауну или даже горячую ванну. Потоотделение является одним из наиболее эффективных способов выпустить тяжелые металлы через вашу кожу.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Избегайте полностью больших хищных рыб (тунца, рыба-меч, акула) в течение следующих 3 месяцев при детоксикации ртути.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Проверьте вашу посуду. Избегайте алюминиевых горшков и кастрюль и переходите на нержавеющую сталь или чугун.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Уход за Позвоночником и Суставами</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Пейте ваш полный целевой расход воды (около 1.8 литров) постоянно. Ваши диски позвоночника обезвожены и вода - первое лекарство, которое они нуждаются.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Сделайте 10 минут мягких растяжений кошки-коровы, вращений шеи и работы подвижности грудного позвоночника каждое утро перед вставанием с постели.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Ходите босиком по траве или естественной земле в течение 10-15 минут ежедневно. Это снижает воспаление суставов и помогает сбросить осанку и выравнивание свода стопы.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Добавьте насыщенные магнием продукты (темный шоколад, семена тыквы, зеленые листья) и богатые кальцием продукты (семена кунжута, сардины с костями) ежедневно для поддержки минералов костей и диска.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Поддержка Гормонов и Репродукции</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Сокращайте и работайте для устранения всех пластиковых контейнеров для пищи, пластиковых бутылок воды и пластиковой пленки из вашей кухни. Пластик выпускает химикаты, которые подражают гормонам и нарушают вашу щитовидную железу и репродуктивную систему.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Ешьте крестоцветные овощи (брокколи, цветная капуста, брюссельская капуста, кейл) наименьшие 4 раза в неделю. Они помогают вашей печени разломать избыток эстрогена.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Практика 5-10 минут медленного дыхания живота перед сном каждый вечер для снижения кортизола (вашего гормона стресса) и поддержки ночного гормонального сброса.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Заказывайте гинекологический прием на этот месяц. Не ждите. Сигналы матки и ВПЧ в этом сканировании нуждаются в надлежащей медицинской проверке.</div></div></div></div>
+</div>
+
+<!-- LIFE BALANCE PROGRAMS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Рекомендуемые Программы Балансировки Жизни</div>
+  <div class="prog-grid"><div class="prog-item"><strong>Исцеление Кишечника и Восстановление Микробиома</strong><p>Множественные кишечные патогены, чрезмерный рост кандиды и нарушение пищеварения, помеченные в этом сканировании, делают исцеление кишечника номером один приоритет программы для Анны прямо сейчас.</p></div><div class="prog-item"><strong>Детоксикация Тяжелых Металлов и Окружающей Среды</strong><p>С 7 повышенными тяжелыми металлами и высокой пестицидной и пищевой добавкой токсин нагрузкой, мягкая структурированная программа детоксикации необходима для защиты мозга Анны, печени и щитовидной железы.</p></div><div class="prog-item"><strong>Гормональный Баланс и Поддержка Репродуктивного Здоровья</strong><p>Уникальные, яичниковые и щитовидные выводы в сочетании с сигналами ВПЧ и микоплазмы означают, что Анна нуждается в специальной программе гормонального переоборудования.</p></div><div class="prog-item"><strong>Реабилитация Позвоночника и Поддержка Суставов</strong><p>Множественные помеченные сегменты позвоночника, стресс суставов во всех четырех конечностях и обезвоживание диска делают уход за позвоночником и питание суставов приоритетной программой наряду с другими областями.</p></div><div class="prog-item"><strong>Укрепление Иммунной Системы и Дыхательной Системы</strong><p>Недостаточность вилочковой железы, нагрузка легочных патогенов и стресс бронхов требуют целевую программу укрепления иммунитета и дыхательной системы.</p></div></div>
+</div>
+
+<!-- ZODIACAL DIET -->
+<div class="section"><div class="sec-title"><span class="sec-icon">✦</span> Овен - Питательный Профиль</div><p style="font-size:13px;color:var(--text-light);margin-bottom:14px;line-height:1.6;">Ваше сканирование Life Expert включает зодиакальный питательный профиль на основе тенденций конституции вашего знака и уязвимых систем организма.</p><div class="zodiac-grid"><div class="zodiac-eat"><div class="zodiac-title">Ешьте Больше</div><ul class="zodiac-list"><li>Богатые железом продукты, как красная чечевица, шпинат и трава кормил говядину</li><li>Свежий имбирь и куркума для поддержки головы и кровообращения</li><li>Свеклу и гранат для строительства крови и кровообращения мозга</li><li>Семена тыквы и семена кунжута для цинка и поддержки минералов</li></ul></div><div class="zodiac-avoid"><div class="zodiac-title">Сокращение или Избежание</div><ul class="zodiac-list"><li>Избыток острых продуктов и стимуляторов, таких как кофе, которые переколебляют уже горячую систему Овна</li><li>Алкоголь, который истощает B витамины, нуждаемые Овном наиболее</li><li>Обработанное мясо и фаст-фуд, которые забивают кровообращение</li><li>Избыток красного мяса без баланса как Овен правит головой и кровью и слишком много может вызвать тепло и давление</li></ul></div></div><p style="font-size:12px;color:var(--text-mid);margin-top:12px;line-height:1.6;">Железо - это наиболее важный минерал для Овена, так как этот знак правит кровью и головой, и низкое железо напрямую способствует усталости, головным болям и проблемам с кровообращением мозга, помеченным в сканировании Анны.</p></div>
+
+<!-- SUPPLEMENTS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Рекомендации Дополнений</div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Витамин D3 с K2</strong><p>Ваш витамин D критически низкий и это напрямую влияет на ваш иммунитет, кости, щитовидную железу и настроение.</p><div class="supp-dose">2000-5000 МЕ D3 с 100мкг K2 ежедневно с едой. Подтвердите дозу с вашим врачом сначала.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Витамин A (Форма Ретинола)</strong><p>Ваш витамин A почти исчерпан, что влияет на ваши глаза, кожу и иммунную систему.</p><div class="supp-dose">2500-5000 МЕ ежедневно с едой содержащей жир. Попросите вашего врача перед началом.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Липосомальный Витамин C</strong><p>Критически низкий витамин C компрометирует ваш иммунитет, здоровье кровеносных сосудов и производство коллагена.</p><div class="supp-dose">500-1000мг ежедневно с едой.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Порошок L Глутамина</strong><p>L Глутамин перестраивает слизистую оболочку кишечника, напрямую адресуя паттерн дырявого кишечника, помеченный в этом сканировании.</p><div class="supp-dose">5г в воде натощак каждое утро в течение 4-8 недель.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Таблетки Хлореллы</strong><p>Хлорелла связывает и удаляет тяжелые металлы (особенно ртуть и алюминий) из кишечника и является одним из безопаснейших инструментов детоксикации.</p><div class="supp-dose">Начните с 1г в день и медленно увеличивайте к 3г в день в течение 2 недель. Возьмите с водой вдали от еды.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Пробиотики (Многостраиновые с Lactobacillus и Bifidobacterium)</strong><p>Ваш микробиом кишечника нуждается в срочном перестроении дана кандида, бактериальный переполнение и нагрузка патогенов в этом сканировании.</p><div class="supp-dose">20-50 миллиардов КОЕ один раз ежедневно натощак утром.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Магний Глицинат</strong><p>Поддерживает вашу нервную систему, снижает мышечное напряжение в позвоночнике и суставах, улучшает сон и помогает противнику дефицит ГАБА.</p><div class="supp-dose">300-400мг перед сном каждый вечер.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Цинк Бисглицинат</strong><p>Дефицит цинка напрямую помечен в вашем сканировании. Это критически для функции иммунитета, восстановления кишечной слизистой оболочки, здоровья щитовидной железы и заживления ран.</p><div class="supp-dose">15-25мг ежедневно с едой. Не превышайте 40мг в день.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Дополнение ГАБА</strong><p>Ваша аминокислота ГАБА дефицитна и дополнение может помочь облегчить беспокойство, улучшить сон и снизить хроническую боль и напряжение, видимые в этом сканировании.</p><div class="supp-dose">250-500мг перед сном или в моменты высокого беспокойства.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Таурин</strong><p>Таурин защищает ваше сердце, мозг и иммунную систему и ваше сканирование показывает, что он истощен.</p><div class="supp-dose">500-1000мг ежедневно с едой.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Омега 3 Рыбий Жир (высокий EPA DHA)</strong><p>Адресует ваш дефицит Витамина F, поддерживает здоровье мозга, снижает воспаление по всему телу и помогает гормональный баланс.</p><div class="supp-dose">2-3г объединенного EPA и DHA ежедневно с едой.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Фолат (Метилфолат B9)</strong><p>Ваш B9 очень низкий, влияя на здоровье крови, восстановление ДНК и регенерацию кишечной слизистой оболочки.</p><div class="supp-dose">400-800мкг ежедневно. Используйте форму метилфолата для лучшего всасывания.</div></div></div></div>
+
+<!-- DOTERRA -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Протоколы Эфирных Масел doTERRA</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Для заказа продуктов doTERRA свяжитесь с Анико напрямую в Instagram @anikopuhova.ai</p><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>Масло Орегано doTERRA</strong><p>Масло орегано является мощным естественным противогрибковым и антибактериальным и может помочь адресировать кандиду и бактериальный переполнение, помеченные в кишечнике Анны.</p><div class="supp-dose">1 капля в капсуле с едой, 3 раза в неделю (не каждый день). Используйте не более 10 дней в то время.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA On Guard - Защитный Блюз</strong><p>Этот блюз поддерживает иммунную защиту и здоровье дыхательной системы, напрямую адресуя нагрузку легочных патогенов Анны и недостаточность вилочковой железы.</p><div class="supp-dose">Диффузирует в спальне ночью или нанесите 2 капли разбавленные на груди каждое утро.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>Смесь Детоксикации doTERRA Zendocrine</strong><p>Поддерживает печень и органы детоксикации, чтобы помочь обработать тяжелую металлическую и токсин нагрузку, помеченные в сканировании Анны.</p><div class="supp-dose">2 капли разбавленные и применяются над областью печени (правая сторона под ребра) утро и вечер.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Clary Calm (Женский Месячный Блюз)</strong><p>Напрямую поддерживает гормональный баланс и может облегчить стресс матки и яичников, помеченный в этом сканировании.</p><div class="supp-dose">Нанесите разбавленные на нижний живот и внутренние запястья утро и вечер.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Deep Blue Rub</strong><p>Помогает успокоить воспаление суставов и позвоночника, помеченное во всех четырех конечностях и множественных сегментах позвоночника.</p><div class="supp-dose">Нанесите на суставы рук, суставы ног и область грудного позвоночника два раза ежедневно.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Франкинцен</strong><p>Поддерживает здоровье мозга, снижает системное воспаление и помогает успокоить стресс нервной системы, видимый по всему этому сканированию.</p><div class="supp-dose">1 капля под язык один раз ежедневно или нанесите на заднюю часть шеи и лоб.</div></div></div></div>
+
+<!-- SPECIALISTS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Рекомендации Специалиста</div><div class="doc-item"><div class="doc-icon">🩺</div><div class="doc-info"><strong>Гинеколог</strong><p>Высокий приоритет. Сканирование помечает гиперактивность матки, возможное распространение эндометриальной ткани, сигнал ВПЧ и микоплазму генитальную в репродуктивной области.</p><div class="doc-test">Запрос: Попросите тест ультразвука малого таза, тест цервикального мазка (Мазок Папа), тест ДНК ВПЧ и вагинальный тампон для микоплазмы и кандиды.</div></div></div><div class="doc-item"><div class="doc-icon">🔬</div><div class="doc-info"><strong>Эндокринолог (Специалист по Гормонам)</strong><p>Щитовидная железа левая доля неактивна, аутоиммунный тиреоидит помечен, дисбаланс гормонов управляет старением кожи и раздражительностью, и паттерны стресса надпочечников присутствуют.</p><div class="doc-test">Запрос: Попросите полный тест панели щитовидной железы (TSH, свободный T3, свободный T4 и антитела TPO) и тест утреннего кортизола в крови.</div></div></div><div class="doc-item"><div class="doc-icon">💊</div><div class="doc-info"><strong>Пульмонолог (Специалист по Легким)</strong><p>Множественные легочные патогены с очень высокой вероятностью, включая грибковые организмы, и оба бронхи и легкие показывают сигналы стресса.</p><div class="doc-test">Запрос: Попросите рентген грудной клетки и тест культуры мокроты (слизь) для проверки грибковых и бактериальных организмов легкого.</div></div></div><div class="doc-item"><div class="doc-icon">🌿</div><div class="doc-info"><strong>Врач Функциональной Медицины или Интегративный ГП</strong><p>Множественные тяжелые металлы повышены, паразиты и кандида помечены с высокой вероятностью и дефициты витаминов и аминокислот широкораспространены.</p><div class="doc-test">Запрос: Попросите комплексный тест стула (для проверки кишечной бактерии и паразитов), тест анализа минерала волос (для тяжелых металлов) и полный тест панели витамина в крови.</div></div></div><div class="doc-item"><div class="doc-icon">🧬</div><div class="doc-info"><strong>Хиропрактик или Остеопат</strong><p>Множественные позвоночные сегменты помечены с обезвоживанием диска, неправильной нагрузкой осанки и защемлением нерва, влияющим на сердце, легкие, почки и репродуктивные органы.</p><div class="doc-test">Запрос: Попросите полный рентген позвоночника (цервикальный, грудной и поясничный) и попросите оценку осанки на вашем первом приеме.</div></div></div><div class="doc-item"><div class="doc-icon">🫀</div><div class="doc-info"><strong>Кардиолог (Специалист по Сердцу)</strong><p>Сканирование помечает изменения сердечных мышечных клеток, паттерны нерегулярного сердцебиения, симпатоадреналовые кризисы и стресс венозного кровообращения.</p><div class="doc-test">Запрос: Попросите ЭКГ в покое (простой тест трассировки сердца) и эхокардиографию (ультразвук вашего сердца) для проверки сердечной мышцы и кровообращения.</div></div></div></div>
+
+<!-- ACTION PLAN -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Ваш Приоритет План Действия</div>
+  <div class="action-item"><div class="action-num">1</div><div class="action-text"><strong>Посетите гинеколога на этой неделе</strong><p>Сигналы матки, ВПЧ и микоплазмы в этом сканировании - самые срочные выводы для получения медицинского подтверждения. Заказывайте ваш гинекологический прием перед чем-либо еще в этом списке.</p></div></div><div class="action-item"><div class="action-num">2</div><div class="action-text"><strong>Немедленно начните антикандидную диету</strong><p>Исключите весь сахар, алкоголь, хлеб и продукты из дрожжей начиная сегодня. Это напрямую адресует кандиду, бактериальный переполнение и нагрузку кишечных патогенов, которая вероятно влияет на вашу энергию, иммунитет, гормоны и кожу.</p></div></div><div class="action-item"><div class="action-num">3</div><div class="action-text"><strong>Начните утренний рутину исцеления кишечника</strong><p>Каждое утро перед едой возьмите L глутамин в воде и вашу капсулу пробиотика. Следуйте с теплой водой лимона для щелочизации и поддержки печени. Этот простой рутин может превратить ваше здоровье кишечника в течение 4-8 недель.</p></div></div><div class="action-item"><div class="action-num">4</div><div class="action-text"><strong>Начните мягкую ежедневную детоксикацию тяжелых металлов</strong><p>Добавьте свежую кинзу к одному блюду ежедневно и начните таблетки хлореллы с низкой начальной дозы. Объедините с ежедневным потом через упражнение или сауну, чтобы начать очищение ртути и алюминия, помеченные в вашем сканировании.</p></div></div><div class="action-item"><div class="action-num">5</div><div class="action-text"><strong>Получите ваш витамин D, щитовидную железу и полную панель крови</strong><p>Посетите ваше ГП или врача функциональной медицины и попросите панель щитовидной железы, витамин D, полный анализ крови и тест кортизола. Это поможет подтвердить то, что сканирование показывает и позволит вашему врачу руководить вашим планом дополнения безопасно.</p></div></div><div class="action-item"><div class="action-num">6</div><div class="action-text"><strong>Заказывайте оценку позвоночника с хиропрактиком или остеопатом</strong><p>Множественные позвоночные сегменты защемляют нервы, которые соединяют ваше сердце, легкие, почки и репродуктивные органы. Профессиональный уход позвоночника объединен с ежедневным растяжением и правильной гидратацией может сделать значительную разницу в течение недель.</p></div></div><div class="action-item"><div class="action-num">7</div><div class="action-text"><strong>Сокращение токсинового воздействия в вашей ежедневной окружающей среде</strong><p>Замените пластиковые контейнеры пищи и посуду, переключитесь на естественные чистящие продукты и сокращайте вашу использование высоко переработанных и упакованных пищ. Эти небольшие изменения сокращают текущую токсическую нагрузку, которая ускоряет ваш биологический возраст.</p></div></div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="closing-box">
+    <h3>Вы На Правильном Пути</h3>
+    <p>Анна, ваше тело говорит четко и это сканирование дало вам реальную карту для работы. Каждый вывод в этом отчете - это что-то, от которого ваше тело может восстановиться с правильной поддержкой, правильными врачами и некоторой последовательной ежедневной любовью к себе. Вы только 36, ваша пищеварительная система фундаментально сильна, и ваша биологическая щель возраста мала и полностью обратима. Начните с одного шага сегодня, доверьтесь процессу и знайте, что ваше тело всегда работает трудно, чтобы исцелить себя для вас.</p>
+  </div>
+</div>
+
+</div><!-- /body -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div><div class="footer-brand">Отчет о Благополучии BioScan</div><div class="footer-sub">Питаемое Life Expert · WebWellness Technologies</div></div>
+  <button class="pdf-btn" onclick="window.print()">⬇ Сохранить как PDF</button>
+  <div class="footer-disc">Этот отчет не является медицинским диагнозом. Все выводы - это только функциональные индикаторы. Всегда консультируйтесь с квалифицированным специалистом здравоохранения для подтверждения результатов.</div>
+</div>
+
+</div><!-- /wrap -->

@@ -1,0 +1,368 @@
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-dark:#1B4D5C;--teal-mid:#2A6A7D;--teal-light:#3D8FA6;
+  --cream:#F5F0E8;--cream-dark:#EDE7D9;--gold:#C4977A;--gold-light:#D4AF95;
+  --white:#FAFAF8;--text-dark:#1A1A1A;--text-mid:#4A4A4A;--text-light:#7A7A7A;
+  --green:#3D8A5C;--green-bg:#E8F5EE;--green-border:#C4E4D0;
+  --amber:#B87A10;--amber-bg:#FEF3E2;--amber-border:#F0D89A;
+  --red:#A83030;--red-bg:#FDEAEA;--red-border:#F0C0C0;
+  --lavender:#EEE8F8;--plum:#3D2B56;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#DDD9D0;color:var(--text-dark);font-size:14px;line-height:1.6;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+.wrap{max-width:800px;margin:0 auto;background:var(--white);box-shadow:0 8px 60px rgba(0,0,0,0.15);}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(140deg,var(--teal-dark) 0%,var(--teal-mid) 100%);padding:52px 56px 44px;color:#fff;position:relative;overflow:hidden;}
+.hdr-circle1{position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(196,151,122,0.10);pointer-events:none;}
+.hdr-circle2{position:absolute;right:90px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(196,151,122,0.06);pointer-events:none;}
+.hdr-badge{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+.hdr h1{font-size:36px;font-weight:700;line-height:1.15;margin-bottom:6px;position:relative;z-index:1;}
+.hdr-sub{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:36px;position:relative;z-index:1;}
+.hdr-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12);position:relative;z-index:1;}
+.stat{background:rgba(255,255,255,0.07);border-radius:12px;padding:16px 20px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold-light);line-height:1.2;margin-bottom:4px;}
+.stat-val.alert{color:#F4A58A;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;}
+.hdr-summary{font-size:13px;color:rgba(255,255,255,0.72);line-height:1.8;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);font-style:italic;max-width:600px;}
+
+/* ── BODY ── */
+.body{padding:52px 56px;}
+.section{margin-bottom:44px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--teal-dark);padding-bottom:12px;border-bottom:1.5px solid var(--cream-dark);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.sec-icon{font-size:15px;opacity:0.7;}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:16px;margin-bottom:16px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+/* ── BIO AGE ── */
+.bio-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:28px;color:#fff;}
+.age-nums{display:flex;gap:20px;align-items:center;flex-shrink:0;}
+.age-blk{text-align:center;}
+.age-num{font-family:'Playfair Display',serif;font-size:48px;line-height:1;color:var(--gold-light);}
+.age-num.alert{color:#F4A58A;}
+.age-sep{color:rgba(255,255,255,0.25);font-size:22px;align-self:center;margin-top:-4px;}
+.age-lbl{font-size:9px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.age-note{flex:1;border-left:1px solid rgba(255,255,255,0.12);padding-left:24px;}
+.age-note strong{font-family:'Playfair Display',serif;font-size:16px;color:#fff;display:block;margin-bottom:6px;font-weight:600;}
+.age-note p{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;}
+
+/* ── ORGAN GRID ── */
+.organ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.org-item{padding:11px 14px;border-radius:10px;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border:1px solid transparent;}
+.org-item.good{background:var(--green-bg);color:var(--green);border-color:var(--green-border);}
+.org-item.warn{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);}
+.org-item.flag{background:var(--red-bg);color:var(--red);border-color:var(--red-border);}
+.org-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.good .org-dot{background:var(--green);}
+.warn .org-dot{background:var(--amber);}
+.flag .org-dot{background:var(--red);}
+
+/* ── ALERT CARDS ── */
+.alert-card{border-left:3px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.alert-card.urgent{border-left-color:var(--red);}
+.alert-card strong{font-size:14px;color:var(--teal-dark);display:block;margin-bottom:5px;font-weight:600;}
+.alert-card p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── VIT BARS ── */
+.vit-row{margin-bottom:13px;}
+.vit-lbl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.vit-lbl span:first-child{font-weight:500;}
+.vit-lbl span:last-child{color:var(--text-light);font-size:11px;}
+.vit-bg{height:5px;background:var(--cream-dark);border-radius:3px;}
+.vit-fill{height:5px;border-radius:3px;transition:width .3s;}
+
+/* ── GUT ── */
+.gut-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.gut-item{padding:14px 16px;border-radius:10px;background:var(--cream);}
+.gut-label{font-size:12px;font-weight:600;color:var(--teal-dark);margin-bottom:5px;}
+.gut-badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.gut-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.gut-badge.high{background:var(--red-bg);color:var(--red);}
+.gut-connect{font-size:11px;color:var(--text-mid);margin-top:5px;line-height:1.5;}
+
+/* ── FOOD SENSITIVITIES ── */
+.food-disclaimer{background:var(--cream);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:var(--text-mid);line-height:1.6;border-left:3px solid var(--gold);}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.food-item{background:var(--cream);padding:10px 12px;border-radius:8px;font-size:12px;}
+.food-item strong{color:var(--teal-dark);display:block;margin-bottom:2px;font-weight:600;font-size:12px;}
+.food-item p{color:var(--text-mid);font-size:11px;line-height:1.4;}
+
+/* ── METALS ── */
+.metal-item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.metal-item:last-child{border-bottom:none;}
+.metal-badge{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
+.metal-badge.high{background:var(--red-bg);color:var(--red);}
+.metal-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.metal-badge.low{background:var(--green-bg);color:var(--green);}
+.metal-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.metal-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.metal-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── WATER ── */
+.water-box{background:linear-gradient(135deg,#1B4D5C,#2A6A7D);border-radius:14px;padding:22px 28px;display:flex;align-items:center;gap:24px;color:#fff;}
+.water-amount{font-family:'Playfair Display',serif;font-size:44px;color:var(--gold-light);flex-shrink:0;line-height:1;}
+.water-unit{font-size:14px;color:rgba(255,255,255,0.55);margin-top:2px;text-transform:uppercase;letter-spacing:1px;}
+.water-sep{width:1px;background:rgba(255,255,255,0.15);align-self:stretch;}
+.water-note{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;padding-left:4px;}
+.water-note strong{color:#fff;display:block;margin-bottom:4px;font-size:14px;}
+
+/* ── CHAKRAS ── */
+.chakra-row{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;text-align:center;margin-bottom:20px;}
+.ck-orb{width:42px;height:42px;border-radius:50%;margin:0 auto 7px;border:3px solid transparent;}
+.ck-orb.open{opacity:1;}
+.ck-orb.opening{opacity:0.55;}
+.ck-orb.closed{opacity:0.25;filter:grayscale(60%);}
+.ck-name{font-size:9px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;}
+.ck-status{font-size:9px;color:var(--text-mid);margin-top:2px;}
+.chakra-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ck-detail-item{background:var(--lavender);padding:12px 16px;border-radius:10px;}
+.ck-detail-item strong{font-size:12px;color:var(--plum);display:block;margin-bottom:3px;font-weight:600;}
+.ck-detail-item p{font-size:12px;color:var(--text-mid);line-height:1.55;}
+
+/* ── AMINO ACIDS ── */
+.amino-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.amino-item:last-child{border-bottom:none;}
+.amino-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.amino-badge.deficient{background:var(--red-bg);color:var(--red);}
+.amino-badge.adequate{background:var(--green-bg);color:var(--green);}
+.amino-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.amino-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── PARASITES ── */
+.parasite-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.parasite-item:last-child{border-bottom:none;}
+.prob-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;flex-shrink:0;margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.prob-badge.high{background:var(--red-bg);color:var(--red);}
+.prob-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.parasite-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.parasite-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── SPINE ── */
+.spine-box{background:var(--cream);border-radius:12px;padding:18px 22px;}
+.spine-segments{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.spine-seg{background:#fff;border:1px solid var(--amber-border);color:var(--amber);padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;}
+
+/* ── ZODIACAL DIET ── */
+.zodiac-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.zodiac-eat{background:var(--green-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-avoid{background:var(--red-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.zodiac-eat .zodiac-title{color:var(--green);}
+.zodiac-avoid .zodiac-title{color:var(--red);}
+.zodiac-list{list-style:none;padding:0;margin:0;}
+.zodiac-list li{font-size:12px;color:var(--text-mid);padding:3px 0;line-height:1.4;}
+
+/* ── PSYCHO ── */
+.psycho-item{background:var(--lavender);border-left:3px solid var(--plum);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.psycho-item strong{font-size:13px;color:var(--plum);display:block;margin-bottom:5px;font-weight:600;}
+.psycho-item p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── HOME TIPS ── */
+.tips-category{margin-bottom:18px;}
+.tips-cat-title{font-size:13px;font-weight:600;color:var(--teal-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.tips-list{display:flex;flex-direction:column;gap:6px;}
+.tip-item{display:flex;gap:10px;align-items:flex-start;}
+.tip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;}
+.tip-text{font-size:13px;color:var(--text-mid);line-height:1.6;}
+
+/* ── PROGRAMS ── */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prog-item{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));padding:16px 18px;border-radius:10px;}
+.prog-item strong{font-size:12px;color:var(--gold-light);display:block;margin-bottom:4px;}
+.prog-item p{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
+
+/* ── SUPPLEMENTS ── */
+.supp-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.supp-item:last-child{border-bottom:none;}
+.supp-src{padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.supp-src.iHerb{background:var(--green-bg);color:var(--green);}
+.supp-src.doTERRA{background:var(--amber-bg);color:var(--amber);}
+.supp-src.general{background:var(--cream-dark);color:var(--text-light);}
+.supp-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.supp-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.supp-dose{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── DOCTORS ── */
+.doc-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon{width:36px;height:36px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.doc-info strong{font-size:13px;color:var(--teal-dark);display:block;margin-bottom:3px;font-weight:600;}
+.doc-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.doc-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── ACTION PLAN ── */
+.action-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--cream-dark);}
+.action-item:last-child{border-bottom:none;}
+.action-num{width:30px;height:30px;background:var(--teal-dark);color:#fff;border-radius:50%;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.action-text strong{font-size:14px;display:block;margin-bottom:4px;font-weight:600;}
+.action-text p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── CLOSING ── */
+.closing-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:36px 40px;text-align:center;}
+.closing-box h3{font-size:22px;color:var(--gold-light);margin-bottom:14px;font-weight:600;}
+.closing-box p{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.8;max-width:540px;margin:0 auto;}
+
+/* ── FOOTER ── */
+.footer{background:var(--cream);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--cream-dark);}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--teal-dark);font-weight:600;}
+.footer-sub{font-size:10px;color:var(--text-light);margin-top:2px;}
+.footer-disc{font-size:9px;color:var(--text-light);max-width:280px;text-align:right;line-height:1.6;}
+.pdf-btn{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.3px;}
+
+@media print{
+  body{background:#fff;}
+  .wrap{box-shadow:none;max-width:100%;}
+  .pdf-btn{display:none;}
+}
+</style>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-circle1"></div>
+  <div class="hdr-circle2"></div>
+  <div class="hdr-badge">BioScan Wellness Report</div>
+  <h1>Anna Chugaeva's Wellness Report</h1>
+  <p class="hdr-sub">Life Expert Profi Scan · 2026-04-16 · Female, 36 years</p>
+  <div class="hdr-stats">
+    <div class="stat"><div class="stat-lbl">Overall Status</div><div class="stat-val">Satisfactory</div></div>
+    <div class="stat"><div class="stat-lbl">Biological Age</div><div class="stat-val alert">39</div></div>
+    <div class="stat"><div class="stat-lbl">Energy Level</div><div class="stat-val">24.5 / Average</div></div>
+    <div class="stat"><div class="stat-lbl">pH Balance</div><div class="stat-val">Mild Alkaline</div></div>
+  </div>
+  <div class="hdr-summary">Anna, your scan shows your body is holding up well overall, but several systems are calling for attention right now. Your respiratory system, joints, thymus, and cardiovascular circulation are showing signs of stress, and there are strong signals around gut health, hormonal balance, and toxic load. The good news is your digestive core is mostly intact and your body has real capacity to recover with the right support.</div>
+</div>
+
+<div class="body">
+
+<!-- BIOLOGICAL AGE -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Biological Age</div>
+  <div class="bio-box">
+    <div class="age-nums">
+      <div class="age-blk"><div class="age-num">36</div><div class="age-lbl">Real Age</div></div>
+      <div class="age-sep">→</div>
+      <div class="age-blk"><div class="age-num alert">39</div><div class="age-lbl">Bio Age</div></div>
+    </div>
+    <div class="age-note"><strong>Your body is aging 3 years faster than expected</strong><p>Your biological age reads 3 years older than your real age, likely driven by hormonal imbalance, toxic buildup, and insufficient movement. Reducing processed foods, supporting detox pathways, and adding daily outdoor movement can start turning this around quickly.</p></div>
+  </div>
+</div>
+
+<!-- ORGAN DASHBOARD -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Organ Dashboard</div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div> Balanced</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div> Needs Attention</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div> Priority</div>
+  </div>
+  <div class="organ-grid"><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Balanced</div><div class="org-item good"><span>Stomach</span><span class="org-dot"></span></div><div class="org-item good"><span>Small Intestine</span><span class="org-dot"></span></div><div class="org-item good"><span>Adrenal Glands (Both)</span><span class="org-dot"></span></div><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Needs Attention</div><div class="org-item warn"><span>Hand Joints (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Leg Joints (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Arterial System (Left Heart)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Bronchi (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Lungs (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Spleen</span><span class="org-dot"></span></div><div class="org-item warn"><span>Mammary Glands (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Thyroid Gland (Left Lobe)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Liver</span><span class="org-dot"></span></div><div class="org-item warn"><span>Gallbladder</span><span class="org-dot"></span></div><div class="org-item warn"><span>Kidneys (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Ovaries (Both)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Pancreas</span><span class="org-dot"></span></div><div class="org-item warn"><span>Hypothalamus</span><span class="org-dot"></span></div><div class="org-item warn"><span>Hypophysis (Pituitary)</span><span class="org-dot"></span></div><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Priority</div><div class="org-item flag"><span>Larynx and Trachea</span><span class="org-dot"></span></div><div class="org-item flag"><span>Ascending Large Intestine and Appendix</span><span class="org-dot"></span></div><div class="org-item flag"><span>Venous System (Right Heart)</span><span class="org-dot"></span></div><div class="org-item flag"><span>Thymus</span><span class="org-dot"></span></div><div class="org-item flag"><span>Uterus</span><span class="org-dot"></span></div></div>
+</div>
+
+<!-- KEY FINDINGS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Key Findings</div>
+  <div class="alert-card "><strong>Respiratory Stress and Lung Pathogens</strong><p>Your scan flags the larynx, bronchi, and lungs as stressed, and several high probability lung pathogens were detected including fungal and parasitic organisms. This is one of the most important areas to follow up on with a doctor this month.</p></div><div class="alert-card "><strong>Uterine and Hormonal Imbalance</strong><p>The scan suggests possible endometrial tissue spreading outside its normal location (a condition sometimes called endometriosis), plus HPV and mycoplasma signals in the reproductive area. Please see a gynecologist soon for a proper examination.</p></div><div class="alert-card "><strong>Gut Pathogen Overload and Digestive Disruption</strong><p>Multiple gut pathogens including candida, worms, and bacteria are flagged at high probability, and your intestines are showing signs of irritation and enzyme deficiency. Supporting your gut now will have a positive ripple effect on your energy, immunity, and hormones.</p></div><div class="alert-card urgent"><strong>Heavy Metal and Toxin Accumulation</strong><p>Your scan shows elevated levels of mercury, aluminium, cadmium, and several other metals, alongside pesticide and food additive toxin load. These can silently affect your brain, liver, thyroid, and immune system over time.</p></div><div class="alert-card "><strong>Spinal Compression and Joint Stress</strong><p>Multiple spinal segments are flagged including thoracic and lumbar vertebrae, with signs of disc dehydration, poor posture load, and nerve pinching affecting your heart, lungs, kidneys, and reproductive organs. Seeing a chiropractor or osteopath soon is strongly recommended.</p></div><div class="alert-card "><strong>Thyroid and Immune Suppression</strong><p>Your thymus and thyroid left lobe are both reading underactive, and the scan flags autoimmune thyroiditis as a likely pattern. Your immune training center needs support alongside thyroid hormone monitoring.</p></div>
+</div>
+
+<!-- WATER INTAKE -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Daily Water Target</div>
+  <div class="water-box">
+    <div><div class="water-amount">1.8L</div><div class="water-unit">per day</div></div>
+    <div class="water-sep"></div>
+    <div class="water-note"><strong>Hydration is your first medicine</strong>Staying well hydrated every day helps flush the toxins your scan flagged and keeps your spine discs, joints, and kidneys working properly.</div>
+  </div>
+</div>
+
+<!-- VITAMINS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Vitamin &amp; Mineral Status</div>
+  <div class="vit-row"><div class="vit-lbl"><span>Vitamin A</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B1 (Thiamine)</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin C</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin E</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin K1</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin F (Essential Fatty Acids)</span><span>Low</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin D</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:9%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B9 (Folate)</span><span>Deficient</span></div><div class="vit-bg"><div class="vit-fill" style="width:11%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin H (Biotin)</span><span>Low</span></div><div class="vit-bg"><div class="vit-fill" style="width:16%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B5 (Pantothenic Acid)</span><span>Low</span></div><div class="vit-bg"><div class="vit-fill" style="width:17%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B2 (Riboflavin)</span><span>Good</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B3 (Niacin)</span><span>Good</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B6</span><span>Good</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin B12</span><span>Good</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>Vitamin P (Bioflavonoids)</span><span>Good</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div>
+</div>
+
+<!-- AMINO ACIDS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Amino Acid Deficiencies</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Amino acids are the building blocks your body uses to make proteins, hormones and neurotransmitters. These are the ones your scan suggests need support.</p><div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>Taurine</strong><p>Taurine protects your heart and nervous system and your levels are low. Eat more fish, meat, and dairy, and ask your doctor about supplementing.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>Citrulline</strong><p>Citrulline helps lower blood pressure, clear toxins from the liver, and improve circulation. Eat watermelon, fish, and legumes more often.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>GABA (Gamma Aminobutyric Acid)</strong><p>GABA is your brain's calming chemical and low levels can cause anxiety, poor sleep, and pain. Fermented foods, tomatoes, and GABA tea can help boost levels naturally.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>Histidine</strong><p>Histidine supports nerve protection, red and white blood cell production, and tissue repair. Add bananas, fish, beef, and rye bread to your weekly meals.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>Valine</strong><p>Valine is flagged as deficient in the supposed changes report. It supports muscle repair and energy balance. Found in dairy, grains, and legumes.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>Aspartic Acid</strong><p>Flagged as deficient in your scan. It supports energy production and nervous system function. Found in asparagus, avocado, and sprouted seeds.</p></div></div></div>
+
+<!-- HEAVY METALS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Heavy Metal Indicators</div><div class="metal-item"><span class="metal-badge high">high</span><div class="metal-info"><strong>Mercury</strong><p>Affects: Brain, kidneys, liver, thyroid</p><div class="metal-test">Confirm with: Ask your doctor for a urine heavy metals test or a hair mineral analysis test at a functional medicine clinic.</div></div></div><div class="metal-item"><span class="metal-badge high">high</span><div class="metal-info"><strong>Aluminium</strong><p>Affects: Brain, bones, kidneys</p><div class="metal-test">Confirm with: Request a hair mineral analysis or a serum aluminium blood test from your GP or functional medicine doctor.</div></div></div><div class="metal-item"><span class="metal-badge moderate">moderate</span><div class="metal-info"><strong>Cadmium</strong><p>Affects: Kidneys, liver, lungs, bones</p><div class="metal-test">Confirm with: A urine cadmium test or hair mineral analysis can confirm this. Ask your doctor or a functional medicine specialist.</div></div></div><div class="metal-item"><span class="metal-badge moderate">moderate</span><div class="metal-info"><strong>Copper</strong><p>Affects: Liver, brain, joints</p><div class="metal-test">Confirm with: A simple blood test checking serum copper and zinc levels will give you a clear picture.</div></div></div><div class="metal-item"><span class="metal-badge moderate">moderate</span><div class="metal-info"><strong>Manganese</strong><p>Affects: Brain, nervous system, liver</p><div class="metal-test">Confirm with: A blood or hair mineral analysis test can confirm manganese levels. Ask at a functional medicine or integrative health clinic.</div></div></div><div class="metal-item"><span class="metal-badge low">low</span><div class="metal-info"><strong>Silver</strong><p>Affects: Skin, kidneys</p><div class="metal-test">Confirm with: Hair mineral analysis will show silver accumulation alongside your other metals.</div></div></div><div class="metal-item"><span class="metal-badge low">low</span><div class="metal-info"><strong>Molybdenum</strong><p>Affects: Liver, gut</p><div class="metal-test">Confirm with: A hair mineral analysis or functional blood panel can check this alongside your other metal levels.</div></div></div></div>
+
+<!-- PARASITES -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Pathogen Activity Indicators</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">The scan detected resonance patterns that may indicate pathogen activity. These are not a diagnosis. A stool test, blood panel, or functional medicine doctor can confirm.</p><div class="parasite-item"><span class="prob-badge moderate">96%</span><div class="parasite-info"><strong>Mucor mucedo (Fungus)</strong><p>Area: Small intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Nocardia asteroides (Bacteria)</strong><p>Area: Lung tissue</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Toxocara canis (Helminths)</strong><p>Area: Heart muscle and heart chambers</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Mycoplasma genitalium (Bacteria)</strong><p>Area: Vagina and reproductive area</p></div></div><div class="parasite-item"><span class="prob-badge moderate">96%</span><div class="parasite-info"><strong>Paragonimus westermani (Helminths)</strong><p>Area: Lung tissue</p></div></div><div class="parasite-item"><span class="prob-badge moderate">88%</span><div class="parasite-info"><strong>Candida robista (Fungus)</strong><p>Area: Mouth, tonsils, small intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">83%</span><div class="parasite-info"><strong>Necator americanus (Helminths)</strong><p>Area: Small intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">80%</span><div class="parasite-info"><strong>Human Orthopneumovirus (Virus)</strong><p>Area: Nasal passages</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Human Papillomavirus HPV (Virus)</strong><p>Area: Vagina and uterus</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Borrelia burgdorferi (Bacteria)</strong><p>Area: Brain structures</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Ascaris lumbricoides (Helminths)</strong><p>Area: Small intestine and large intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Candida glabrata (Fungus)</strong><p>Area: Vagina</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Stenotrophomonas maltophilia (Bacteria)</strong><p>Area: Bile ducts</p></div></div><div class="parasite-item"><span class="prob-badge moderate">78%</span><div class="parasite-info"><strong>Flavimonas oryzihabitans (Bacteria)</strong><p>Area: Small intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">75%</span><div class="parasite-info"><strong>Histoplasma capsulatum (Fungus)</strong><p>Area: Lung tissue</p></div></div><div class="parasite-item"><span class="prob-badge moderate">73%</span><div class="parasite-info"><strong>Trichuris trichiura (Helminths)</strong><p>Area: Large intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">72%</span><div class="parasite-info"><strong>Agrobacterium radiobacter (Bacteria)</strong><p>Area: Small intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">59%</span><div class="parasite-info"><strong>Eimeria (Protozoa)</strong><p>Area: Large intestine</p></div></div><div class="parasite-item"><span class="prob-badge moderate">84%</span><div class="parasite-info"><strong>Clonorchis sinensis (Helminths)</strong><p>Area: Bile ducts and gallbladder</p></div></div></div>
+
+<!-- GUT HEALTH -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Gut Health Indicators</div><div class="gut-grid"><div class="gut-item"><div class="gut-label">SIBO</div><span class="gut-badge high">High</span><div class=gut-connect>Connected to: Liver, thyroid, thymus, spleen, lungs, uterus, kidneys, and skin are all connected to the gut pathogen and candida load flagged in this scan.</div></div><div class="gut-item"><div class="gut-label">Leaky Gut</div><span class="gut-badge high">High</span><div class=gut-connect>Connected to: Liver, thyroid, thymus, spleen, lungs, uterus, kidneys, and skin are all connected to the gut pathogen and candida load flagged in this scan.</div></div><div class="gut-item"><div class="gut-label">Candida</div><span class="gut-badge high">High</span><div class=gut-connect>Connected to: Liver, thyroid, thymus, spleen, lungs, uterus, kidneys, and skin are all connected to the gut pathogen and candida load flagged in this scan.</div></div></div><div class="alert-card"><p>Your scan shows a high chance of candida overgrowth (too much yeast in your body), bacterial imbalance in the small intestine, and a gut lining that may be damaged and letting toxins through. This gut stress is very likely contributing to your hormonal imbalance, fatigue, skin issues, and lowered immunity.</p></div></div>
+
+<!-- FOOD SENSITIVITIES -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Food Sensitivity Patterns</div><div class="food-disclaimer">These are bioresonance resonance patterns, not confirmed allergies. Consider reducing these foods for 2 to 4 weeks and observe how your body responds.</div><div class="food-grid"><div class="food-item"><strong>Refined sugar and sweets</strong><p>Your scan and candida findings strongly suggest sugar is feeding unwanted organisms in your gut right now.</p></div><div class="food-item"><strong>Bread and yeast products</strong><p>Yeast based foods may aggravate the candida and gut bacteria imbalance flagged in this scan.</p></div><div class="food-item"><strong>Alcohol</strong><p>Alcohol puts extra pressure on your already stressed liver and feeds candida overgrowth.</p></div><div class="food-item"><strong>Large fish (tuna, swordfish, mackerel)</strong><p>These fish are high in mercury, which your scan already flags as elevated in your body.</p></div><div class="food-item"><strong>Highly processed and refined foods</strong><p>The scan specifically flags frequent consumption of refined foods as a driver of your current digestive and metabolic stress.</p></div><div class="food-item"><strong>Highly mineralized water</strong><p>Your scan flags that you may be drinking overly mineralized water, which can affect kidney and electrolyte balance.</p></div><div class="food-item"><strong>Dairy (consider rotating)</strong><p>With the gut pathogen load flagged, consider taking a short break from dairy to reduce mucus and fermentation in the gut.</p></div></div></div>
+
+<!-- SPINE -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Spine Assessment</div><div class="spine-box"><p style="font-size:13px;color:var(--text-mid);line-height:1.65;">Your spine scan shows significant stress across multiple regions, especially in the thoracic (mid back) and lumbar (lower back) areas, with disc dehydration, loss of height, and signs of nerve pinching affecting your heart, lungs, kidneys, and reproductive organs.</p><div class=spine-segments><span class="spine-seg">C2 (eyes, auditory nerve, temporal bones)</span><span class="spine-seg">C3 (cheeks, facial nerve, teeth)</span><span class="spine-seg">Th1 (esophagus, bronchi, hands and wrists)</span><span class="spine-seg">Th2 (heart and coronary arteries)</span><span class="spine-seg">Th3 (bronchi, lungs, breast)</span><span class="spine-seg">Th4 (gallbladder and bile duct)</span><span class="spine-seg">Th7 (pancreas and duodenum)</span><span class="spine-seg">Th8 (spleen and diaphragm)</span><span class="spine-seg">Th10 (kidneys)</span><span class="spine-seg">L2 (lower abdomen and thighs)</span><span class="spine-seg">L3 (reproductive organs, bladder, knees)</span><span class="spine-seg">L4 (sciatic nerve)</span><span class="spine-seg">L5 (shins, feet, toes)</span><span class="spine-seg">Sacrum (rectum, femoral bones, buttocks)</span></div><p style="font-size:12px;color:var(--gold);margin-top:10px;font-style:italic;">Recommended specialist: Chiropractor, osteopath, or spinal physiotherapist</p></div></div>
+
+<!-- CHAKRAS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Chakra Energy Flow</div>
+  <p style="font-size:13px;color:#7A7A7A;margin-bottom:20px;line-height:1.6;">Each chakra is an energy centre in your body. A bright circle means energy is flowing freely. A faded circle means energy is low or blocked. This affects how you feel physically and emotionally.</p>
+  <div class="chakra-row"><div><div class="ck-orb open" style="background:#EE8888;border-color:#C84040;"></div><div class="ck-name">Muladhara (Root)</div><div class="ck-status" style="color:#2A7A4A;">Open</div></div><div><div class="ck-orb opening" style="background:#F4A860;border-color:#B86820;"></div><div class="ck-name">Svadhishthana (Sacral)</div><div class="ck-status" style="color:#B87A10;">Opening</div></div><div><div class="ck-orb opening" style="background:#E8D040;border-color:#9A8800;"></div><div class="ck-name">Manipura (Solar Plexus)</div><div class="ck-status" style="color:#B87A10;">Opening</div></div><div><div class="ck-orb opening" style="background:#60C880;border-color:#2A7A4A;"></div><div class="ck-name">Anahata (Heart)</div><div class="ck-status" style="color:#B87A10;">Opening</div></div><div><div class="ck-orb opening" style="background:#60A0E0;border-color:#2060A8;"></div><div class="ck-name">Vishuddha (Throat)</div><div class="ck-status" style="color:#B87A10;">Opening</div></div><div><div class="ck-orb opening" style="background:#9880D8;border-color:#5040A0;"></div><div class="ck-name">Ajna (Third Eye)</div><div class="ck-status" style="color:#B87A10;">Opening</div></div><div><div class="ck-orb opening" style="background:#C890E8;border-color:#7840A0;"></div><div class="ck-name">Sahasrara (Crown)</div><div class="ck-status" style="color:#B87A10;">Opening</div></div></div>
+  <div class="chakra-detail" style="margin-top:16px;"><div class="ck-detail-item" style="border-top:2.5px solid #EE8888;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#EE8888;flex-shrink:0;display:inline-block;"></span>Muladhara (Root)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#2A7A4A;text-transform:uppercase;letter-spacing:0.5px;">Open</span></strong><p>Your root chakra is your strongest energy center right now, supporting your basic survival and grounding energy.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #F4A860;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#F4A860;flex-shrink:0;display:inline-block;"></span>Svadhishthana (Sacral)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>Your creative and emotional energy is active but still unfolding. Nurturing your relationships and creative outlets will strengthen this center.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #E8D040;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#E8D040;flex-shrink:0;display:inline-block;"></span>Manipura (Solar Plexus)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>Your willpower and confidence center is opening. Trusting your own decisions more fully will keep this energy flowing.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #60C880;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#60C880;flex-shrink:0;display:inline-block;"></span>Anahata (Heart)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>Your heart center is in the process of opening. Practicing self compassion and setting healthy emotional boundaries will help this chakra fully expand.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #60A0E0;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#60A0E0;flex-shrink:0;display:inline-block;"></span>Vishuddha (Throat)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>Your throat chakra connects directly to your thyroid health and your ability to speak your truth. Expressing yourself openly and honestly supports healing here.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #9880D8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#9880D8;flex-shrink:0;display:inline-block;"></span>Ajna (Third Eye)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>Your intuition and clarity are developing. Spending quiet time daily in reflection or meditation will deepen your inner knowing.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #C890E8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#C890E8;flex-shrink:0;display:inline-block;"></span>Sahasrara (Crown)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>Your connection to higher awareness is gently opening. Spending time in nature and allowing yourself stillness will support this expansion.</p></div></div>
+</div>
+
+<!-- MIND BODY -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Mind-Body Patterns</div>
+  <div class="psycho-item"><strong>Suppressed self expression linked to throat and thyroid stress</strong><p>Your scan and chakra profile both point to a pattern where holding back your true voice or opinions may be showing up physically in your throat and thyroid. This week, try writing freely in a journal with no filter, and notice how much you hold back in daily conversations.</p></div><div class="psycho-item"><strong>Unprocessed emotional tension stored in the gut and reproductive system</strong><p>Your chakra analysis suggests a powerful creative and emotional energy that may not be fully expressed, and this can settle into the belly and womb area as physical tension. Daily gentle movement like yoga, dance, or even a short walk while paying attention to how you feel emotionally can help release this stored stress.</p></div><div class="psycho-item"><strong>Low root energy and chronic survival stress affecting immunity and joints</strong><p>Your Muladhara (root chakra) capacity reading of 30 percent suggests your body may be running on borrowed energy, making joints and immunity the first to suffer. Building small daily rituals of safety and stability like morning sunlight, a warm breakfast, and 10 minutes outside with bare feet on grass can genuinely help recharge this energy center.</p></div><div class="psycho-item"><strong>Chronic stress and hormonal volatility showing in the heart and cardiovascular system</strong><p>The scan flags sympathoadrenal crises (sudden surges of stress hormones, like adrenaline rushes) and irregular heartbeat patterns. Daily breathwork, even just 5 minutes of slow deep breathing in the morning, can calm your nervous system and reduce the load on your heart and adrenal glands.</p></div>
+</div>
+
+<!-- HOME TIPS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> What You Can Do at Home</div>
+  <div class="tips-category"><div class="tips-cat-title">Morning Routine</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Start every morning with a large glass of warm water with fresh lemon juice squeezed in. This gently alkalises your body and wakes up your liver.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Do the morning saliva test for candida before you eat or brush your teeth. Spit in a clear glass of water. If strings form and drop downward within 30 minutes, candida is likely active.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Take your L glutamine powder in water and your probiotics on an empty stomach before breakfast for maximum gut lining repair.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Gut and Candida Healing</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Cut out all sugar, white bread, alcohol, and yeast products for at least 4 weeks. This is the single most powerful thing you can do for candida and gut bacteria right now.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Eat one clove of raw garlic daily (chop and swallow with water or mix into dressing). Raw garlic is a natural antifungal and antibacterial.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Cook with coconut oil daily. It contains a natural compound called caprylic acid that kills candida.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Drink bone broth (homemade or quality store bought) once a day to heal and seal your gut lining.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Add fermented foods like plain kefir, sauerkraut, or kimchi to one meal daily to rebuild your good gut bacteria.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Heavy Metal Detox</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Eat a small bunch of fresh cilantro (coriander) every single day. It gently pulls mercury and aluminium out of brain tissue over time.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Sweat for at least 20 to 30 minutes every day through exercise, a sauna, or even a hot bath. Sweating is one of the most effective ways to release heavy metals through your skin.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Avoid large predatory fish (tuna, swordfish, shark) completely for the next 3 months while detoxing mercury.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Check your cookware. Avoid aluminium pots and pans and switch to stainless steel or cast iron.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Spine and Joint Care</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Drink your full daily water target (around 1.8 liters) consistently. Your spinal discs are dehydrated and water is the first medicine they need.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Do 10 minutes of gentle cat cow stretches, neck rolls, and thoracic spine mobility work each morning before getting up from bed.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Walk barefoot on grass or natural ground for 10 to 15 minutes daily. This reduces inflammation in joints and helps reset posture and foot arch alignment.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Add magnesium rich foods (dark chocolate, pumpkin seeds, leafy greens) and calcium rich foods (sesame seeds, sardines with bones) daily for bone and disc mineral support.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Hormonal and Reproductive Support</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Reduce and work toward eliminating all plastic food containers, plastic water bottles, and plastic wrap from your kitchen. Plastics release chemicals that mimic hormones and disrupt your thyroid and reproductive system.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Eat cruciferous vegetables (broccoli, cauliflower, Brussels sprouts, kale) at least 4 times a week. They help your liver break down excess estrogen.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Practice 5 to 10 minutes of slow belly breathing before sleep each night to lower cortisol (your stress hormone) and support overnight hormonal reset.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Book a gynecology appointment this month. Do not wait. The uterine and HPV signals in this scan need a proper medical check.</div></div></div></div>
+</div>
+
+<!-- LIFE BALANCE PROGRAMS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Recommended Life Balance Programs</div>
+  <div class="prog-grid"><div class="prog-item"><strong>Gut Healing and Microbiome Restoration</strong><p>The multiple gut pathogens, candida overgrowth, and digestive disruption flagged in this scan make gut healing the number one priority program for Anna right now.</p></div><div class="prog-item"><strong>Heavy Metal and Environmental Detox</strong><p>With 7 heavy metals elevated and high pesticide and food additive toxin load, a gentle structured detox program is essential to protect Anna's brain, liver, and thyroid.</p></div><div class="prog-item"><strong>Hormonal Balance and Reproductive Health Support</strong><p>The uterine, ovarian, and thyroid findings combined with HPV and mycoplasma signals mean Anna needs a dedicated hormonal rebalancing program.</p></div><div class="prog-item"><strong>Spinal Rehabilitation and Joint Support</strong><p>Multiple flagged spinal segments, joint stress in all four limbs, and disc dehydration make spinal care and joint nourishment a priority program alongside the other areas.</p></div><div class="prog-item"><strong>Immune System and Respiratory Strengthening</strong><p>The thymus underactivity, lung pathogen load, and bronchial stress call for a targeted immune and respiratory strengthening program.</p></div></div>
+</div>
+
+<!-- ZODIACAL DIET -->
+<div class="section"><div class="sec-title"><span class="sec-icon">✦</span> Aries Nutritional Profile</div><p style="font-size:13px;color:var(--text-light);margin-bottom:14px;line-height:1.6;">Your Life Expert scan includes a zodiacal nutritional profile based on your sign's constitutional tendencies and vulnerable body systems.</p><div class="zodiac-grid"><div class="zodiac-eat"><div class="zodiac-title">Eat More</div><ul class="zodiac-list"><li>Iron rich foods like red lentils, spinach, and grass fed beef</li><li>Fresh ginger and turmeric for head and blood circulation support</li><li>Beets and pomegranate for blood building and brain circulation</li><li>Pumpkin seeds and sesame seeds for zinc and mineral support</li></ul></div><div class="zodiac-avoid"><div class="zodiac-title">Reduce or Avoid</div><ul class="zodiac-list"><li>Excess spicy foods and stimulants like coffee which overheat an already fired up Aries system</li><li>Alcohol which depletes the B vitamins Aries needs most</li><li>Processed meats and fast food which clog the circulation</li><li>Excess red meat without balance as Aries rules the head and blood and too much can cause heat and pressure</li></ul></div></div><p style="font-size:12px;color:var(--text-mid);margin-top:12px;line-height:1.6;">Iron is the most important mineral for Aries, as this sign rules the blood and head, and low iron directly contributes to the fatigue, headaches, and brain circulation issues flagged in Anna's scan.</p></div>
+
+<!-- SUPPLEMENTS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Supplement Recommendations</div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Vitamin D3 with K2</strong><p>Your vitamin D is critically low and this directly affects your immunity, bones, thyroid, and mood.</p><div class="supp-dose">2000 to 5000 IU of D3 with 100mcg K2 daily with food. Confirm dose with your doctor first.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Vitamin A (Retinol form)</strong><p>Your vitamin A is nearly depleted which affects your eyes, skin, and immune system.</p><div class="supp-dose">2500 to 5000 IU daily with a fat containing meal. Ask your doctor before starting.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Liposomal Vitamin C</strong><p>Critically low vitamin C is compromising your immunity, blood vessel health, and collagen production.</p><div class="supp-dose">500 to 1000mg daily with meals.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>L Glutamine Powder</strong><p>L Glutamine rebuilds the gut lining, directly addressing the leaky gut pattern flagged in this scan.</p><div class="supp-dose">5g in water on an empty stomach every morning for 4 to 8 weeks.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Chlorella Tablets</strong><p>Chlorella binds and removes heavy metals (especially mercury and aluminium) from the gut and is one of the safest detox tools available.</p><div class="supp-dose">Start with 1g per day and slowly increase to 3g per day over 2 weeks. Take with water away from meals.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Probiotics (Multi strain with Lactobacillus and Bifidobacterium)</strong><p>Your gut microbiome needs urgent rebuilding given the candida, bacterial overgrowth, and pathogen load in this scan.</p><div class="supp-dose">20 to 50 billion CFU once daily on an empty stomach in the morning.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Magnesium Glycinate</strong><p>Supports your nervous system, reduces muscle tension in the spine and joints, improves sleep, and helps counter GABA deficiency.</p><div class="supp-dose">300 to 400mg before bed each night.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Zinc Bisglycinate</strong><p>Zinc deficiency is directly flagged in your scan. It is critical for immune function, gut lining repair, thyroid health, and wound healing.</p><div class="supp-dose">15 to 25mg daily with food. Do not exceed 40mg per day.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>GABA Supplement</strong><p>Your GABA amino acid is deficient and supplementing can help ease anxiety, improve sleep, and reduce the chronic pain and tension seen in this scan.</p><div class="supp-dose">250 to 500mg before bed or in moments of high anxiety.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Taurine</strong><p>Taurine protects your heart, brain, and immune system and your scan shows it is depleted.</p><div class="supp-dose">500 to 1000mg daily with meals.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Omega 3 Fish Oil (high EPA DHA)</strong><p>Addresses your Vitamin F deficiency, supports brain health, reduces inflammation throughout the body, and helps balance hormones.</p><div class="supp-dose">2 to 3g of combined EPA and DHA daily with food.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Folate (Methylfolate B9)</strong><p>Your B9 is very low, affecting your blood health, DNA repair, and gut lining regeneration.</p><div class="supp-dose">400 to 800mcg daily. Use methylfolate form for better absorption.</div></div></div></div>
+
+<!-- DOTERRA -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> doTERRA Essential Oil Protocols</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">To order doTERRA products, contact Aniko directly via Instagram @anikopuhova.ai</p><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Oregano Oil</strong><p>Oregano oil is a powerful natural antifungal and antibacterial that can help address the candida and bacterial overgrowth flagged in Anna's gut.</p><div class="supp-dose">1 drop in a capsule with food, 3 times per week (not every day). Use for no more than 10 days at a time.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA On Guard Protective Blend</strong><p>This blend supports immune defence and respiratory health, directly addressing Anna's lung pathogen load and thymus underactivity.</p><div class="supp-dose">Diffuse in the bedroom at night or apply 2 drops diluted on the chest each morning.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Zendocrine Detoxification Blend</strong><p>Supports the liver and detox organs to help process the heavy metal and toxin load flagged in Anna's scan.</p><div class="supp-dose">2 drops diluted and applied over the liver area (right side under the ribs) morning and evening.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Clary Calm (Women's Monthly Blend)</strong><p>Directly supports hormonal balance and may ease the uterine and ovarian stress flagged in this scan.</p><div class="supp-dose">Apply diluted to the lower abdomen and inner wrists morning and evening.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Deep Blue Rub</strong><p>Helps soothe the joint and spinal inflammation flagged across all four limbs and multiple spinal segments.</p><div class="supp-dose">Apply to hand joints, leg joints, and the thoracic spine area twice daily.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Frankincense</strong><p>Frankincense supports brain health, reduces systemic inflammation, and helps calm the nervous system stress seen throughout this scan.</p><div class="supp-dose">1 drop under the tongue once daily or apply to the back of the neck and forehead.</div></div></div></div>
+
+<!-- SPECIALISTS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Specialist Referrals</div><div class="doc-item"><div class="doc-icon">🩺</div><div class="doc-info"><strong>Gynecologist</strong><p>High priority. The scan flags uterine hyperactivity, possible endometrial tissue spreading, HPV signal, and mycoplasma genitalium in the reproductive area.</p><div class="doc-test">Request: Request a pelvic ultrasound, a cervical smear test (Pap smear), HPV DNA test, and a vaginal swab for mycoplasma and candida.</div></div></div><div class="doc-item"><div class="doc-icon">🔬</div><div class="doc-info"><strong>Endocrinologist (hormone specialist)</strong><p>Thyroid left lobe is underactive, autoimmune thyroiditis is flagged, hormonal imbalance is driving skin aging and irritability, and adrenal stress patterns are present.</p><div class="doc-test">Request: Ask for a full thyroid panel blood test (TSH, Free T3, Free T4, and TPO antibodies) and a morning cortisol blood test.</div></div></div><div class="doc-item"><div class="doc-icon">💊</div><div class="doc-info"><strong>Pulmonologist (lung specialist)</strong><p>Multiple lung pathogens at very high probability including fungal organisms, and both bronchi and lungs are showing stress signals.</p><div class="doc-test">Request: Request a chest X ray and a sputum (mucus) culture test to check for fungal and bacterial lung organisms.</div></div></div><div class="doc-item"><div class="doc-icon">🌿</div><div class="doc-info"><strong>Functional Medicine Doctor or Integrative GP</strong><p>Multiple heavy metals are elevated, parasites and candida are flagged at high probability, and vitamin and amino acid deficiencies are widespread.</p><div class="doc-test">Request: Ask for a comprehensive stool test (to check gut bacteria and parasites), a hair mineral analysis test (for heavy metals), and a full vitamin panel blood test.</div></div></div><div class="doc-item"><div class="doc-icon">🧬</div><div class="doc-info"><strong>Chiropractor or Osteopath</strong><p>Multiple spinal segments are flagged with disc dehydration, nerve pinching, and postural issues affecting heart, lungs, kidneys, and reproductive organs.</p><div class="doc-test">Request: Request a full spinal X ray (cervical, thoracic, and lumbar) and ask for a postural assessment at your first appointment.</div></div></div><div class="doc-item"><div class="doc-icon">🫀</div><div class="doc-info"><strong>Cardiologist (heart specialist)</strong><p>The scan flags heart muscle cell changes, irregular heartbeat patterns, sympathoadrenal crises, and venous circulation stress.</p><div class="doc-test">Request: Ask for a resting ECG (a simple heart tracing test) and an echocardiogram (an ultrasound of your heart) to check heart muscle and circulation.</div></div></div></div>
+
+<!-- ACTION PLAN -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Your Priority Action Plan</div>
+  <div class="action-item"><div class="action-num">1</div><div class="action-text"><strong>See a gynecologist this week</strong><p>The uterine, HPV, and mycoplasma signals in this scan are the most urgent findings to get medically confirmed. Book your gynecology appointment before anything else on this list.</p></div></div><div class="action-item"><div class="action-num">2</div><div class="action-text"><strong>Start the anti candida diet immediately</strong><p>Cut all sugar, alcohol, bread, and yeast products starting today. This directly addresses the candida, bacterial overgrowth, and gut pathogen load that is likely affecting your energy, immunity, hormones, and skin.</p></div></div><div class="action-item"><div class="action-num">3</div><div class="action-text"><strong>Begin morning gut healing routine</strong><p>Each morning before eating, take L glutamine in water and your probiotic capsule. Follow with warm lemon water to alkalize and support your liver. This simple routine can transform your gut health within 4 to 8 weeks.</p></div></div><div class="action-item"><div class="action-num">4</div><div class="action-text"><strong>Start gentle daily heavy metal detox</strong><p>Add fresh cilantro to one meal daily and begin chlorella tablets at a low starting dose. Combine with daily sweating through exercise or sauna to start clearing the mercury and aluminium flagged in your scan.</p></div></div><div class="action-item"><div class="action-num">5</div><div class="action-text"><strong>Get your vitamin D, thyroid, and full blood panel done</strong><p>Visit your GP or functional medicine doctor and request a thyroid panel, vitamin D, full blood count, and cortisol test. These will help confirm what the scan is showing and allow your doctor to guide your supplement plan safely.</p></div></div><div class="action-item"><div class="action-num">6</div><div class="action-text"><strong>Book a spinal assessment with a chiropractor or osteopath</strong><p>Multiple spinal segments are pinching nerves that connect to your heart, lungs, kidneys, and reproductive organs. Professional spinal care combined with daily stretching and proper hydration can make a meaningful difference within weeks.</p></div></div><div class="action-item"><div class="action-num">7</div><div class="action-text"><strong>Reduce toxin exposure in your daily environment</strong><p>Replace plastic food containers and cookware, switch to natural cleaning products, and reduce your use of highly processed and packaged foods. These small changes reduce the ongoing toxic load that is accelerating your biological age.</p></div></div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="closing-box">
+    <h3>You Are on the Right Path</h3>
+    <p>Anna, your body is speaking clearly and this scan has given you a real map to work with. Every single finding in this report is something your body can recover from with the right support, the right doctors, and some consistent daily love for yourself. You are only 36, your digestive system is fundamentally strong, and your biological age gap is small and completely reversible. Start with one step today, trust the process, and know that your body is always working hard to heal itself for you.</p>
+  </div>
+</div>
+
+</div><!-- /body -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div><div class="footer-brand">BioScan Wellness Report</div><div class="footer-sub">Powered by Life Expert · WebWellness Technologies</div></div>
+  <button class="pdf-btn" onclick="window.print()">⬇ Save as PDF</button>
+  <div class="footer-disc">This report is not a medical diagnosis. All findings are functional indicators only. Always consult a qualified healthcare professional to confirm results.</div>
+</div>
+
+</div><!-- /wrap -->

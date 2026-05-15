@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioScan Wellness Report</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="report-toolbar no-print">
+    <div class="toolbar-content">
+      <div class="toolbar-left">
+        <h2 id="toolbarClientName">Report</h2>
+        <p id="toolbarDate" class="toolbar-meta"></p>
+      </div>
+      <div class="toolbar-right">
+        <span id="toolbarLanguage" class="toolbar-language"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="reportContainer"></div>
+
+  <div class="report-footer no-print">
+    <button class="btn-secondary" onclick="window.print()">Download PDF</button>
+    <button class="btn-tertiary" onclick="window.location.href='/'">Create Another Report</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadReport();
+    });
+
+    function loadReport() {
+      const clientName = sessionStorage.getItem('clientName') || 'Client';
+      const language = sessionStorage.getItem('language') || 'en';
+      const reportDate = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      document.getElementById('toolbarClientName').textContent = clientName;
+      document.getElementById('toolbarDate').textContent = reportDate;
+
+      const langNames = {
+        en: 'English',
+        es: 'Spanish',
+        hu: 'Hungarian',
+        ru: 'Russian'
+      };
+      document.getElementById('toolbarLanguage').textContent = langNames[language] || 'English';
+
+      // Load the language-specific report
+      const reportFile = `report-sample-${language}.html`;
+      fetch(reportFile)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('reportContainer').innerHTML = html;
+        })
+        .catch(error => {
+          document.getElementById('reportContainer').innerHTML = '<p>Error loading report. Please try again.</p>';
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</body>
+</html>

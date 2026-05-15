@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioScan Wellness Report</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="landing-wrap">
+    <header class="landing-header">
+      <h1>BioScan Wellness Report</h1>
+      <p class="subtitle">Turn your bioresonance scan into a clear, easy to read wellness report.</p>
+    </header>
+
+    <main class="landing-main">
+      <p class="intro-text">Paste your bioresonance report link, choose your language, and generate a structured wellness report you can download as a PDF.</p>
+
+      <form id="reportForm" class="report-form">
+        <div class="form-group">
+          <label for="clientName">Client Name</label>
+          <input type="text" id="clientName" name="clientName" required placeholder="Enter client name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+
+        <div class="form-group">
+          <label for="language">Preferred Language</label>
+          <select id="language" name="language" required>
+            <option value="">Select language</option>
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="hu">Hungarian</option>
+            <option value="ru">Russian</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reportLink">Paste Bioresonance Report Link</label>
+          <input type="url" id="reportLink" name="reportLink" required placeholder="https://...">
+        </div>
+
+        <button type="submit" class="btn-primary">Generate Report</button>
+      </form>
+    </main>
+  </div>
+
+  <div id="loadingScreen" class="loading-screen hidden">
+    <div class="loading-content">
+      <h2>Preparing your wellness report</h2>
+      <p>Please wait while your scan is organized into a clear report.</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

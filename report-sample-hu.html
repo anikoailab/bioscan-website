@@ -1,0 +1,368 @@
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-dark:#1B4D5C;--teal-mid:#2A6A7D;--teal-light:#3D8FA6;
+  --cream:#F5F0E8;--cream-dark:#EDE7D9;--gold:#C4977A;--gold-light:#D4AF95;
+  --white:#FAFAF8;--text-dark:#1A1A1A;--text-mid:#4A4A4A;--text-light:#7A7A7A;
+  --green:#3D8A5C;--green-bg:#E8F5EE;--green-border:#C4E4D0;
+  --amber:#B87A10;--amber-bg:#FEF3E2;--amber-border:#F0D89A;
+  --red:#A83030;--red-bg:#FDEAEA;--red-border:#F0C0C0;
+  --lavender:#EEE8F8;--plum:#3D2B56;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#DDD9D0;color:var(--text-dark);font-size:14px;line-height:1.6;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+.wrap{max-width:800px;margin:0 auto;background:var(--white);box-shadow:0 8px 60px rgba(0,0,0,0.15);}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(140deg,var(--teal-dark) 0%,var(--teal-mid) 100%);padding:52px 56px 44px;color:#fff;position:relative;overflow:hidden;}
+.hdr-circle1{position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:rgba(196,151,122,0.10);pointer-events:none;}
+.hdr-circle2{position:absolute;right:90px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(196,151,122,0.06);pointer-events:none;}
+.hdr-badge{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+.hdr h1{font-size:36px;font-weight:700;line-height:1.15;margin-bottom:6px;position:relative;z-index:1;}
+.hdr-sub{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:36px;position:relative;z-index:1;}
+.hdr-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12);position:relative;z-index:1;}
+.stat{background:rgba(255,255,255,0.07);border-radius:12px;padding:16px 20px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--gold-light);line-height:1.2;margin-bottom:4px;}
+.stat-val.alert{color:#F4A58A;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;}
+.hdr-summary{font-size:13px;color:rgba(255,255,255,0.72);line-height:1.8;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);font-style:italic;max-width:600px;}
+
+/* ── BODY ── */
+.body{padding:52px 56px;}
+.section{margin-bottom:44px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--teal-dark);padding-bottom:12px;border-bottom:1.5px solid var(--cream-dark);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.sec-icon{font-size:15px;opacity:0.7;}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:16px;margin-bottom:16px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+/* ── BIO AGE ── */
+.bio-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:28px;color:#fff;}
+.age-nums{display:flex;gap:20px;align-items:center;flex-shrink:0;}
+.age-blk{text-align:center;}
+.age-num{font-family:'Playfair Display',serif;font-size:48px;line-height:1;color:var(--gold-light);}
+.age-num.alert{color:#F4A58A;}
+.age-sep{color:rgba(255,255,255,0.25);font-size:22px;align-self:center;margin-top:-4px;}
+.age-lbl{font-size:9px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.age-note{flex:1;border-left:1px solid rgba(255,255,255,0.12);padding-left:24px;}
+.age-note strong{font-family:'Playfair Display',serif;font-size:16px;color:#fff;display:block;margin-bottom:6px;font-weight:600;}
+.age-note p{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;}
+
+/* ── ORGAN GRID ── */
+.organ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.org-item{padding:11px 14px;border-radius:10px;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:space-between;border:1px solid transparent;}
+.org-item.good{background:var(--green-bg);color:var(--green);border-color:var(--green-border);}
+.org-item.warn{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);}
+.org-item.flag{background:var(--red-bg);color:var(--red);border-color:var(--red-border);}
+.org-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.good .org-dot{background:var(--green);}
+.warn .org-dot{background:var(--amber);}
+.flag .org-dot{background:var(--red);}
+
+/* ── ALERT CARDS ── */
+.alert-card{border-left:3px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.alert-card.urgent{border-left-color:var(--red);}
+.alert-card strong{font-size:14px;color:var(--teal-dark);display:block;margin-bottom:5px;font-weight:600;}
+.alert-card p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── VIT BARS ── */
+.vit-row{margin-bottom:13px;}
+.vit-lbl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.vit-lbl span:first-child{font-weight:500;}
+.vit-lbl span:last-child{color:var(--text-light);font-size:11px;}
+.vit-bg{height:5px;background:var(--cream-dark);border-radius:3px;}
+.vit-fill{height:5px;border-radius:3px;transition:width .3s;}
+
+/* ── GUT ── */
+.gut-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.gut-item{padding:14px 16px;border-radius:10px;background:var(--cream);}
+.gut-label{font-size:12px;font-weight:600;color:var(--teal-dark);margin-bottom:5px;}
+.gut-badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.gut-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.gut-badge.high{background:var(--red-bg);color:var(--red);}
+.gut-connect{font-size:11px;color:var(--text-mid);margin-top:5px;line-height:1.5;}
+
+/* ── FOOD SENSITIVITIES ── */
+.food-disclaimer{background:var(--cream);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:var(--text-mid);line-height:1.6;border-left:3px solid var(--gold);}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.food-item{background:var(--cream);padding:10px 12px;border-radius:8px;font-size:12px;}
+.food-item strong{color:var(--teal-dark);display:block;margin-bottom:2px;font-weight:600;font-size:12px;}
+.food-item p{color:var(--text-mid);font-size:11px;line-height:1.4;}
+
+/* ── METALS ── */
+.metal-item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.metal-item:last-child{border-bottom:none;}
+.metal-badge{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:2px;}
+.metal-badge.high{background:var(--red-bg);color:var(--red);}
+.metal-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.metal-badge.low{background:var(--green-bg);color:var(--green);}
+.metal-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.metal-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.metal-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── WATER ── */
+.water-box{background:linear-gradient(135deg,#1B4D5C,#2A6A7D);border-radius:14px;padding:22px 28px;display:flex;align-items:center;gap:24px;color:#fff;}
+.water-amount{font-family:'Playfair Display',serif;font-size:44px;color:var(--gold-light);flex-shrink:0;line-height:1;}
+.water-unit{font-size:14px;color:rgba(255,255,255,0.55);margin-top:2px;text-transform:uppercase;letter-spacing:1px;}
+.water-sep{width:1px;background:rgba(255,255,255,0.15);align-self:stretch;}
+.water-note{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.65;padding-left:4px;}
+.water-note strong{color:#fff;display:block;margin-bottom:4px;font-size:14px;}
+
+/* ── CHAKRAS ── */
+.chakra-row{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;text-align:center;margin-bottom:20px;}
+.ck-orb{width:42px;height:42px;border-radius:50%;margin:0 auto 7px;border:3px solid transparent;}
+.ck-orb.open{opacity:1;}
+.ck-orb.opening{opacity:0.55;}
+.ck-orb.closed{opacity:0.25;filter:grayscale(60%);}
+.ck-name{font-size:9px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;}
+.ck-status{font-size:9px;color:var(--text-mid);margin-top:2px;}
+.chakra-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ck-detail-item{background:var(--lavender);padding:12px 16px;border-radius:10px;}
+.ck-detail-item strong{font-size:12px;color:var(--plum);display:block;margin-bottom:3px;font-weight:600;}
+.ck-detail-item p{font-size:12px;color:var(--text-mid);line-height:1.55;}
+
+/* ── AMINO ACIDS ── */
+.amino-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.amino-item:last-child{border-bottom:none;}
+.amino-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.amino-badge.deficient{background:var(--red-bg);color:var(--red);}
+.amino-badge.adequate{background:var(--green-bg);color:var(--green);}
+.amino-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.amino-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── PARASITES ── */
+.parasite-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream-dark);align-items:flex-start;}
+.parasite-item:last-child{border-bottom:none;}
+.prob-badge{padding:3px 9px;border-radius:5px;font-size:9px;font-weight:700;flex-shrink:0;margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.prob-badge.high{background:var(--red-bg);color:var(--red);}
+.prob-badge.moderate{background:var(--amber-bg);color:var(--amber);}
+.parasite-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.parasite-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+
+/* ── SPINE ── */
+.spine-box{background:var(--cream);border-radius:12px;padding:18px 22px;}
+.spine-segments{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.spine-seg{background:#fff;border:1px solid var(--amber-border);color:var(--amber);padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;}
+
+/* ── ZODIACAL DIET ── */
+.zodiac-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.zodiac-eat{background:var(--green-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-avoid{background:var(--red-bg);border-radius:10px;padding:14px 16px;}
+.zodiac-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.zodiac-eat .zodiac-title{color:var(--green);}
+.zodiac-avoid .zodiac-title{color:var(--red);}
+.zodiac-list{list-style:none;padding:0;margin:0;}
+.zodiac-list li{font-size:12px;color:var(--text-mid);padding:3px 0;line-height:1.4;}
+
+/* ── PSYCHO ── */
+.psycho-item{background:var(--lavender);border-left:3px solid var(--plum);padding:16px 20px;border-radius:0 10px 10px 0;margin-bottom:10px;}
+.psycho-item strong{font-size:13px;color:var(--plum);display:block;margin-bottom:5px;font-weight:600;}
+.psycho-item p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── HOME TIPS ── */
+.tips-category{margin-bottom:18px;}
+.tips-cat-title{font-size:13px;font-weight:600;color:var(--teal-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.tips-list{display:flex;flex-direction:column;gap:6px;}
+.tip-item{display:flex;gap:10px;align-items:flex-start;}
+.tip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;}
+.tip-text{font-size:13px;color:var(--text-mid);line-height:1.6;}
+
+/* ── PROGRAMS ── */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prog-item{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));padding:16px 18px;border-radius:10px;}
+.prog-item strong{font-size:12px;color:var(--gold-light);display:block;margin-bottom:4px;}
+.prog-item p{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
+
+/* ── SUPPLEMENTS ── */
+.supp-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.supp-item:last-child{border-bottom:none;}
+.supp-src{padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:3px;letter-spacing:0.5px;}
+.supp-src.iHerb{background:var(--green-bg);color:var(--green);}
+.supp-src.doTERRA{background:var(--amber-bg);color:var(--amber);}
+.supp-src.general{background:var(--cream-dark);color:var(--text-light);}
+.supp-info strong{font-size:13px;display:block;margin-bottom:3px;}
+.supp-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.supp-dose{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── DOCTORS ── */
+.doc-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--cream-dark);}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon{width:36px;height:36px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.doc-info strong{font-size:13px;color:var(--teal-dark);display:block;margin-bottom:3px;font-weight:600;}
+.doc-info p{font-size:12px;color:var(--text-mid);line-height:1.5;}
+.doc-test{font-size:11px;color:var(--gold);margin-top:3px;font-style:italic;}
+
+/* ── ACTION PLAN ── */
+.action-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--cream-dark);}
+.action-item:last-child{border-bottom:none;}
+.action-num{width:30px;height:30px;background:var(--teal-dark);color:#fff;border-radius:50%;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.action-text strong{font-size:14px;display:block;margin-bottom:4px;font-weight:600;}
+.action-text p{font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+/* ── CLOSING ── */
+.closing-box{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:16px;padding:36px 40px;text-align:center;}
+.closing-box h3{font-size:22px;color:var(--gold-light);margin-bottom:14px;font-weight:600;}
+.closing-box p{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.8;max-width:540px;margin:0 auto;}
+
+/* ── FOOTER ── */
+.footer{background:var(--cream);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--cream-dark);}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--teal-dark);font-weight:600;}
+.footer-sub{font-size:10px;color:var(--text-light);margin-top:2px;}
+.footer-disc{font-size:9px;color:var(--text-light);max-width:280px;text-align:right;line-height:1.6;}
+.pdf-btn{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.3px;}
+
+@media print{
+  body{background:#fff;}
+  .wrap{box-shadow:none;max-width:100%;}
+  .pdf-btn{display:none;}
+}
+</style>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-circle1"></div>
+  <div class="hdr-circle2"></div>
+  <div class="hdr-badge">BioScan Wellness Jelentés</div>
+  <h1>Anna Chugaeva Wellness Jelentése</h1>
+  <p class="hdr-sub">Life Expert Profi Scan · 2026-04-16 · Női, 36 év</p>
+  <div class="hdr-stats">
+    <div class="stat"><div class="stat-lbl">Általános Állapot</div><div class="stat-val">Kielégítő</div></div>
+    <div class="stat"><div class="stat-lbl">Biológiai Életkor</div><div class="stat-val alert">39</div></div>
+    <div class="stat"><div class="stat-lbl">Energia Szint</div><div class="stat-val">24.5 / Átlagos</div></div>
+    <div class="stat"><div class="stat-lbl">pH Egyensúly</div><div class="stat-val">Enyhén Lúgos</div></div>
+  </div>
+  <div class="hdr-summary">Anna, a vizsgálata azt mutatja, hogy tested összességében jól áll, de több rendszer is jelenleg figyelmet igényel. A légzési rendszer, ízületek, tímusz és szív- és érrendszeri keringés stresszjeleket mutatnak, és erős jelek vannak az emésztőrendszer egészsége, hormonális egyensúly és mérgező terhelés körül. A jó hír az, hogy emésztési alapod többnyire épen van, és tested valós képessége van a gyógyulásra a megfelelő támogatás mellett.</div>
+</div>
+
+<div class="body">
+
+<!-- BIOLOGICAL AGE -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Biológiai Életkor</div>
+  <div class="bio-box">
+    <div class="age-nums">
+      <div class="age-blk"><div class="age-num">36</div><div class="age-lbl">Valódi Kor</div></div>
+      <div class="age-sep">→</div>
+      <div class="age-blk"><div class="age-num alert">39</div><div class="age-lbl">Bio Kor</div></div>
+    </div>
+    <div class="age-note"><strong>A tested 3 évvel gyorsabban öregszik, mint a várt</strong><p>A biológiai korod 3 évvel nagyobb a valódi korodhoz képest, amely valószínűleg hormonális egyensúlyhiány, mérgező felhalmozódás és elégtelen mozgás okozza. A feldolgozott ételek csökkentése, a méregtelenítési útvonalak támogatása és a napi szabadtéri mozgás gyors fordulópont lehet.</p></div>
+  </div>
+</div>
+
+<!-- ORGAN DASHBOARD -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Szervek Műszerfala</div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div> Kiegyensúlyozott</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div> Figyelmet Igényel</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div> Prioritás</div>
+  </div>
+  <div class="organ-grid"><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Kiegyensúlyozott</div><div class="org-item good"><span>Gyomor</span><span class="org-dot"></span></div><div class="org-item good"><span>Vékony Bél</span><span class="org-dot"></span></div><div class="org-item good"><span>Mellékvese (Mindkettő)</span><span class="org-dot"></span></div><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Figyelmet Igényel</div><div class="org-item warn"><span>Kézízületek (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Lábízületek (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Artériás Rendszer (Bal Szív)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Légcső (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Tüdő (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Lép</span><span class="org-dot"></span></div><div class="org-item warn"><span>Mellmirigyek (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Pajzsmirigy (Bal Lebenye)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Máj</span><span class="org-dot"></span></div><div class="org-item warn"><span>Epehasengedély</span><span class="org-dot"></span></div><div class="org-item warn"><span>Vesék (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Petefészek (Mindkettő)</span><span class="org-dot"></span></div><div class="org-item warn"><span>Hasnyálmirigy</span><span class="org-dot"></span></div><div class="org-item warn"><span>Hipotalamusz</span><span class="org-dot"></span></div><div class="org-item warn"><span>Hipofízis (Agyalapi mirigy)</span><span class="org-dot"></span></div><div style="grid-column:1/-1;font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-top:8px;margin-bottom:2px;">Prioritás</div><div class="org-item flag"><span>Gégefő és Légcső</span><span class="org-dot"></span></div><div class="org-item flag"><span>Vastagbél Felszálló és Appendix</span><span class="org-dot"></span></div><div class="org-item flag"><span>Vénás Rendszer (Jobb Szív)</span><span class="org-dot"></span></div><div class="org-item flag"><span>Tímusz</span><span class="org-dot"></span></div><div class="org-item flag"><span>Méh</span><span class="org-dot"></span></div></div>
+</div>
+
+<!-- KEY FINDINGS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Fő Megállapítások</div>
+  <div class="alert-card "><strong>Légzési Stressz és Tüdő Kórokozók</strong><p>A vizsgálat a gégefőt, légcsövet és tüdőt stresszeltnek jelzi, és több magas valószínűséggel működő tüdő kórokozót detektáltak, köztük gombás és parazita szervezeteket. Ez az egyik legfontosabb terület az e hónap végén egy orvossal történő nyomon követéshez.</p></div><div class="alert-card "><strong>Méh és Hormonális Egyensúlyhiány</strong><p>A vizsgálat lehetséges endometrális szöveti terjedést sugall a normális helyén kívül (egy olyan állapot, amely néha endometriózisnak nevezik), valamint HPV és mikoplazma jeleket a reproduktív területen. Kérjük, hogy hamarosan látogass meg egy nőgyógyászt a megfelelő vizsgálathoz.</p></div><div class="alert-card "><strong>Bél Kórokozó Túlterhelés és Emésztési Zavar</strong><p>Több bél kórokozó, köztük kandída, férgek és baktériumok vannak nagy valószínűséggel megjelölve, és a beled irritáció és enzim hiány jeleit mutatja. A bél támogatása most pozitív hullámhatást fog gyakorolni az energiádra, immunitásodra és hormonjaidra.</p></div><div class="alert-card urgent"><strong>Nehézfém és Toxin Felhalmozódás</strong><p>A vizsgálat megemelkedett higany, alumínium, kadmium és több más fém szintjét mutatja, a pesticzid és élelmiszer adalékanyag toxin terhelésével. Ezek csendes módon befolyásolhatják az agyad, májadat, pajzsmirigyedet és immunrendszeredet az idő múlásával.</p></div><div class="alert-card "><strong>Gerinc Tömörítés és Ízület Stressz</strong><p>Több gerincsegment jelzett, köztük mellkasi és derékstagú csigolya, a korongok kiszáradásának jelei, rossz testtartás terhelése és idegcsípés, amely a szíverre, tüdőre, vesékre és reproduktív szervekre hat. Egy kiropraktikus vagy osteopata meglátogatása erősen ajánlott.</p></div><div class="alert-card "><strong>Pajzsmirigy és Immunrendszer Gátlás</strong><p>A tímusz és a pajzsmirigy bal lebenyéde is alulműködőnek mutatja, és a vizsgálat az autoimmun tiroiditiszt valószínű mintáként jelzi. Az immunitás képzési központja szükséges támogatást igényel a pajzsmirigy hormon monitorozásával együtt.</p></div>
+</div>
+
+<!-- WATER INTAKE -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Napi Vízfogyasztás Cél</div>
+  <div class="water-box">
+    <div><div class="water-amount">1.8L</div><div class="water-unit">naponta</div></div>
+    <div class="water-sep"></div>
+    <div class="water-note"><strong>A hidratáció az első gyógyszer</strong>Ha naponta jól hidratálod magadat, segít a vizsgálat által jelzett mérgek kiürítésében, és megőrzi a gerinckorongok, ízületek és vesék megfelelő működését.</div>
+  </div>
+</div>
+
+<!-- VITAMINS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Vitamin &amp; Ásványi Anyagok Állapota</div>
+  <div class="vit-row"><div class="vit-lbl"><span>A Vitamin</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B1 Vitamin (Tiamin)</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>C Vitamin</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>E Vitamin</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>K1 Vitamin</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>F Vitamin (Esszenciális Zsírsavak)</span><span>Alacsony</span></div><div class="vit-bg"><div class="vit-fill" style="width:5%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>D Vitamin</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:9%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B9 Vitamin (Folát)</span><span>Hiányos</span></div><div class="vit-bg"><div class="vit-fill" style="width:11%;background:#A83030;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>H Vitamin (Biotin)</span><span>Alacsony</span></div><div class="vit-bg"><div class="vit-fill" style="width:16%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B5 Vitamin (Pantoténsav)</span><span>Alacsony</span></div><div class="vit-bg"><div class="vit-fill" style="width:17%;background:#B87A10;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B2 Vitamin (Riboflavin)</span><span>Jó</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B3 Vitamin (Niacin)</span><span>Jó</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B6 Vitamin</span><span>Jó</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>B12 Vitamin</span><span>Jó</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div><div class="vit-row"><div class="vit-lbl"><span>P Vitamin (Bioflavonoidok)</span><span>Jó</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div>
+</div>
+
+<!-- AMINO ACIDS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Aminosav Hiányok</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Az aminosavak azok az építőelemek, amelyeket a tested fehérjék, hormonok és neurotranszmitterek előállítására használ. Ezek azok, amelyeket a vizsgálat támogatást igényel.</p><div class="amino-item"><span class="amino-badge deficient">Hiányos</span><div class="amino-info"><strong>Taurin</strong><p>A taurin megvédi a szívedet és idegrendszeredet, és a szintjeid alacsonyak. Egyél több halat, húst és tejtermékeket, és kérdezd meg az orvosodtól az erről kiegészítésről.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Hiányos</span><div class="amino-info"><strong>Citrullin</strong><p>A citrullin segít csökkenteni a vérnyomást, tisztítani méregteleníteni a májadat, és javítani a keringést. Gyakrabban egyél dinnyét, halat és hüvelyeseket.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Hiányos</span><div class="amino-info"><strong>GABA (Gamma Aminovajsav)</strong><p>A GABA az agyad nyugtató vegyszere, és az alacsony szintek szorongást, rossz alvást és fájdalmat okozhatnak. Az ermentett ételek, paradicsom és GABA tea segíthet a szinteket természetesen növelni.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Hiányos</span><div class="amino-info"><strong>Hisztidin</strong><p>A hisztidin támogatja az idegvédelmet, a vörösvérsejt és fehérvérsejt termelést, valamint a szöveti javítást. Adjál hozzá banánt, halat, marhahúst és rozs kenyeret a heti étkezésekhez.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Hiányos</span><div class="amino-info"><strong>Valin</strong><p>A valin hiányosnak jelzett a feltételezett változások jelentésében. Támogatja az izomjavítást és az energia egyensúlyt. Megtalálható tejtermékekben, gabonák és hüvelyesekben.</p></div></div><div class="amino-item"><span class="amino-badge deficient">Hiányos</span><div class="amino-info"><strong>Aspartsav</strong><p>A vizsgálatodban hiányosnak jelzett. Ez támogatja az energiatermelést és az idegrendszer működését. Megtalálható spárga, avokádó és csíráztatott magvakban.</p></div></div></div>
+
+<!-- HEAVY METALS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Nehézfém Indikátorok</div><div class="metal-item"><span class="metal-badge high">magas</span><div class="metal-info"><strong>Higany</strong><p>Hatás: Agy, vesék, máj, pajzsmirigy</p><div class="metal-test">Megerősítés: Kérd meg az orvosodtól, hogy kéri a vizeleti nehézfém tesztet vagy a hajásványi analízis tesztet egy funkcionális orvosi klinikán.</div></div></div><div class="metal-item"><span class="metal-badge high">magas</span><div class="metal-info"><strong>Alumínium</strong><p>Hatás: Agy, csontok, vesék</p><div class="metal-test">Megerősítés: Kéri a hajásványi analízist vagy a szérumás alumínium vérvizsgálatot az orvosodtól vagy funkcionális orvostól.</div></div></div><div class="metal-item"><span class="metal-badge moderate">mérsékelt</span><div class="metal-info"><strong>Kadmium</strong><p>Hatás: Vesék, máj, tüdő, csontok</p><div class="metal-test">Megerősítés: A kadmium vizeleti tesztje vagy hajásványi analízise megerősítheti ezt. Kérd meg az orvosodtól vagy egy funkcionális orvosi specialistát.</div></div></div><div class="metal-item"><span class="metal-badge moderate">mérsékelt</span><div class="metal-info"><strong>Réz</strong><p>Hatás: Máj, agy, ízületek</p><div class="metal-test">Megerősítés: Az egyszerű vérvizsgálat, amely a szérumás réz és cinkszinteket ellenőrzi, világos képet ad neked.</div></div></div><div class="metal-item"><span class="metal-badge moderate">mérsékelt</span><div class="metal-info"><strong>Mangán</strong><p>Hatás: Agy, idegrendszer, máj</p><div class="metal-test">Megerősítés: Egy vérvérvizsgálat vagy hajásványi analízis tesztet megerősítheti a mangán szintjeit. Kérj egy funkcionális orvosi vagy integratív egészségügyi klinikán.</div></div></div><div class="metal-item"><span class="metal-badge low">alacsony</span><div class="metal-info"><strong>Ezüst</strong><p>Hatás: Bőr, vesék</p><div class="metal-test">Megerősítés: A hajásványi analízis megmutatja az ezüst felhalmozódását a többi féméval együtt.</div></div></div><div class="metal-item"><span class="metal-badge low">alacsony</span><div class="metal-info"><strong>Molibdén</strong><p>Hatás: Máj, bél</p><div class="metal-test">Megerősítés: Egy hajásványi analízis vagy funkcionális vérvizsgálat ellenőrizheti ezt a többi fémsz intjevel együtt.</div></div></div></div>
+
+<!-- PARASITES -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Kórokozó Aktivitás Indikátorok</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">A vizsgálat rezonancia mintákat detektált, amelyek kórokozó aktivitást jöhetnek. Ezek nem diagnózis. A széklet tesztje, vér panel, vagy funkcionális orvos megerősítheti.</p><div class="parasite-item"><span class="prob-badge moderate">96%</span><div class="parasite-info"><strong>Mucor mucedo (Gombák)</strong><p>Terület: Vékony bél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Nocardia asteroides (Baktérium)</strong><p>Terület: Tüdő szövet</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Toxocara canis (Férgek)</strong><p>Terület: Szívizom és szívkamrák</p></div></div><div class="parasite-item"><span class="prob-badge moderate">94%</span><div class="parasite-info"><strong>Mycoplasma genitalium (Baktérium)</strong><p>Terület: Hüvely és reproduktív terület</p></div></div><div class="parasite-item"><span class="prob-badge moderate">96%</span><div class="parasite-info"><strong>Paragonimus westermani (Férgek)</strong><p>Terület: Tüdő szövet</p></div></div><div class="parasite-item"><span class="prob-badge moderate">88%</span><div class="parasite-info"><strong>Candida robista (Gombák)</strong><p>Terület: Száj, nyirkcsatornák, vékony bél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">83%</span><div class="parasite-info"><strong>Necator americanus (Férgek)</strong><p>Terület: Vékony bél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">80%</span><div class="parasite-info"><strong>Humán Orthopneumovirus (Vírus)</strong><p>Terület: Orr lyuk</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Humán Papillomavírus HPV (Vírus)</strong><p>Terület: Hüvely és méh</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Borrelia burgdorferi (Baktérium)</strong><p>Terület: Agy szerkezetek</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Ascaris lumbricoides (Férgek)</strong><p>Terület: Vékony és vastagbél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Candida glabrata (Gombák)</strong><p>Terület: Hüvely</p></div></div><div class="parasite-item"><span class="prob-badge moderate">79%</span><div class="parasite-info"><strong>Stenotrophomonas maltophilia (Baktérium)</strong><p>Terület: Epehólyag vezetékek</p></div></div><div class="parasite-item"><span class="prob-badge moderate">78%</span><div class="parasite-info"><strong>Flavimonas oryzihabitans (Baktérium)</strong><p>Terület: Vékony bél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">75%</span><div class="parasite-info"><strong>Histoplasma capsulatum (Gombák)</strong><p>Terület: Tüdő szövet</p></div></div><div class="parasite-item"><span class="prob-badge moderate">73%</span><div class="parasite-info"><strong>Trichuris trichiura (Férgek)</strong><p>Terület: Vastagbél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">72%</span><div class="parasite-info"><strong>Agrobacterium radiobacter (Baktérium)</strong><p>Terület: Vékony bél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">59%</span><div class="parasite-info"><strong>Eimeria (Protozoa)</strong><p>Terület: Vastagbél</p></div></div><div class="parasite-item"><span class="prob-badge moderate">84%</span><div class="parasite-info"><strong>Clonorchis sinensis (Férgek)</strong><p>Terület: Epehólyag vezetékek és epehólyag</p></div></div></div>
+
+<!-- GUT HEALTH -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Bél Egészség Indikátorok</div><div class="gut-grid"><div class="gut-item"><div class="gut-label">SIBO</div><span class="gut-badge high">Magas</span><div class=gut-connect>Kapcsolódó: Máj, pajzsmirigy, tímusz, lép, tüdő, méh, vesék és bőr mind a vizsgálatban megjelölt bél kórokozó és kandída terheléssel kapcsolódnak.</div></div><div class="gut-item"><div class="gut-label">Szivárgó Bél</div><span class="gut-badge high">Magas</span><div class=gut-connect>Kapcsolódó: Máj, pajzsmirigy, tímusz, lép, tüdő, méh, vesék és bőr mind a vizsgálatban megjelölt bél kórokozó és kandída terheléssel kapcsolódnak.</div></div><div class="gut-item"><div class="gut-label">Kandída</div><span class="gut-badge high">Magas</span><div class=gut-connect>Kapcsolódó: Máj, pajzsmirigy, tímusz, lép, tüdő, méh, vesék és bőr mind a vizsgálatban megjelölt bél kórokozó és kandída terheléssel kapcsolódnak.</div></div></div><div class="alert-card"><p>A vizsgálat nagy valószínűséget mutat a kandída túlnövekedésre (túl sok élesztő a testedben), a kis bélben lévő baktérium egyensúlyhiányra és a megsérült belek szöveteire, amelyek mérgeket engednek át. Ez a bél stressz nagyon valószínűleg hozzájárul a hormonális egyensúlyhiányodhoz, fáradtságodhoz, bőrproblémákhoz és csökkent immunitásodhoz.</p></div></div>
+
+<!-- FOOD SENSITIVITIES -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Élelmiszer Érzékenység Mintázatok</div><div class="food-disclaimer">Ezek biorezonancia rezonancia mintázatok, nem megerősített allergiák. Fontolja meg ezeknek az élelmiszereknek a csökkentését 2-4 hétre, és figyelje meg, hogy a tested hogyan válaszol.</div><div class="food-grid"><div class="food-item"><strong>Finomított cukor és édességek</strong><p>A vizsgálat és kandída megállapításaid erősen sugallják, hogy a cukor jelenleg nemkívánatos szervezeteket táplál a bélben.</p></div><div class="food-item"><strong>Kenyér és élesztő termékek</strong><p>Az élesztő alapú ételek súlyosbíthatják a vizsgálatban megjelölt kandída és baktérium bél egyensúlyhiányát.</p></div><div class="food-item"><strong>Alkohol</strong><p>Az alkohol extra terhelést helyez az már stressz alatt lévő májadon, és táplálja a kandída túlnövekedést.</p></div><div class="food-item"><strong>Nagy halak (tonhal, kardhal, makréla)</strong><p>Ezek a halak magas higany tartalommal rendelkeznek, amelyet a vizsgálat már megemelkedettnek jelzi a testedben.</p></div><div class="food-item"><strong>Rendkívül feldolgozott és finomított ételek</strong><p>A vizsgálat kifejezetten jelzi, hogy a feldolgozott ételek gyakori fogyasztása az emésztő és anyagcsere stressz jelenlegi meghajtója.</p></div><div class="food-item"><strong>Rendkívül ásványosított víz</strong><p>A vizsgálat jelzi, hogy túl ásványosított vizet iszol, amely befolyásolhatja a vese és elektrolit egyensúlyt.</p></div><div class="food-item"><strong>Tejtermékek (fontolja meg az elforgatást)</strong><p>A jelzett bél kórokozó terhelésével fontolja meg, hogy rövid szünetet tartson a tejtermékektől a nyák és fermentáció csökkentésére a bélben.</p></div></div></div>
+
+<!-- SPINE -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Gerinc Felmérés</div><div class="spine-box"><p style="font-size:13px;color:var(--text-mid);line-height:1.65;">A gerinc vizsgálat jelentős stresszt mutat több régióban, különösen a mellkasi (középhát) és lumbális (alsó hát) területeken, korongi kiszáradással, magasság vesztéssel és idegsisak jelei a szívre, tüdőre, vesékre és reproduktív szervekre.</p><div class=spine-segments><span class="spine-seg">C2 (szemek, hallóideg, halánték csontok)</span><span class="spine-seg">C3 (arcok, arcideg, fogak)</span><span class="spine-seg">Th1 (nyelőcső, légcső, kezek és csuklók)</span><span class="spine-seg">Th2 (szív és koszorú artériák)</span><span class="spine-seg">Th3 (légcső, tüdő, mell)</span><span class="spine-seg">Th4 (epehólyag és epehólyag vezeték)</span><span class="spine-seg">Th7 (hasnyálmirigy és duodenum)</span><span class="spine-seg">Th8 (lép és membránok)</span><span class="spine-seg">Th10 (vesék)</span><span class="spine-seg">L2 (alsó has és comb)</span><span class="spine-seg">L3 (reproduktív szervek, húgyhólyag, térdek)</span><span class="spine-seg">L4 (sciática ideg)</span><span class="spine-seg">L5 (lábszárak, lábak, lábujjak)</span><span class="spine-seg">Sacrum (végbél, femoral csontok, fenék)</span></div><p style="font-size:12px;color:var(--gold);margin-top:10px;font-style:italic;">Ajánlott specialista: Kiropraktikus, osteopata vagy gerinc fizioterápiás szakember</p></div></div>
+
+<!-- CHAKRAS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Csakra Energiafolyam</div>
+  <p style="font-size:13px;color:#7A7A7A;margin-bottom:20px;line-height:1.6;">Minden csakra energiaközpont a tested. A fényes kör azt jelenti, hogy az energia szabadon folyik. A halványabb kör azt jelenti, hogy az energia alacsony vagy blokkolt. Ez hatással van arra, hogy érzed magadat fizikai és érzelmileg.</p>
+  <div class="chakra-row"><div><div class="ck-orb open" style="background:#EE8888;border-color:#C84040;"></div><div class="ck-name">Muladhara (Gyökér)</div><div class="ck-status" style="color:#2A7A4A;">Nyitott</div></div><div><div class="ck-orb opening" style="background:#F4A860;border-color:#B86820;"></div><div class="ck-name">Svadhishthana (Sacrális)</div><div class="ck-status" style="color:#B87A10;">Nyitódik</div></div><div><div class="ck-orb opening" style="background:#E8D040;border-color:#9A8800;"></div><div class="ck-name">Manipura (Napplexus)</div><div class="ck-status" style="color:#B87A10;">Nyitódik</div></div><div><div class="ck-orb opening" style="background:#60C880;border-color:#2A7A4A;"></div><div class="ck-name">Anahata (Szív)</div><div class="ck-status" style="color:#B87A10;">Nyitódik</div></div><div><div class="ck-orb opening" style="background:#60A0E0;border-color:#2060A8;"></div><div class="ck-name">Vishuddha (Torok)</div><div class="ck-status" style="color:#B87A10;">Nyitódik</div></div><div><div class="ck-orb opening" style="background:#9880D8;border-color:#5040A0;"></div><div class="ck-name">Ajna (Harmadik Szem)</div><div class="ck-status" style="color:#B87A10;">Nyitódik</div></div><div><div class="ck-orb opening" style="background:#C890E8;border-color:#7840A0;"></div><div class="ck-name">Sahasrara (Korona)</div><div class="ck-status" style="color:#B87A10;">Nyitódik</div></div></div>
+  <div class="chakra-detail" style="margin-top:16px;"><div class="ck-detail-item" style="border-top:2.5px solid #EE8888;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#EE8888;flex-shrink:0;display:inline-block;"></span>Muladhara (Gyökér)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#2A7A4A;text-transform:uppercase;letter-spacing:0.5px;">Nyitott</span></strong><p>A gyökér csakrád az erősebb energia központ jelenleg, amely támogatja az alapvető túlélést és föld energia.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #F4A860;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#F4A860;flex-shrink:0;display:inline-block;"></span>Svadhishthana (Sacrális)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Nyitódik</span></strong><p>A kreativitás és érzelmi energia aktív, de még fejlődik. Az kapcsolataidat és kreatív lehetőségeidet ápolva erősítsd ezt a központot.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #E8D040;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#E8D040;flex-shrink:0;display:inline-block;"></span>Manipura (Napplexus)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Nyitódik</span></strong><p>Az akaratod és magabiztosság központ nyitódik. Saját döntéseidben jobban bízva ezt az energiát folyamatosan tartod.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #60C880;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#60C880;flex-shrink:0;display:inline-block;"></span>Anahata (Szív)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Nyitódik</span></strong><p>A szíved központ nyitódási folyamatban van. Az önmitartást és az egészséges érzelmi határok gyakorolva segítesz ezt a csakrát teljesen kitágulni.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #60A0E0;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#60A0E0;flex-shrink:0;display:inline-block;"></span>Vishuddha (Torok)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Nyitódik</span></strong><p>A torokd csakra közvetlenül a pajzsmirigy egészségéhez és az igazságod beszéléséhez kapcsolódik. Az önmagad nyílt és őszintén kifejezésével a gyógyulás itt támogatott.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #9880D8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#9880D8;flex-shrink:0;display:inline-block;"></span>Ajna (Harmadik Szem)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Nyitódik</span></strong><p>Az intuíciódat és tisztaságod fejlődik. A csendes meditáció vagy gondolkodás naponta való töltésével mélyíted az alapadataidat.</p></div><div class="ck-detail-item" style="border-top:2.5px solid #C890E8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#C890E8;flex-shrink:0;display:inline-block;"></span>Sahasrara (Korona)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Nyitódik</span></strong><p>A magasabb tudatossághoz való kapcsolatod finoman nyitódik. A természetben töltött idő és a csendnek való engedelmesség támogatja ezt a bővülést.</p></div></div>
+</div>
+
+<!-- MIND BODY -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Elme-Test Mintázatok</div>
+  <div class="psycho-item"><strong>Elnyomott önkifejezés a torok és pajzsmirigy stresszhez kapcsolódva</strong><p>A vizsgálat és csakra profilja egyaránt egy mintázatra mutatnak, ahol az igazi hangyod megtartása vagy vélemények korlátozása fizikai megjelenésben jelenhet meg a torokban és pajzsmirigyében. Ezen a héten próbálj szabad naplóba írni szűrő nélkül, és figyeld meg, hogy mennyit tartasz vissza a mindennapi beszélgetésben.</p></div><div class="psycho-item"><strong>Feldolgozatlan érzelmi feszültség a bélben és reproduktív rendszerben tárolódva</strong><p>A csakra analízise egy erős kreatív és érzelmi energiára mutat, amely teljes mértékben nem lehet kifejezve, és ez a gyomor és méh területén fizikai feszültségként leülhet. A napi enyhemotion mozgása, például jóga, tánc vagy séta az érzések viszonyított figyelmét tudatosan továbbíthatja ezt az elraktározott stresszt felszabadítani.</p></div><div class="psycho-item"><strong>Alacsony gyökerenenergia és krónikus túlélési stressz az immunitást és ízületeket befolyásoló</strong><p>A Muladhara (gyökér csakra) kapacitás olvasásodd 30 százalék azt sugallja, hogy a tested kölcsönzött energián futhat, így az ízületek és immunitás elsők a szenvedésben. A napi biztonsági és stabilitási rituálék, például a reggel napfény, egy meleg reggeli és 10 perc kívül barnaóda füvel szemcsélte segíthetnek ezt az energiaközpontot újra feltölteni.</p></div><div class="psycho-item"><strong>Krónikus stressz és hormonális volatilitás mutatva a szívban és kardiovaszkuláris rendszerben</strong><p>A vizsgálat szimpatikoadrénális válságokat (stresszhormon hirtelen lökéseit, például adrenalin rohamát) és szabálytalan szívverési mintákat jelöl meg. A napi légzésgyakorlat, akár csak 5 perc lassú mély légzés reggel, nyugtathatja az idegrendszered és csökkentheti a terhelést a szívön és mellékveséken.</p></div>
+</div>
+
+<!-- HOME TIPS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Mit Tehetsz Otthon</div>
+  <div class="tips-category"><div class="tips-cat-title">Reggeli Rutin</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Kezdj minden reggelt egy nagy pohár meleg vízzel friss citrominlé kicsavart benne. Ez enyhén alkalinizálja a tested és felébreszti a májadat.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Végezd el a reggeli nyálka tesztet a kandídára, mielőtt enni vagy fogat mosni. Köpj egy tiszta vízpoharba. Ha karakterek 30 percen belül csökkennek, a kandída valószínűleg aktív.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Vedd be az L glutamin port vízben és a probiotikumokat egy üres gyomor előtt a reggeli előtt a maximum bél bélelésű javításhoz.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Bél és Kandída Gyógyulás</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Hagyj fel az összes cukorral, fehér kenyérrel, alkohollal és élesztő termékekkel legalább 4 hétig. Ez az egyetlen legerősebb dolog, amit most tehetsz a kandída és baktérium bélért.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Egyél egy fokhagyma gerezd nyers naponta (aprítsd és nyelj le vízzel vagy keverj bele salátaöntésbe). A nyers fokhagyma egy természetes gombaölő és antibakteriális.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Főzz napi kókuszolajjal. Ez egy kaprilsav nevű természetes összetevőt tartalmaz, amely megöli a kandídát.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Idd meg a csontlevet (otthon készült vagy magas minőségű vásárlás) egyszer naponta, hogy gyógyítsd és zárd el a bélcsatornádat.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Adjál fermentált ételeket, mint a sima kefír, savanyú vagy kimchi egy étkezéshez naponta, hogy újjáépítsd a jó bél baktériumait.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Nehézfém Méregtelenítés</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Egyél egy kis friss koriander (cilantro) minden nap. Enyhén húzza ki a higanyot és alumíniumot az agy szöveteiből az idő folyamán.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Izzadj legalább 20-30 percig naponta testmozgáson, szaunán vagy akár meleg fürdőn keresztül. Az izzadás az egyik leghasznosabb módja a nehézfémek felszabadításának a bőrön keresztül.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Kerüld el a nagy ragadozó halat (tonhal, kardhal, cápa) teljesen a következő 3 hónap alatt, miközben méregtelenítted a higanyat.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Ellenőrizd a főzőedényzetet. Kerüld az alumínium edényzetet és váltson rozsdamentes acélon vagy öntöttvasra.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Gerinc és Ízület Gondozás</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Idd meg a teljes napi víz célodat (körülbelül 1,8 liter) összesen. Az agyi korongok kiszáradottak, és a víz az első gyógyszer, amelyre szükségük van.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Végezz 10 percet enyhén cica tehenemények, nyak gurulások és mellkas gerinc mozgékonyság munka minden reggel az ágyból felkelés előtt.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Sétálj mezítláb a gyepen vagy természetes talajok 10-15 percig naponta. Ez csökkenti az ízületek gyulladását, és segít a testtartást és a lábfenék igazítását.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Adjál magnézium gazdag ételeket (sötét csokoládé, tökmagok, zöld levelek) és kalcium gazdag ételeket (szezámmagok, szardinák csontokkal) naponta a csont és korong ásványi támogatásához.</div></div></div></div><div class="tips-category"><div class="tips-cat-title">Hormonális és Reproduktív Támogatás</div><div class="tips-list"><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Csökkentsd és dolgozz azon, hogy helytelenítsd az összes műanyag élelmiszer edényt, műanyag vízüveget és műanyag tekercsét a konyádból. A műanyag vegyületeket bocsát ki, amelyek utánoznak hormonokat, és zavarik a pajzsmirigy és reproduktív rendszert.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Egyél kereszt virágzó zöldségeket (brokkoli, karfiol, Brüsszel csírák, kel) legalább 4 napig hetente. Segítik a májadat az többlet ösztrogén lebontásához.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Végezz 5-10 percet lassú hasizom légzésből az ágy előtt minden este a kortizol (a stressz hormon) csökkentésére és az éjszakai hormonális visszaállítás támogatásához.</div></div><div class="tip-item"><div class="tip-dot"></div><div class="tip-text">Foglalj nőgyógyászati ​​konzultációt ezen a héten. Ne várakozz. Az ezen a vizsgálaton lévő méh és HPV jelek megfelelő orvosi ellenőrzésre van szükség.</div></div></div></div>
+</div>
+
+<!-- LIFE BALANCE PROGRAMS -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Javasolt Élet Egyensúly Programok</div>
+  <div class="prog-grid"><div class="prog-item"><strong>Bél Gyógyulás és Microbiome Visszaállítás</strong><p>A többszöröz bél kórokozók, kandída túlnövekedés és emésztési zavar megjelölve ebben a vizsgálatban teszik a bél gyógyulást az egyik fő prioritás program jelenleg Anna számára.</p></div><div class="prog-item"><strong>Nehézfém és Környezeti Méregtelenítés</strong><p>7 nehézfém megemelkedett és magas pesticzid és élelmiszer adalékanyag toxin terhelésével, egy enyhén strukturált méregtelenítési program alapvető Anna agya, máj és pajzsmirigy védelmére.</p></div><div class="prog-item"><strong>Hormonális Egyensúly és Reproduktív Egészség Támogatás</strong><p>A méh, petefészek és pajzsmirigy megállapításait kombinálva az HPV és mikoplazma jelekkel Anna szüksége van egy dedikált hormonális egyensúly program.</p></div><div class="prog-item"><strong>Gerinc Rehabilitáció és Ízület Támogatás</strong><p>Több megjelölt gerincsegmenttel, az összes négy végtagban közös stresszel és a korong kiszáradásával a gerinc gondozás és ízület táplálás egy prioritás program az egyéb területek mellett.</p></div><div class="prog-item"><strong>Immunitás és Légzési Erősítés</strong><p>A tímusz inaktivitás, tüdő kórokozó terhelés és légzési stressz egy célzott immunitás és légzési erősítési program hívását teszi szükségessé.</p></div></div>
+</div>
+
+<!-- ZODIACAL DIET -->
+<div class="section"><div class="sec-title"><span class="sec-icon">✦</span> Kos Táplálkozási Profil</div><p style="font-size:13px;color:var(--text-light);margin-bottom:14px;line-height:1.6;">A Life Expert vizsgálat egy zodiákális táplálkozási profilt tartalmaz az aláírás alkotucíális tendenciáihoz és sebezető testsistemekhez.</p><div class="zodiac-grid"><div class="zodiac-eat"><div class="zodiac-title">Egyél Több</div><ul class="zodiac-list"><li>Vas gazdag ételek, mint a vörös lencse, spenót és legeltetett marhahús</li><li>Friss gyömbér és kurkuma a fej és a vér keringésének támogatásához</li><li>Részveszfőzés és gránátalma a vér építéshez és az agy keringéshez</li><li>Tök magok és szezám magok a cink és ásványi támogatásához</li></ul></div><div class="zodiac-avoid"><div class="zodiac-title">Csökkentés vagy Kerülés</div><ul class="zodiac-list"><li>Túlzott fűszeres ételek és stimulancia, mint a kávé, amely egy már tüzelt Kos rendszert túlfűt</li><li>Alkohol, amely kimerülti a B vitamint Kos szükségletek a legtöbb</li><li>Feldolgozott húsok és gyorskaják, amely eldugja a keringést</li><li>Túlzott vöröshús támogatás nélkül, mivel a Kos a fej és vért szabályozza, és túl sok hőt és nyomást okozhat</li></ul></div></div><p style="font-size:12px;color:var(--text-mid);margin-top:12px;line-height:1.6;">A vas a Kos legalapvetőbb ásványa, mivel ez az aláírás a vér és fej irányítóját, és az alacsony vas közvetlenül hozzájárul a fáradtsághoz, fejfájásokhoz és az agy keringési problémákhoz, amelyeket Anna vizsgálatában jelenik meg.</p></div>
+
+<!-- SUPPLEMENTS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Kiegészítés Ajánlások</div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>D3 Vitamin K2 Rendelkezésre</strong><p>A D3 kritikusan alacsony és ez közvetlenül befolyásolja az immunitást, a csontokat, a pajzsmirigyét és a hangulatot.</p><div class="supp-dose">2000-5000 IU D3 és 100mcg K2 naponta étellel. Kérd meg az orvosodtól az első dózist.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>A Vitamin (Retinol forma)</strong><p>Az A vitamin majdnem kiürült, amely befolyásolja a szemed, bőröd és immunrendszeredet.</p><div class="supp-dose">2500-5000 IU naponta zsír-tartalmaz étkezéshez. Kérd meg az orvosodtól az elindítás előtt.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Liposomal C Vitamin</strong><p>Kritikusan alacsony C vitamin gyengíti az immunitást, a véredény egészségét és a kollagén termelést.</p><div class="supp-dose">500-1000mg naponta étkezéshez.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>L Glutamin Por</strong><p>Az L Glutamin újjáépíti a bél csatornát, közvetlenül foglalkozva az ebben a vizsgálatban megjelölt szivárgó bél mintázatával.</p><div class="supp-dose">5g vízben egy üres gyomor minden reggel 4-8 hétig.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Chlorella Tabletták</strong><p>A Chlorella kötődik és eltávolítja a nehézfémeket (különösen higanyat és alumíniumot) a bélből, és az egyik legbiztonságosabb méregtelenítési eszköz.</p><div class="supp-dose">Kezdj 1g naponta és lassan növeked 3g naponta 2 héten belül. Vegyd a vízzel az étkezéseken távol.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Probiotikumok (Multi-szál Lactobacillus és Bifidobacteriummal)</strong><p>A bél mikrobiómája sürgős visszaépítésre szorult a kandída, baktérium túlnövekedés és ezben a vizsgálatban a kórokozó terhelés miatt.</p><div class="supp-dose">20-50 milliárd CFU egyszer naponta egy üres gyomor reggel.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Magnézium Glycinate</strong><p>Támogatja az idegrendszeredet, csökkenti az izom feszültséget a gerincben és az ízületekben, javítja az alvást, és segít a GABA hiánnyal szemben.</p><div class="supp-dose">300-400mg az ágy előtt minden este.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Cink Bisglycinát</strong><p>A cink hiány közvetlenül megjelölve a vizsgálatban. Ez kritikus az immunitásért, a bél csatorna javításáért, a pajzsmirigy egészségéért és a sebgyógyulásért.</p><div class="supp-dose">15-25mg naponta étkezéshez. Ne haladja meg a 40mg naponta.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>GABA Kiegészítés</strong><p>Az amino sav GABA-d hiányos, és a kiegészítés segíthet a szorongás csökkentésében, az alvás javításában és a krónikus fájdalom és feszültség csökkentésében ebben a vizsgálatban.</p><div class="supp-dose">250-500mg az ágy előtt vagy magas szorongás pillanataiban.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Taurin</strong><p>A taurin megvédi a szívedet, az agyad és az immunrendszeredet, és a vizsgálat azt mutatja, hogy kimerült.</p><div class="supp-dose">500-1000mg naponta étkezéshez.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Omega 3 Halolaj (magas EPA DHA)</strong><p>Az F vitamin hiányodat kezeli, támogatja az agy egészségét, csökkenti a gyulladást a testen belül és segít a hormonok egyensúlyozásában.</p><div class="supp-dose">2-3g kombinált EPA és DHA naponta étkezéshez.</div></div></div><div class="supp-item"><span class="supp-src iHerb">iHerb</span><div class="supp-info"><strong>Folát (Methylfolate B9)</strong><p>A B9 igen alacsony, amely befolyásolja a vér egészségét, a DNS javítást és a bél csatorna visszaújítást.</p><div class="supp-dose">400-800mcg naponta. Használd metilfolát formát a jobb felszívódásért.</div></div></div></div>
+
+<!-- DOTERRA -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> doTERRA Esszenciális Olajprotokollok</div><p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">A doTERRA termékek megrendeléséhez lépj kapcsolatba Aniko-val közvetlenül az Instagram-on @anikopuhova.ai</p><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Oregano Olaj</strong><p>Az oregano olaj egy erős természetes gombaölő és antibakteriális, amely segíthet az Anna bélében megjelölt kandída és baktérium túlnövekedést foglalkozni.</p><div class="supp-dose">1 csepp egy kapszulában étkezéshez, 3-szor hetente (nem naponta). Használd nem több, mint 10 napig.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA On Guard védelmi keverék</strong><p>Ez a keverék támogatja az immunitást és a légzési egészséget, közvetlenül foglalkozva az Anna tüdő kórokozó terhelésével és a tímusz inaktivitásával.</p><div class="supp-dose">Diffúziós az ágy alatt vagy alkalmaz 2 csepp hígítottan a mellkasan minden reggel.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Zendocrine Méregtelenítési Keverék</strong><p>Támogatja a máj és méregtelenítési szerveket, hogy segítsék feldolgozni az Anna vizsgálatában megjelölt nehézfém és toxin terhelést.</p><div class="supp-dose">2 csepp hígítottan és alkalmaz a máj területen (jobb oldal alá a bordák alatt) reggel és este.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Clary Calm (Női Havi Keverék)</strong><p>Közvetlenül támogatja a hormonális egyensúlyt, és enyhítheti a méh és petefészek stresszt, amely ebben a vizsgálatban megjelölt.</p><div class="supp-dose">Alkalmaz hígítottan az alsó hasra és a belső csuklókra reggel és este.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Deep Blue Rub</strong><p>Segít az ízület és a gerinc gyulladást csillapítani, amely az összes négy végtagban és több gerincsegmentben megjelölt.</p><div class="supp-dose">Alkalmaz a kézízületekre, lábízületekre és a mellkas gerinc területre naponta kétszer.</div></div></div><div class="supp-item"><span class="supp-src doTERRA">doTERRA</span><div class="supp-info"><strong>doTERRA Frankincense</strong><p>A frankincense támogatja az agy egészségét, csökkenti a teljes szisztémás gyulladást és segít az ebben a vizsgálatban látható idegrendszer stressz calmózásában.</p><div class="supp-dose">1 csepp a nyelvem alatt egyszer naponta vagy alkalmaz a nyak hátára és a homlokra.</div></div></div></div>
+
+<!-- SPECIALISTS -->
+<div class="section"><div class="sec-title"><span class="sec-icon">◈</span> Specialista Ajánlások</div><div class="doc-item"><div class="doc-icon">🩺</div><div class="doc-info"><strong>Nőgyógyász</strong><p>Magas prioritás. A vizsgálat a méh hiperakcióját, lehetséges endometrális szöveti terjedést, HPV jeleket és mikoplazma genitalium-ot jelöl a reproduktív területen.</p><div class="doc-test">Kérés: Kérj pelvis ultrahang, cervikális stear tesztet (Pap stear), HPV DNS tesztet és hüvely váladékozást a mikoplazma és kandída számára.</div></div></div><div class="doc-item"><div class="doc-icon">🔬</div><div class="doc-info"><strong>Endokrinológus (hormonális szakember)</strong><p>A pajzsmirigy bal lebenyéde inaktív, az autoimmun tiroiditisz megjelölt, a hormonális egyensúlyhiány gyorsul a bőr öregedést és irritabilitást és mellékveséjék stressz mintázatok vannak jelen.</p><div class="doc-test">Kérés: Kérj egy teljes pajzsmirigy panel vérnyúlvántesztet (TSH, Free T3, Free T4 és TPO antitestek) és egy reggel kortizol vérnyúlvanyet.</div></div></div><div class="doc-item"><div class="doc-icon">💊</div><div class="doc-info"><strong>Pulmonológus (tüdő szakember)</strong><p>Több tüdő kórokozó nagyon magas valószínűséggel, beleértve a gombás szervezeteket, és mind a légcsövek, mind a tüdő stresszjeleket mutat.</p><div class="doc-test">Kérés: Kérj mellkas röntgent és egy köpet (nyálka) tenyésztési tesztet, hogy ellenőrizd a gombás és baktérium tüdő szervezeteket.</div></div></div><div class="doc-item"><div class="doc-icon">🌿</div><div class="doc-info"><strong>Funkcionális Orvos vagy Integratív GP</strong><p>Több nehézfém megemelkedett, paraziták és kandída magas valószínűséggel megjelölt, és vitamin és amino sav hiányok vannak széleskörűen.</p><div class="doc-test">Kérés: Kérj egy átfogó széklet tesztet (a bél baktériumok és paraziták ellenőrzéséhez), a haj ásványi analízis tesztet (nehézfémekhez) és a teljes vitamin panel vérnyúlvántesztet.</div></div></div><div class="doc-item"><div class="doc-icon">🧬</div><div class="doc-info"><strong>Kiropraktikus vagy Osteopata</strong><p>Több gerincsegment megjelölt, a korong kiszáradásával, a rossz testtartás terhelésével és az idegsisak pinggel, amely a szívet, tüdőt, vesékét és reproduktív szerveket befolyásolja.</p><div class="doc-test">Kérés: Kérj teljes gerinc röntgent (cervikális, mellkasi és lumbális) és kérj egy postúra értékelést az első konzultációdon.</div></div></div><div class="doc-item"><div class="doc-icon">🫀</div><div class="doc-info"><strong>Kardiológus (szív szakember)</strong><p>A vizsgálat a szívizom sejt változásait, szabálytalan szívverési mintákat, szimpatikoadrénális válságokat és vénás keringés stresszt jelöl meg.</p><div class="doc-test">Kérés: Kérj egy pihenő EKG-t (egy egyszerű szívnyom teszt) és egy echokardiogramot (a szíved ultrahangját), hogy ellenőrizze a szívizom és keringést.</div></div></div></div>
+
+<!-- ACTION PLAN -->
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Az Ön Prioritás Cselekvési Terve</div>
+  <div class="action-item"><div class="action-num">1</div><div class="action-text"><strong>Látogass meg egy nőgyógyászt ezen a héten</strong><p>A méh, HPV és mikoplazma jelek ebben a vizsgálatban az orvosi megerősítést igénylő legsürgősebb megállapítások. Foglalj nőgyógyászati ​​konzultációt minden más lista előtt.</p></div></div><div class="action-item"><div class="action-num">2</div><div class="action-text"><strong>Kezdd meg az anti kandída diétát azonnal</strong><p>Hagyd fel az összes cukorral, alkohollal, kenyérrel és élesztő termékkel még ma. Ez közvetlenül foglalkozik a kandída, baktérium túlnövekedés és bél kórokozó terheléssel, amely valószínűleg befolyásolja az energiadat, immunitást, hormonokat és bőrt.</p></div></div><div class="action-item"><div class="action-num">3</div><div class="action-text"><strong>Kezdd meg a reggeli bél gyógyulás rutint</strong><p>Minden reggel enni előtt vedd be az L glutamin-t vízben és a probiotikaum kapszulát. Követd a meleg citrom vízzel, hogy alkalinizáld és támogasd a májadat. Ez az egyszerű rutin 4-8 héten belül átalakíthatja a bél egészségedet.</p></div></div><div class="action-item"><div class="action-num">4</div><div class="action-text"><strong>Kezdd meg a finom napi nehézfém méregtelenítést</strong><p>Adjál friss koriandert egy étkezéshez naponta és kezd chlorella tablettákat alacsony kezdő dózissal. Kombinálj napi verejtékkel a testmozgáson vagy szaunán keresztül, hogy megkezdd a higany és alumínium tisztítása a vizsgálatban megjelölt.</p></div></div><div class="action-item"><div class="action-num">5</div><div class="action-text"><strong>Kérd meg a D vitamin, pajzsmirigy és teljes vérpanel teszteket</strong><p>Látogass meg az orvosodhoz vagy funkcionális orvosodhoz és kérj pajzsmirigy panelt, D vitamint, teljes vérviszám és kortizol tesztet. Ezek megerősítik, hogy mit mutat a vizsgálat, és lehetővé teszik az orvosod, hogy biztonságosan vezess a kiegészítési tervet.</p></div></div><div class="action-item"><div class="action-num">6</div><div class="action-text"><strong>Foglalj gerinc értékelést egy kiropraktikussal vagy osteopatával</strong><p>Több gerincsegment idegsisak az adott szívre, tüdőre, vesékre és reproduktív szervekre. A szakmai gerinc gondozás a napi nyúlással és a megfelelő hidratációval kombinálva értelmes különbséget tehet heteken belül.</p></div></div><div class="action-item"><div class="action-num">7</div><div class="action-text"><strong>Csökkentsd a méreg expozíciódat a napi környezetben</strong><p>Helyettesítsd a műanyag élelmiszer edényzetet és főzőedényt, váltson természetes takarítószerekre és csökkentsd a feldolgozott és csomagolt élelmiszerek használatát. Ezek az apró változások csökkentik az egyensúlyienergia toxin terhelést, amely felgyorsítja az öregedést.</p></div></div>
+</div>
+
+<!-- CLOSING -->
+<div class="section">
+  <div class="closing-box">
+    <h3>Te a Jó Úton vagy</h3>
+    <p>Anna, a tested tisztán beszél, és ez a vizsgálat valódi térképet adott neked az együttműködéshez. Minden megállapítás ebben a jelentésben olyan valami, amelyről a tested a megfelelő támogatás, a helyes orvosok és néhány konzisztens napi önszeretet mellett gyógyulhat. Csak 36 vagy, az emésztő rendszered alapvetően erős, és a biológiai korú rés kicsi és teljesen megfordítható. Kezdj egy lépéssel ma, bízz a folyamatban és tudd, hogy a tested mindig kemény dolgozik, hogy gyógyítsa magát számodra.</p>
+  </div>
+</div>
+
+</div><!-- /body -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div><div class="footer-brand">BioScan Wellness Jelentés</div><div class="footer-sub">Powered by Life Expert · WebWellness Technologies</div></div>
+  <button class="pdf-btn" onclick="window.print()">⬇ Mentés PDF-ként</button>
+  <div class="footer-disc">Ez a jelentés nem orvosi diagnózis. Minden megállapítás csak funkcionális indikátor. Mindig konzultálj egy képzett egészségügyi szakemberrel az eredmények megerősítéséhez.</div>
+</div>
+
+</div><!-- /wrap -->
