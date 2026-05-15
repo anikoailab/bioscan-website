@@ -35,6 +35,7 @@
     function loadReport() {
       const clientName = sessionStorage.getItem('clientName') || 'Client';
       const language = sessionStorage.getItem('language') || 'en';
+      const reportLink = sessionStorage.getItem('reportLink');
       const reportDate = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -52,15 +53,19 @@
       };
       document.getElementById('toolbarLanguage').textContent = langNames[language] || 'English';
 
-      // Load the language-specific report
-      const reportFile = `report-sample-${language}.html`;
-      fetch(reportFile)
+      // Load report from the client-provided link
+      if (!reportLink) {
+        document.getElementById('reportContainer').innerHTML = '<p>Error: No report link provided. Please go back and submit the form.</p>';
+        return;
+      }
+
+      fetch(reportLink)
         .then(response => response.text())
         .then(html => {
           document.getElementById('reportContainer').innerHTML = html;
         })
         .catch(error => {
-          document.getElementById('reportContainer').innerHTML = '<p>Error loading report. Please try again.</p>';
+          document.getElementById('reportContainer').innerHTML = '<p>Error loading report from the provided link. Please check the URL and try again.</p>';
           console.error('Error:', error);
         });
     }
