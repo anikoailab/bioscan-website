@@ -381,7 +381,18 @@ IMPORTANT RULES:
 - Base ALL content on actual scan data — do not invent findings.
 - If a section has no data (e.g. no spine data), skip that section entirely.
 - Be warm, clear, encouraging — no jargon.
-- doTERRA section must always mention @anikopuhova.ai.`;
+- doTERRA section must always mention @anikopuhova.ai.
+
+CONNECTING THE DOTS (critical for client education):
+- Throughout the report, help clients understand ROOT CAUSES vs. symptoms they think they have.
+- Examples of dot-connecting language:
+  * "Many people think they have IBS, but the real issue is candida overgrowth and dysbiosis"
+  * "What feels like chronic fatigue is often your body's response to gut dysbiosis and heavy metal load"
+  * "Brain fog and poor focus are commonly blamed on stress, but they're often caused by leaky gut and nutritional deficiencies"
+  * "Your skin issues, hormonal imbalance, and fatigue are all likely connected to the same root: gut dysfunction and candida"
+- When explaining findings, normalize them: "This is very common and treatable — many people have this pattern without realizing it"
+- Connect physical findings to emotional/stress patterns when relevant: "Suppressed emotions often manifest as throat and thyroid stress"
+- Use this approach in: Key Findings, Gut Health, Pathogens, Mind-Body Patterns, and Action Plan sections.`;
 
   try {
     const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
