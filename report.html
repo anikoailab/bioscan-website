@@ -59,36 +59,15 @@
         return;
       }
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-      fetch(reportLink, { signal: controller.signal })
-        .then(response => {
-          clearTimeout(timeoutId);
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-          }
-          return response.text();
-        })
-        .then(html => {
-          if (!html || html.trim().length === 0) {
-            throw new Error('Empty response from report link');
-          }
-          document.getElementById('reportContainer').innerHTML = html;
-        })
-        .catch(error => {
-          clearTimeout(timeoutId);
-          console.error('Report fetch error:', error);
-          let errorMsg = 'Error loading report from the provided link.';
-          if (error.name === 'AbortError') {
-            errorMsg = 'Request timed out. The link may be invalid or unreachable.';
-          } else if (error.message.includes('HTTP')) {
-            errorMsg = `Server error: ${error.message}`;
-          } else if (error.message.includes('fetch')) {
-            errorMsg = 'CORS error or invalid URL. Please verify the report link is publicly accessible.';
-          }
-          document.getElementById('reportContainer').innerHTML = `<div style="padding:20px;text-align:center;color:#d32f2f;"><p><strong>Error:</strong> ${errorMsg}</p><p style="font-size:12px;color:#666;margin-top:10px;">Link: ${reportLink}</p></div>`;
-        });
+      // Embed the test result in an iframe
+      document.getElementById('reportContainer').innerHTML = `
+        <iframe
+          src="${reportLink}"
+          style="width:100%; height:800px; border:none; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08);"
+          title="Test Report from ${clientName}"
+          sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        ></iframe>
+      `;
     }
   </script>
 </body>
