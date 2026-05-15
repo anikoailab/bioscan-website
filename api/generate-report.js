@@ -145,7 +145,7 @@ RETURN: Only the complete HTML starting with <div class="wrap"> and ending with 
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 8000,
+        max_tokens: 6000,
         system: systemPrompt,
         messages: [{
           role: 'user',
