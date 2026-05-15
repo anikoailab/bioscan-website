@@ -116,11 +116,11 @@ ORGAN DASHBOARD (group organs into good/warn/flag — use EXACTLY this structure
   </div>
 </div>
 
-KEY FINDINGS (3-6 most important issues):
+KEY FINDINGS (3-6 most important issues - IMPORTANT: write in very simple language for non-medical clients):
 <div class="section">
   <div class="sec-title"><span class="sec-icon">◈</span> Key Findings</div>
-  <div class="alert-card"><strong>[Finding title]</strong><p>[2-3 sentences explaining this finding in simple language]</p></div>
-  <div class="alert-card urgent"><strong>[Most urgent finding title]</strong><p>[explanation]</p></div>
+  <div class="alert-card"><strong>[Finding title]</strong><p>[4-5 sentences. Explain WHAT was found, WHY it matters to THIS client's body, WHAT symptoms or issues it might cause, and WHY they should care. Use simple, everyday language. No medical jargon.]</p></div>
+  <div class="alert-card urgent"><strong>[Most urgent finding title]</strong><p>[4-5 sentences with same approach - detailed, simple, client-focused]</p></div>
 </div>
 
 ${isWellnessReport ? `TOP 3 PRIORITIES (NEW - appears after Key Findings):
