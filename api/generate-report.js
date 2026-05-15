@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { reportLink, rawReportText, clientName, language } = req.body;
+  const { reportLink, clientName, language } = req.body;
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return res.status(500).json({
@@ -12,22 +12,27 @@ export default async function handler(req, res) {
     });
   }
 
-  let reportContent = rawReportText;
+  let reportContent = null;
 
-  if (!reportContent && reportLink) {
+  if (reportLink) {
     try {
-      const response = await fetch(reportLink);
+      const response = await fetch(reportLink, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        }
+      });
       if (!response.ok) {
         return res.status(400).json({
           error: 'Could not fetch report link',
-          message: 'The provided link could not be accessed. Please paste the raw report text instead.'
+          message: 'The provided link could not be accessed. Please check the URL and try again.'
         });
       }
       reportContent = await response.text();
     } catch (error) {
       return res.status(400).json({
         error: 'Failed to fetch report',
-        message: 'Could not access the report link. Please paste the raw report text as a fallback.'
+        message: 'Could not access the report link. Please verify the URL and try again.'
       });
     }
   }
@@ -35,7 +40,7 @@ export default async function handler(req, res) {
   if (!reportContent) {
     return res.status(400).json({
       error: 'No report data provided',
-      message: 'Please provide either a WebWellness link or paste the raw report text.'
+      message: 'Please provide a valid bioresonance report link.'
     });
   }
 

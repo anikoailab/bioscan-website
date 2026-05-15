@@ -232,12 +232,15 @@ h1,h2,h3,h4{font-family:'Playfair Display',serif;}
 .spinner{width:40px;height:40px;border:3px solid #eee;border-top:3px solid #1B4D5C;border-radius:50%;margin:20px auto;animation:spin .8s linear infinite;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
+@page{margin:12mm 10mm;}
 @media print{
   body{background:#fff;}
   .report-toolbar,.report-footer-ui{display:none!important;}
+  .pdf-btn,button{display:none!important;}
   .wrap{box-shadow:none;max-width:100%;}
-  .section,.alert-card,.bio-box,.water-box,.prog-item,.psycho-item,.organ-grid,.food-grid,.gut-grid,.chakra-row,.chakra-detail,.ck-detail-item{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;}
-  .hdr{page-break-after:always;}
+  .sec-title{page-break-after:avoid;}
+  .section,.alert-card,.bio-box,.water-box,.prog-item,.prog-grid,.psycho-item,.organ-grid,.food-grid,.gut-grid,.chakra-row,.chakra-detail,.ck-detail-item,.vit-row,.supp-item,.metal-item,.amino-item,.parasite-item,.doc-item,.action-item,.tips-category,.spine-box,.closing-box,.zodiac-grid,.footer{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;}
+  .hdr{page-break-after:always;break-after:always;}
 }
 @media(max-width:768px){
   .hdr,.body{padding:32px 24px;}
@@ -279,15 +282,31 @@ h1,h2,h3,h4{font-family:'Playfair Display',serif;}
       const clientName = sessionStorage.getItem('clientName') || 'Client';
       const language   = sessionStorage.getItem('language') || 'en';
       const reportLink = sessionStorage.getItem('reportLink');
-      const rawReportText = sessionStorage.getItem('rawReportText');
+      const demoMode = sessionStorage.getItem('demoMode') === 'true';
 
       const reportDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById('toolbarClientName').textContent = clientName;
       document.getElementById('toolbarDate').textContent = reportDate;
       document.getElementById('toolbarLanguage').textContent = ({ en: 'English', es: 'Spanish', hu: 'Hungarian', ru: 'Russian' })[language] || 'English';
 
-      if (!reportLink && !rawReportText) {
-        document.getElementById('reportContainer').innerHTML = '<div style="padding:60px;text-align:center;"><p style="color:#d32f2f;font-size:16px;">No report data found. Please go back and submit the form.</p><br><button onclick="clearAndReturnHome()" style="padding:12px 24px;background:#1B4D5C;color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer;">Go Back</button></div>';
+      if (demoMode) {
+        sessionStorage.removeItem('demoMode');
+        const sampleFiles = { en: 'report-sample-en.html', es: 'report-sample-es.html', hu: 'report-sample-hu.html', ru: 'report-sample-ru.html' };
+        const sampleFile = sampleFiles[language] || 'report-sample-en.html';
+        fetch(sampleFile)
+          .then(r => r.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const wrap = doc.querySelector('.wrap');
+            const banner = '<div style="background:#FEF3E2;border:1px solid #F0D89A;padding:10px 20px;text-align:center;font-size:12px;color:#B87A10;font-family:Inter,sans-serif;">Sample report — for demonstration only</div>';
+            document.getElementById('reportContainer').innerHTML = banner + (wrap ? wrap.outerHTML : html);
+          });
+        return;
+      }
+
+      if (!reportLink) {
+        document.getElementById('reportContainer').innerHTML = '<div style="padding:60px;text-align:center;"><p style="color:#d32f2f;font-size:16px;">No report link provided. Please go back and submit the form.</p><br><button onclick="clearAndReturnHome()" style="padding:12px 24px;background:#1B4D5C;color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer;">Go Back</button></div>';
         return;
       }
 
@@ -297,8 +316,7 @@ h1,h2,h3,h4{font-family:'Playfair Display',serif;}
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          reportLink: reportLink || null,
-          rawReportText: rawReportText || null,
+          reportLink: reportLink,
           clientName: clientName,
           language: language
         })
