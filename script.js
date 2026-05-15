@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const reportForm = document.getElementById('reportForm');
+
   if (reportForm) {
     reportForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -20,5 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'report.html';
       }, 1500);
     });
+
+    reportForm.reset();
   }
 });
+
+function clearAndReturnHome() {
+  sessionStorage.clear();
+  window.location.href = '/';
+}
