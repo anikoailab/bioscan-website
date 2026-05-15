@@ -53,21 +53,85 @@
       };
       document.getElementById('toolbarLanguage').textContent = langNames[language] || 'English';
 
-      // Load report from the client-provided link
       if (!reportLink) {
         document.getElementById('reportContainer').innerHTML = '<p>Error: No report link provided. Please go back and submit the form.</p>';
         return;
       }
 
-      // Embed the test result in an iframe
-      document.getElementById('reportContainer').innerHTML = `
-        <iframe
-          src="${reportLink}"
-          style="width:100%; height:800px; border:none; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08);"
-          title="Test Report from ${clientName}"
-          sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-        ></iframe>
-      `;
+      // Show loading state
+      document.getElementById('reportContainer').innerHTML = '<div style="padding: 40px; text-align: center;"><p>Processing your bioresonance scan...</p></div>';
+
+      // Fetch and parse the scanner data via API
+      fetch('/api/parse-scanner', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reportLink })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        // Log extracted data for debugging
+        console.log('Extracted scanner data:', data);
+
+        // Load the template and populate it with data
+        loadTemplate(language, clientName, data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('reportContainer').innerHTML = `
+          <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 20px; margin: 20px;">
+            <p style="color: #d32f2f; font-weight: 600;">Error processing scanner report</p>
+            <p style="color: #666; margin-top: 10px; font-size: 14px;">${error.message}</p>
+            <p style="color: #999; margin-top: 10px; font-size: 12px;">Make sure the scanner link is complete and accessible. Check the browser console for more details.</p>
+          </div>
+        `;
+      });
+    }
+
+    function loadTemplate(language, clientName, scannerData) {
+      const templateFile = `report-sample-${language}.html`;
+
+      fetch(templateFile)
+      .then(response => response.text())
+      .then(html => {
+        // Replace placeholder client name with actual client name
+        let populatedHtml = html;
+
+        // Replace common client name placeholders
+        const placeholders = ['Sample Client', 'John Doe', 'Client Name', 'Your Name'];
+        placeholders.forEach(placeholder => {
+          populatedHtml = populatedHtml.replace(new RegExp(placeholder, 'g'), clientName);
+        });
+
+        // If scanner extracted biological age, replace it in the template
+        if (scannerData.biologicalAge !== null) {
+          // Look for biological age values in the template and replace them
+          populatedHtml = populatedHtml.replace(
+            /Biological Age[:\s]*(\d+)/g,
+            `Biological Age: ${scannerData.biologicalAge}`
+          );
+        }
+
+        // If general system state exists, update relevant sections
+        if (scannerData.generalSystemState !== null) {
+          populatedHtml = populatedHtml.replace(
+            /General Health[:\s]*(\d+\.?\d*)\s*%?/g,
+            `General Health: ${(scannerData.generalSystemState).toFixed(1)}%`
+          );
+        }
+
+        // Inject the populated HTML into the page
+        document.getElementById('reportContainer').innerHTML = populatedHtml;
+
+        // Log extracted data for debugging
+        console.log('Scanner data extracted:', scannerData);
+      })
+      .catch(error => {
+        console.error('Error loading template:', error);
+        document.getElementById('reportContainer').innerHTML = '<p style="color: #d32f2f; padding: 20px;">Error loading report template. Please check the scanner link and try again.</p>';
+      });
     }
   </script>
 </body>
