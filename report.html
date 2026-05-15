@@ -26,16 +26,16 @@
     <button class="btn-tertiary" onclick="clearAndReturnHome()">Create Another Report</button>
   </div>
 
-  <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      loadReport();
+      generateReport();
     });
 
-    function loadReport() {
+    function generateReport() {
       const clientName = sessionStorage.getItem('clientName') || 'Client';
       const language = sessionStorage.getItem('language') || 'en';
       const reportLink = sessionStorage.getItem('reportLink');
+      const rawReportText = sessionStorage.getItem('rawReportText');
       const reportDate = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -53,85 +53,325 @@
       };
       document.getElementById('toolbarLanguage').textContent = langNames[language] || 'English';
 
-      if (!reportLink) {
-        document.getElementById('reportContainer').innerHTML = '<p>Error: No report link provided. Please go back and submit the form.</p>';
+      if (!reportLink && !rawReportText) {
+        document.getElementById('reportContainer').innerHTML = '<p>Error: No report data provided. Please go back and submit the form.</p>';
         return;
       }
 
-      // Show loading state
-      document.getElementById('reportContainer').innerHTML = '<div style="padding: 40px; text-align: center;"><p>Processing your bioresonance scan...</p></div>';
+      document.getElementById('reportContainer').innerHTML = '<div style="padding: 40px; text-align: center;"><p>Processing your bioresonance scan results...</p><div class="spinner" style="margin-top: 20px;"></div></div>';
 
-      // Fetch and parse the scanner data via API
-      fetch('/api/parse-scanner', {
+      // Send to API for data extraction
+      fetch('/api/extract-report-data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reportLink })
+        body: JSON.stringify({
+          reportLink: reportLink || null,
+          rawReportText: rawReportText || null,
+          clientName: clientName
+        })
       })
-      .then(response => {
-        if (!response.ok) throw new Error(`Server error: ${response.status}`);
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
-        // Log extracted data for debugging
-        console.log('Extracted scanner data:', data);
+        if (data.error) {
+          document.getElementById('reportContainer').innerHTML = `
+            <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 20px; margin: 20px;">
+              <p style="color: #d32f2f; font-weight: 600;">${data.error}</p>
+              <p style="color: #666; margin-top: 10px; font-size: 14px;">${data.message}</p>
+            </div>
+          `;
+          return;
+        }
 
-        // Load the template and populate it with data
-        loadTemplate(language, clientName, data);
+        // Generate the report HTML from extracted data
+        const reportHTML = generateReportHTML(data, language);
+        document.getElementById('reportContainer').innerHTML = reportHTML;
+
+        console.log('Generated report with data:', data);
       })
       .catch(error => {
         console.error('Error:', error);
         document.getElementById('reportContainer').innerHTML = `
           <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 20px; margin: 20px;">
-            <p style="color: #d32f2f; font-weight: 600;">Error processing scanner report</p>
+            <p style="color: #d32f2f; font-weight: 600;">Error processing report</p>
             <p style="color: #666; margin-top: 10px; font-size: 14px;">${error.message}</p>
-            <p style="color: #999; margin-top: 10px; font-size: 12px;">Make sure the scanner link is complete and accessible. Check the browser console for more details.</p>
           </div>
         `;
       });
     }
 
-    function loadTemplate(language, clientName, scannerData) {
-      const templateFile = `report-sample-${language}.html`;
+    function generateReportHTML(data, language) {
+      const t = getTranslations(language);
 
-      fetch(templateFile)
-      .then(response => response.text())
-      .then(html => {
-        // Replace placeholder client name with actual client name
-        let populatedHtml = html;
+      let html = `<div class="wrap" style="max-width: 900px; margin: 0 auto; padding: 40px; background: white;">`;
 
-        // Replace common client name placeholders
-        const placeholders = ['Sample Client', 'John Doe', 'Client Name', 'Your Name'];
-        placeholders.forEach(placeholder => {
-          populatedHtml = populatedHtml.replace(new RegExp(placeholder, 'g'), clientName);
+      // Header
+      html += `
+        <div class="hdr" style="text-align: center; padding-bottom: 30px; border-bottom: 2px solid #1B4D5C; margin-bottom: 30px;">
+          <h1 style="font-size: 32px; color: #1B4D5C; margin-bottom: 12px;">BioScan Wellness Report</h1>
+          <h2 style="font-size: 24px; color: #333; margin-bottom: 8px;">${data.clientName}</h2>
+          <p style="color: #999; font-size: 14px;">${t.reportDate}: ${data.testDate}</p>
+        </div>
+      `;
+
+      // Summary Section
+      html += `<div class="section" style="margin-bottom: 30px;">`;
+      html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.overallStatus}</h3>`;
+
+      if (data.generalCondition) {
+        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.generalCondition}:</strong> ${data.generalCondition}</p>`;
+      }
+
+      if (data.biologicalAge) {
+        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.biologicalAge}:</strong> ${data.biologicalAge} ${t.yearsOld}</p>`;
+      }
+
+      if (data.age) {
+        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.chronologicalAge}:</strong> ${data.age} ${t.yearsOld}</p>`;
+      }
+
+      if (data.sex) {
+        html += `<p style="color: #666; margin-bottom: 12px;"><strong>${t.sex}:</strong> ${data.sex}</p>`;
+      }
+
+      html += `</div>`;
+
+      // Organs Section
+      if (Object.keys(data.organs).length > 0) {
+        html += `<div class="section" style="margin-bottom: 30px;">`;
+        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.organDashboard}</h3>`;
+        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.organExplanation}</p>`;
+        html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">`;
+
+        Object.entries(data.organs).forEach(([organ, value]) => {
+          const organName = capitalizeWord(organ);
+          const status = getHealthStatus(value, language);
+          html += `
+            <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; border-left: 4px solid #1B4D5C;">
+              <p style="color: #333; font-weight: 600; margin-bottom: 4px;">${organName}</p>
+              <p style="color: #666; font-size: 14px;">Score: ${value.toFixed(1)}</p>
+              <p style="color: #999; font-size: 12px; margin-top: 6px;">${status}</p>
+            </div>
+          `;
         });
 
-        // If scanner extracted biological age, replace it in the template
-        if (scannerData.biologicalAge !== null) {
-          // Look for biological age values in the template and replace them
-          populatedHtml = populatedHtml.replace(
-            /Biological Age[:\s]*(\d+)/g,
-            `Biological Age: ${scannerData.biologicalAge}`
-          );
+        html += `</div></div>`;
+      }
+
+      // Vitamins & Minerals Section
+      if (Object.keys(data.vitamins).length > 0 || Object.keys(data.minerals).length > 0) {
+        html += `<div class="section" style="margin-bottom: 30px;">`;
+        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.vitaminsAndMinerals}</h3>`;
+        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.vitaminExplanation}</p>`;
+
+        if (Object.keys(data.vitamins).length > 0) {
+          html += `<p style="color: #333; font-weight: 600; margin-bottom: 8px;">${t.vitamins}:</p>`;
+          html += `<ul style="margin-left: 20px; color: #666; margin-bottom: 16px;">`;
+          Object.entries(data.vitamins).forEach(([vitamin, value]) => {
+            html += `<li style="margin-bottom: 4px;">${capitalizeWord(vitamin)}: ${value.toFixed(1)}</li>`;
+          });
+          html += `</ul>`;
         }
 
-        // If general system state exists, update relevant sections
-        if (scannerData.generalSystemState !== null) {
-          populatedHtml = populatedHtml.replace(
-            /General Health[:\s]*(\d+\.?\d*)\s*%?/g,
-            `General Health: ${(scannerData.generalSystemState).toFixed(1)}%`
-          );
+        if (Object.keys(data.minerals).length > 0) {
+          html += `<p style="color: #333; font-weight: 600; margin-bottom: 8px;">${t.minerals}:</p>`;
+          html += `<ul style="margin-left: 20px; color: #666;">`;
+          Object.entries(data.minerals).forEach(([mineral, value]) => {
+            html += `<li style="margin-bottom: 4px;">${capitalizeWord(mineral)}: ${value.toFixed(1)}</li>`;
+          });
+          html += `</ul>`;
         }
 
-        // Inject the populated HTML into the page
-        document.getElementById('reportContainer').innerHTML = populatedHtml;
+        html += `</div>`;
+      }
 
-        // Log extracted data for debugging
-        console.log('Scanner data extracted:', scannerData);
-      })
-      .catch(error => {
-        console.error('Error loading template:', error);
-        document.getElementById('reportContainer').innerHTML = '<p style="color: #d32f2f; padding: 20px;">Error loading report template. Please check the scanner link and try again.</p>';
-      });
+      // Amino Acids Section
+      if (Object.keys(data.aminoAcids).length > 0) {
+        html += `<div class="section" style="margin-bottom: 30px;">`;
+        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.aminoAcids}</h3>`;
+        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.aminoAcidExplanation}</p>`;
+        html += `<ul style="margin-left: 20px; color: #666;">`;
+        Object.entries(data.aminoAcids).forEach(([acid, value]) => {
+          html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(acid)}:</strong> ${value.toFixed(1)}</li>`;
+        });
+        html += `</ul>`;
+        html += `</div>`;
+      }
+
+      // Heavy Metals Section
+      if (Object.keys(data.heavyMetals).length > 0) {
+        html += `<div class="section" style="margin-bottom: 30px; background: #fff5f5; padding: 20px; border-radius: 8px;">`;
+        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.heavyMetals}</h3>`;
+        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.heavyMetalExplanation}</p>`;
+        html += `<ul style="margin-left: 20px; color: #666;">`;
+        Object.entries(data.heavyMetals).forEach(([metal, value]) => {
+          html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(metal)}:</strong> ${value.toFixed(1)}</li>`;
+        });
+        html += `</ul>`;
+        html += `</div>`;
+      }
+
+      // Food Sensitivities Section
+      if (data.foodSensitivities && data.foodSensitivities.length > 0) {
+        html += `<div class="section" style="margin-bottom: 30px;">`;
+        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.foodSensitivities}</h3>`;
+        html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.foodSensitivityExplanation}</p>`;
+        html += `<div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
+        data.foodSensitivities.forEach(food => {
+          html += `<span style="background: #ffd4d4; color: #d32f2f; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500;">${food}</span>`;
+        });
+        html += `</div></div>`;
+      }
+
+      // Recommendations Section
+      if (data.recommendations && data.recommendations.length > 0) {
+        html += `<div class="section" style="margin-bottom: 30px; background: #f0f5f7; padding: 20px; border-radius: 8px;">`;
+        html += `<h3 style="font-size: 18px; color: #1B4D5C; margin-bottom: 16px; font-weight: 600;">${t.recommendations}</h3>`;
+        html += `<ul style="margin-left: 20px; color: #666;">`;
+        data.recommendations.forEach(rec => {
+          html += `<li style="margin-bottom: 10px; line-height: 1.6;">${rec}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      // Disclaimer
+      html += `
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-top: 40px; border-top: 2px solid #ddd; padding-top: 20px;">
+          <p style="font-size: 12px; color: #999; line-height: 1.8;">
+            <strong>${t.disclaimer}</strong> ${t.disclaimerText}
+          </p>
+        </div>
+      `;
+
+      html += `</div>`;
+
+      return html;
+    }
+
+    function getTranslations(language) {
+      const translations = {
+        en: {
+          reportDate: 'Report Date',
+          overallStatus: 'Overall Status',
+          generalCondition: 'General Condition',
+          biologicalAge: 'Biological Age',
+          chronologicalAge: 'Age',
+          yearsOld: 'years old',
+          sex: 'Sex',
+          organDashboard: 'Organ System Analysis',
+          organExplanation: 'The scan suggests resonance patterns in the following organs. These findings may indicate areas for further health support.',
+          vitaminsAndMinerals: 'Vitamins & Minerals Analysis',
+          vitaminExplanation: 'The scan suggests potential patterns in vitamin and mineral levels. These findings may indicate nutritional support opportunities.',
+          vitamins: 'Vitamins',
+          minerals: 'Minerals',
+          aminoAcids: 'Amino Acids',
+          aminoAcidExplanation: 'Amino acid levels as suggested by the scan. Consider discussing any deficiencies with a qualified health practitioner.',
+          heavyMetals: 'Heavy Metal Indicators',
+          heavyMetalExplanation: 'The scan detected resonance patterns that may suggest exposure to certain elements. Please discuss these findings with a qualified doctor for appropriate testing and guidance.',
+          foodSensitivities: 'Food Sensitivity Patterns',
+          foodSensitivityExplanation: 'The scan suggests potential sensitivity patterns to the following foods. You may consider an elimination diet or discuss with a nutritionist.',
+          recommendations: 'Wellness Recommendations',
+          disclaimer: 'Important Disclaimer:',
+          disclaimerText: 'This report reflects patterns detected by bioresonance scanning. These findings are NOT medical diagnoses. Bioresonance technology is complementary to conventional medicine. Please consult with a qualified medical doctor for any health concerns. The scan suggests potential patterns that may warrant further investigation by health professionals.'
+        },
+        es: {
+          reportDate: 'Fecha del Informe',
+          overallStatus: 'Estado General',
+          generalCondition: 'Condición General',
+          biologicalAge: 'Edad Biológica',
+          chronologicalAge: 'Edad',
+          yearsOld: 'años',
+          sex: 'Sexo',
+          organDashboard: 'Análisis de Sistemas de Órganos',
+          organExplanation: 'El escaneo sugiere patrones de resonancia en los siguientes órganos. Estos hallazgos pueden indicar áreas para apoyo adicional de salud.',
+          vitaminsAndMinerals: 'Análisis de Vitaminas y Minerales',
+          vitaminExplanation: 'El escaneo sugiere patrones potenciales en los niveles de vitaminas y minerales. Estos hallazgos pueden indicar oportunidades de apoyo nutricional.',
+          vitamins: 'Vitaminas',
+          minerals: 'Minerales',
+          aminoAcids: 'Aminoácidos',
+          aminoAcidExplanation: 'Niveles de aminoácidos sugeridos por el escaneo. Considere discutir cualquier deficiencia con un profesional de la salud calificado.',
+          heavyMetals: 'Indicadores de Metales Pesados',
+          heavyMetalExplanation: 'El escaneo detectó patrones de resonancia que pueden sugerir exposición a ciertos elementos. Por favor, discuta estos hallazgos con un doctor calificado para pruebas y orientación apropiadas.',
+          foodSensitivities: 'Patrones de Sensibilidad Alimentaria',
+          foodSensitivityExplanation: 'El escaneo sugiere patrones de sensibilidad potencial a los siguientes alimentos. Puede considerar una dieta de eliminación o discutir con un nutricionista.',
+          recommendations: 'Recomendaciones de Bienestar',
+          disclaimer: 'Descargo de Responsabilidad Importante:',
+          disclaimerText: 'Este informe refleja patrones detectados por escaneo de biorresonancia. Estos hallazgos NO son diagnósticos médicos. La tecnología de biorresonancia es complementaria a la medicina convencional. Por favor, consulte con un médico calificado para cualquier inquietud de salud. El escaneo sugiere patrones potenciales que pueden justificar una investigación posterior por profesionales de la salud.'
+        },
+        hu: {
+          reportDate: 'Jelentés Dátuma',
+          overallStatus: 'Általános Állapot',
+          generalCondition: 'Általános Állapot',
+          biologicalAge: 'Biológiai Kor',
+          chronologicalAge: 'Kor',
+          yearsOld: 'éves',
+          sex: 'Nem',
+          organDashboard: 'Szervrendszeri Elemzés',
+          organExplanation: 'Az idegemel rezonanciamintákat javasol a következő szervekben. Ezek az eredmények további egészségügyi támogatás terülteit jelezhetik.',
+          vitaminsAndMinerals: 'Vitaminok és Ásványok Elemzése',
+          vitaminExplanation: 'Az idegemel potenciális mintákat javasol a vitamin- és ásványszintekben. Ezek az eredmények táplálékkiegészítési lehetőségeket jelezhetik.',
+          vitamins: 'Vitaminok',
+          minerals: 'Ásványok',
+          aminoAcids: 'Aminosavak',
+          aminoAcidExplanation: 'Az idegemel által javasolt aminosav szintek. Fontoljon meg egy mindenféle hiány megvitatást egy képzett egészségügyi szakemberrel.',
+          heavyMetals: 'Nehézfém Jelzők',
+          heavyMetalExplanation: 'Az idegemel rezonancia mintákat detektált, amelyek bizonyos elemeknek való kitettséget sugallhatnak. Kérjük, beszélje meg ezeket az eredményeket egy képzett orvossal a megfelelő teszteléshez és útmutatáshoz.',
+          foodSensitivities: 'Élelmiszer-érzékenységi Minták',
+          foodSensitivityExplanation: 'Az idegemel potenciális érzékenységi mintákat javasol a következő élelmiszerekre. Fontoljon meg egy eliminációs diétát vagy beszéljen egy tápanyagtanácsadóval.',
+          recommendations: 'Wellness Ajánlások',
+          disclaimer: 'Fontos Felelősségkizárás:',
+          disclaimerText: 'Ez a jelentés a biorrezonancia-szkenneléssel felismert mintákat tükrözi. Ezek az eredmények NEM orvosi diagnózisok. A biorrezonancia-technológia a hagyományos orvoslás kiegészítése. Kérjük, konzultáljon egy képzett orvossal az egészségügyi aggályokkal kapcsolatban. Az idegemel potenciális mintákat javasol, amelyek további kutatást igényelhetnek az egészségügyi szakemberek által.'
+        },
+        ru: {
+          reportDate: 'Дата Отчета',
+          overallStatus: 'Общее Состояние',
+          generalCondition: 'Общее Состояние',
+          biologicalAge: 'Биологический Возраст',
+          chronologicalAge: 'Возраст',
+          yearsOld: 'лет',
+          sex: 'Пол',
+          organDashboard: 'Анализ Системы Органов',
+          organExplanation: 'Сканирование предполагает паттерны резонанса в следующих органах. Эти результаты могут указывать на области, нуждающиеся в дополнительной поддержке здоровья.',
+          vitaminsAndMinerals: 'Анализ Витаминов и Минералов',
+          vitaminExplanation: 'Сканирование предполагает потенциальные паттерны в уровнях витаминов и минералов. Эти результаты могут указывать на возможности пищевой поддержки.',
+          vitamins: 'Витамины',
+          minerals: 'Минералы',
+          aminoAcids: 'Аминокислоты',
+          aminoAcidExplanation: 'Уровни аминокислот, предполагаемые сканированием. Рассмотрите возможность обсуждения любых дефицитов с квалифицированным медицинским работником.',
+          heavyMetals: 'Показатели Тяжелых Металлов',
+          heavyMetalExplanation: 'Сканирование обнаружило паттерны резонанса, которые могут указывать на воздействие определенных элементов. Пожалуйста, обсудите эти результаты с квалифицированным врачом для надлежащего тестирования и рекомендаций.',
+          foodSensitivities: 'Паттерны Пищевой Чувствительности',
+          foodSensitivityExplanation: 'Сканирование предполагает потенциальные паттерны чувствительности к следующим продуктам. Вы можете рассмотреть элиминационную диету или проконсультироваться с диетологом.',
+          recommendations: 'Рекомендации по Благополучию',
+          disclaimer: 'Важное Предупреждение:',
+          disclaimerText: 'Этот отчет отражает паттерны, обнаруженные при биорезонансном сканировании. Эти результаты НЕ являются медицинскими диагнозами. Технология биорезонанса дополняет традиционную медицину. Пожалуйста, проконсультируйтесь с квалифицированным врачом по поводу любых проблем со здоровьем. Сканирование предполагает потенциальные паттерны, которые могут потребовать дальнейшего исследования медицинскими специалистами.'
+        }
+      };
+
+      return translations[language] || translations['en'];
+    }
+
+    function capitalizeWord(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+    function getHealthStatus(value, language) {
+      const statuses = {
+        en: { excellent: 'Excellent', good: 'Good', fair: 'Fair', poor: 'Poor' },
+        es: { excellent: 'Excelente', good: 'Bueno', fair: 'Aceptable', poor: 'Deficiente' },
+        hu: { excellent: 'Kiváló', good: 'Jó', fair: 'Elfogadható', poor: 'Gyenge' },
+        ru: { excellent: 'Отличное', good: 'Хорошее', fair: 'Справедливое', poor: 'Плохое' }
+      };
+
+      const s = statuses[language] || statuses['en'];
+      if (value > 80) return s.excellent;
+      if (value > 60) return s.good;
+      if (value > 40) return s.fair;
+      return s.poor;
+    }
+
+    function clearAndReturnHome() {
+      sessionStorage.clear();
+      window.location.href = '/';
     }
   </script>
 </body>

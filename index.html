@@ -14,12 +14,12 @@
     </header>
 
     <main class="landing-main">
-      <p class="intro-text">Paste your bioresonance report link, choose your language, and generate a structured wellness report you can download as a PDF.</p>
+      <p class="intro-text">Paste your WebWellness bioresonance report link or raw report text, choose your language, and generate a personalized wellness report for your client.</p>
 
       <form id="reportForm" class="report-form">
         <div class="form-group">
           <label for="clientName">Client Name</label>
-          <input type="text" id="clientName" name="clientName" required placeholder="Enter client name">
+          <input type="text" id="clientName" name="clientName" required placeholder="e.g., Anna Puhova">
         </div>
 
         <div class="form-group">
@@ -39,8 +39,15 @@
         </div>
 
         <div class="form-group">
-          <label for="reportLink">Paste Bioresonance Report Link</label>
-          <input type="url" id="reportLink" name="reportLink" required placeholder="https://...">
+          <label for="reportLink">WebWellness Report Link (Option 1)</label>
+          <input type="url" id="reportLink" name="reportLink" placeholder="https://profi-eu.webwellness.net/report/...">
+          <p style="font-size: 12px; color: #999; margin-top: 6px;">Or paste the raw report text in the box below if the link cannot be accessed</p>
+        </div>
+
+        <div class="form-group">
+          <label for="rawReportText">Raw Report Text (Option 2 - Fallback)</label>
+          <textarea id="rawReportText" name="rawReportText" placeholder="Paste the complete WebWellness report text here if the link cannot be accessed..." style="padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 12px; font-family: monospace; line-height: 1.4; min-height: 120px; resize: vertical;"></textarea>
+          <p style="font-size: 12px; color: #999; margin-top: 6px;">If you cannot share the link, copy and paste the complete report content here instead</p>
         </div>
 
         <button type="submit" class="btn-primary">Generate Report</button>
