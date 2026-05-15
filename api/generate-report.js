@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { reportLink, clientName, language } = req.body;
+  const { reportLink, clientName, language, scanType } = req.body;
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return res.status(500).json({
@@ -49,6 +49,8 @@ export default async function handler(req, res) {
   const langNames = { en: 'English', es: 'Spanish', hu: 'Hungarian', ru: 'Russian' };
   const langName = langNames[language] || 'English';
 
+  const isWellnessReport = scanType !== 'chakra';
+
   const systemPrompt = `You are a professional wellness report generator for BioScan, run by Aniko Puhova (@anikopuhova.ai).
 
 You will receive raw WebWellness bioresonance scan data. Generate a beautiful personalized HTML wellness report.
@@ -58,6 +60,8 @@ CRITICAL: You must output HTML using EXACTLY the class names and structure shown
 OUTPUT FORMAT: Return ONLY the HTML starting with <div class="wrap"> and ending with </div>. No markdown, no code blocks, no explanation.
 
 LANGUAGE: Write ALL text content in ${langName}. Translate all labels, descriptions, and section titles to ${langName}.
+
+REPORT TYPE: ${isWellnessReport ? 'WELLNESS SCAN - Focus on health patterns, priorities, and actionable steps. NO chakra section. Use gentle, professional language.' : 'CHAKRA ANALYSIS - Deep spiritual energy analysis with detailed chakra interpretation.'}
 
 ═══════════════════════════════════════
 EXACT HTML PATTERNS TO USE:
@@ -119,6 +123,39 @@ KEY FINDINGS (3-6 most important issues):
   <div class="alert-card urgent"><strong>[Most urgent finding title]</strong><p>[explanation]</p></div>
 </div>
 
+${isWellnessReport ? `TOP 3 PRIORITIES (NEW - appears after Key Findings):
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Your Top 3 Priorities</div>
+  <div class="priority-grid">
+    <div class="priority-item">
+      <div>
+        <strong>Priority #1: [Top action area]</strong>
+        <p>[Why this matters most for this client. What they'll see improve first.]</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div>
+        <strong>Priority #2: [Second action area]</strong>
+        <p>[Why this matters. Connection to their findings.]</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div>
+        <strong>Priority #3: [Third action area]</strong>
+        <p>[Why this matters. What to expect from this work.]</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+GOOD NEWS (NEW - appears after Top 3 Priorities):
+<div class="section">
+  <div class="good-news-box">
+    <strong>Here's What's Working for You</strong>
+    <p>[Specific positive findings from this client's scan. What their body IS doing well. Why they have capacity to recover. Keep it warm and personal.]</p>
+  </div>
+</div>` : ''}
+
 WATER INTAKE:
 <div class="section">
   <div class="sec-title"><span class="sec-icon">◈</span> Daily Water Target</div>
@@ -137,13 +174,24 @@ VITAMINS (use .vit-fill width: 5% for deficient, 30% for low, 100% for good; col
   <div class="vit-row"><div class="vit-lbl"><span>Vitamin B12</span><span>Good</span></div><div class="vit-bg"><div class="vit-fill" style="width:100%;background:#3D8A5C;"></div></div></div>
 </div>
 
-AMINO ACIDS:
+${isWellnessReport ? `AMINO ACIDS (NEW - top 7 only):
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Amino Acid Deficiencies</div>
+  <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Top 7 priority amino acids. These are most important for your recovery.</p>
+  <div class="amino-item"><span class="amino-badge deficient">Critical</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[what it does and why this client needs it, based on their findings]</p></div></div>
+  <div class="amino-item"><span class="amino-badge deficient">Critical</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[explanation]</p></div></div>
+  <div class="amino-item"><span class="amino-badge deficient">High</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[explanation]</p></div></div>
+  <div class="amino-item"><span class="amino-badge deficient">High</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[explanation]</p></div></div>
+  <div class="amino-item"><span class="amino-badge deficient">Moderate</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[explanation]</p></div></div>
+  <div class="amino-item"><span class="amino-badge deficient">Moderate</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[explanation]</p></div></div>
+  <div class="amino-item"><span class="amino-badge deficient">Moderate</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[explanation]</p></div></div>
+</div>` : `AMINO ACIDS:
 <div class="section">
   <div class="sec-title"><span class="sec-icon">◈</span> Amino Acid Deficiencies</div>
   <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Amino acids are the building blocks your body uses to make proteins, hormones and neurotransmitters.</p>
   <div class="amino-item"><span class="amino-badge deficient">Deficient</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[what it does and how to get it]</p></div></div>
   <div class="amino-item"><span class="amino-badge adequate">Adequate</span><div class="amino-info"><strong>[Amino acid name]</strong><p>[brief note]</p></div></div>
-</div>
+</div>`}
 
 HEAVY METALS:
 <div class="section">
@@ -153,13 +201,20 @@ HEAVY METALS:
   <div class="metal-item"><span class="metal-badge low">low</span><div class="metal-info"><strong>Lead</strong><p>Affects: Blood, brain</p><div class="metal-test">Confirm with: [test]</div></div></div>
 </div>
 
-PATHOGENS:
+${isWellnessReport ? `FUNCTIONAL STRESS & MICROBIAL PATTERNS (NEW - no percentages, only HIGH/MODERATE/LOW):
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">◈</span> Functional Stress & Microbial Patterns</div>
+  <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">These are energetic resonance patterns indicating microbial stress in various body systems. These findings are not medical diagnoses. Functional lab testing can help confirm underlying imbalances.</p>
+  <div class="pathogen-item"><span class="pathogen-badge high">High Pattern</span><div class="pathogen-info"><strong>[Pattern name: e.g. Candida Related Imbalance]</strong><p>[How this pattern affects this client based on their other findings. Keep language functional, not scary.]</p></div></div>
+  <div class="pathogen-item"><span class="pathogen-badge moderate">Moderate Pattern</span><div class="pathogen-info"><strong>[Pattern name]</strong><p>[Explanation]</p></div></div>
+  <p style="font-size:11px;color:var(--text-light);margin-top:16px;line-height:1.6;font-style:italic;"><strong>Important:</strong> These findings are energetic resonance indicators, not medical diagnoses. Functional lab testing (stool analysis, blood panels, swabs) can help confirm underlying imbalances. Work with a functional medicine doctor or specialist to verify and address these patterns.</p>
+</div>` : `PATHOGENS:
 <div class="section">
   <div class="sec-title"><span class="sec-icon">◈</span> Pathogen Activity Indicators</div>
   <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">The scan detected resonance patterns that may indicate pathogen activity. These are not a diagnosis.</p>
   <div class="parasite-item"><span class="prob-badge high">96%</span><div class="parasite-info"><strong>Organism name (Type)</strong><p>Area: [body location]</p></div></div>
   <div class="parasite-item"><span class="prob-badge moderate">75%</span><div class="parasite-info"><strong>Organism name (Type)</strong><p>Area: [body location]</p></div></div>
-</div>
+</div>`}
 
 GUT HEALTH:
 <div class="section">
@@ -196,7 +251,7 @@ SPINE:
   </div>
 </div>
 
-CHAKRAS (7 chakras — use open/opening/closed status based on scan energy data):
+${!isWellnessReport ? `CHAKRAS (7 chakras — use open/opening/closed status based on scan energy data):
 <div class="section">
   <div class="sec-title"><span class="sec-icon">✦</span> Chakra Energy Flow</div>
   <p style="font-size:13px;color:#7A7A7A;margin-bottom:20px;line-height:1.6;">Each chakra is an energy centre in your body. A bright circle means energy is flowing freely. A faded circle means energy is low or blocked.</p>
@@ -218,7 +273,7 @@ CHAKRAS (7 chakras — use open/opening/closed status based on scan energy data)
     <div class="ck-detail-item" style="border-top:2.5px solid #9880D8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#9880D8;flex-shrink:0;display:inline-block;"></span>Ajna (Third Eye)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>[description]</p></div>
     <div class="ck-detail-item" style="border-top:2.5px solid #C890E8;"><strong style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#C890E8;flex-shrink:0;display:inline-block;"></span>Sahasrara (Crown)<span style="margin-left:auto;font-size:9px;font-weight:700;color:#B87A10;text-transform:uppercase;letter-spacing:0.5px;">Opening</span></strong><p>[description]</p></div>
   </div>
-</div>
+</div>` : ''}`
 
 MIND-BODY PATTERNS:
 <div class="section">
@@ -283,6 +338,22 @@ ACTION PLAN:
   <div class="action-item"><div class="action-num">1</div><div class="action-text"><strong>[Action title]</strong><p>[What to do and why]</p></div></div>
   <div class="action-item"><div class="action-num">2</div><div class="action-text"><strong>[Action title]</strong><p>[explanation]</p></div></div>
 </div>
+
+${isWellnessReport ? `CHANGES YOU MIGHT NOTICE (NEW - end of report before closing):
+<div class="section">
+  <div class="sec-title"><span class="sec-icon">✦</span> Changes You Might Notice</div>
+  <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:0;">With consistent support and the recommendations in this report:</p>
+  <div style="margin-top:16px;">
+    <p style="font-weight:600;color:var(--teal-dark);margin-bottom:6px;font-size:13px;">Within 2–4 weeks:</p>
+    <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;line-height:1.6;">[Specific improvements expected in this timeframe based on their findings, e.g., better digestion, more stable energy, improved mental clarity, better sleep]</p>
+
+    <p style="font-weight:600;color:var(--teal-dark);margin-bottom:6px;font-size:13px;">Within 1–3 months:</p>
+    <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;line-height:1.6;">[Medium-term improvements, e.g., clearer skin, reduced inflammation, mood stability, cycle improvements]</p>
+
+    <p style="font-weight:600;color:var(--teal-dark);margin-bottom:6px;font-size:13px;">Within 3–6 months:</p>
+    <p style="font-size:13px;color:var(--text-mid);line-height:1.6;">[Longer-term benefits, e.g., sustained energy, thyroid support showing, hormonal rebalancing, measurable biological age reduction]</p>
+  </div>
+</div>` : ''}
 
 CLOSING:
 <div class="section">
