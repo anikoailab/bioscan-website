@@ -8,15 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
       const clientName = document.getElementById('clientName').value;
       const language = document.getElementById('language').value;
       const reportLink = document.getElementById('reportLink').value;
+      const scanType = document.querySelector('input[name="scanType"]:checked').value;
 
       if (!reportLink) {
-        alert('Please provide a bioresonance report link.');
+        alert('Please provide a report link.');
         return;
       }
 
       sessionStorage.setItem('clientName', clientName);
       sessionStorage.setItem('language', language);
       sessionStorage.setItem('reportLink', reportLink || '');
+      sessionStorage.setItem('scanType', scanType);
 
       document.getElementById('loadingScreen').classList.remove('hidden');
 

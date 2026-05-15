@@ -282,6 +282,7 @@ h1,h2,h3,h4{font-family:'Playfair Display',serif;}
       const clientName = sessionStorage.getItem('clientName') || 'Client';
       const language   = sessionStorage.getItem('language') || 'en';
       const reportLink = sessionStorage.getItem('reportLink');
+      const scanType = sessionStorage.getItem('scanType') || 'wellness';
       const demoMode = sessionStorage.getItem('demoMode') === 'true';
 
       const reportDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -318,7 +319,8 @@ h1,h2,h3,h4{font-family:'Playfair Display',serif;}
         body: JSON.stringify({
           reportLink: reportLink,
           clientName: clientName,
-          language: language
+          language: language,
+          scanType: scanType
         })
       })
       .then(r => r.json())

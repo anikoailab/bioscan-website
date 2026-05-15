@@ -287,6 +287,33 @@ body {
   color: #1B4D5C;
 }
 
+.scan-type-group {
+  margin-bottom: 20px;
+}
+
+.scan-type-options {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.scan-type-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #1A1A1A;
+  font-weight: 500;
+}
+
+.scan-type-label input[type="radio"] {
+  cursor: pointer;
+  accent-color: #1B4D5C;
+  width: 16px;
+  height: 16px;
+}
+
 .input-wrap {
   display: flex;
   align-items: center;
