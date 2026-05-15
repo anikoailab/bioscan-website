@@ -143,6 +143,7 @@
         html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">`;
 
         Object.entries(data.organs).forEach(([organ, value]) => {
+          if (value === null || value === undefined) return;
           const organName = capitalizeWord(organ);
           const status = getHealthStatus(value, language);
           html += `
@@ -167,7 +168,9 @@
           html += `<p style="color: #333; font-weight: 600; margin-bottom: 8px;">${t.vitamins}:</p>`;
           html += `<ul style="margin-left: 20px; color: #666; margin-bottom: 16px;">`;
           Object.entries(data.vitamins).forEach(([vitamin, value]) => {
-            html += `<li style="margin-bottom: 4px;">${capitalizeWord(vitamin)}: ${value.toFixed(1)}</li>`;
+            if (value !== null && value !== undefined) {
+              html += `<li style="margin-bottom: 4px;">${capitalizeWord(vitamin)}: ${value.toFixed(1)}</li>`;
+            }
           });
           html += `</ul>`;
         }
@@ -176,7 +179,9 @@
           html += `<p style="color: #333; font-weight: 600; margin-bottom: 8px;">${t.minerals}:</p>`;
           html += `<ul style="margin-left: 20px; color: #666;">`;
           Object.entries(data.minerals).forEach(([mineral, value]) => {
-            html += `<li style="margin-bottom: 4px;">${capitalizeWord(mineral)}: ${value.toFixed(1)}</li>`;
+            if (value !== null && value !== undefined) {
+              html += `<li style="margin-bottom: 4px;">${capitalizeWord(mineral)}: ${value.toFixed(1)}</li>`;
+            }
           });
           html += `</ul>`;
         }
@@ -191,7 +196,9 @@
         html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.aminoAcidExplanation}</p>`;
         html += `<ul style="margin-left: 20px; color: #666;">`;
         Object.entries(data.aminoAcids).forEach(([acid, value]) => {
-          html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(acid)}:</strong> ${value.toFixed(1)}</li>`;
+          if (value !== null && value !== undefined) {
+            html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(acid)}:</strong> ${value.toFixed(1)}</li>`;
+          }
         });
         html += `</ul>`;
         html += `</div>`;
@@ -204,7 +211,9 @@
         html += `<p style="color: #666; font-size: 13px; margin-bottom: 16px;">${t.heavyMetalExplanation}</p>`;
         html += `<ul style="margin-left: 20px; color: #666;">`;
         Object.entries(data.heavyMetals).forEach(([metal, value]) => {
-          html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(metal)}:</strong> ${value.toFixed(1)}</li>`;
+          if (value !== null && value !== undefined) {
+            html += `<li style="margin-bottom: 6px;"><strong>${capitalizeWord(metal)}:</strong> ${value.toFixed(1)}</li>`;
+          }
         });
         html += `</ul>`;
         html += `</div>`;
